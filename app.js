@@ -1,12 +1,20 @@
 var express = require('express');
-var io = require('socket.io');
-
 var app = express();
+var http = require('http');
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
 
-app.get('/*', function(req, res, next) {
-    var file = req.params[0];
-    console.log('\t :: Express :: file requested : ' + file);
-    res.sendfile( __dirname + '/public/' + file);
+server.listen(3000);
+
+app.use("/stylesheets", express.static(__dirname + '/public/stylesheets'));
+app.use("/sounds", express.static(__dirname + '/public/sounds'));
+app.use("/images", express.static(__dirname + '/public/images'));
+app.use("/javascripts", express.static(__dirname + '/public/javascripts'));
+
+app.get('/', function(req, res) {
+    res.sendfile(__dirname + '/public/index.html');
 });
 
-app.listen(3000);
+io.sockets.on('connection', function(socket) {
+    console.log("connection made");
+});
