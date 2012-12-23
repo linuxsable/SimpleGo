@@ -3,40 +3,92 @@ var app = require('express')(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
     path = require('path'),
+    crypto = require('crypto'),
     _ = require('underscore'),
-    Player = require('./Player').Player;
+    Player = require('./Player').Player,
+    Match = require('./Match').Match;
 
 server.listen(3000);
 
 app.use(express.static(path.normalize(__dirname + '/../public')));
-app.get('/', function (req, res) {
+app.get('/*', function(req, res) {
     res.sendfile(path.normalize(__dirname + '/../public/index.html'));
 });
 
 // Now for socket stuff
-
-var players = [];
-var matches = [];
+var players = {};
+var matches = {};
 
 io.configure(function() {
 
 });
 
 io.sockets.on('connection', function(socket) {
-    // Create a new player
-    players.push(new Player(socket.id));
+    // Join a match room
+    socket.on('join_match', function(data) {
+        if (!data.id) {
+            console.log('error: no id');
+            return false;
+        }
 
-    // Tell everyone the player has connected
-    io.sockets.emit('player conencted', socket.id);
+        // Create player object
+        var player = new Player(socket);
+        players[player.id] = player;
 
-    // Handle the player disconnecting
+        // If there's a match, join it
+        if (matches.hasOwnProperty(data.id)) {
+            var match = matches[data.id];
+            if (match.needsOpponent()) {
+                match.joinAsWhite(player);
+                io.sockets.in(match.roomId()).emit('match_message', {
+                    message: 'Player joined as white'
+                });
+            } else {
+                match.joinAsSpectator(player);
+                io.sockets.in(match.roomId()).emit('match_message', {
+                    message: 'Player joined as spectator'
+                });
+            }
+        } else {
+            // If there's no match, create one    
+            var match = new Match(data.id);
+            matches[data.id] = match;
+            match.joinAsBlack(player);
+            io.sockets.in(match.roomId()).emit('match_message', {
+                message: 'Player joined as black'
+            });
+        }
+
+        console.log('join');
+        console.log(matches);
+    });
+
     socket.on('disconnect', function() {
-        var removePlayer = _.find(players, function(p) {
-            return p.id == socket.id;
+        // First get the player
+        var player = players[socket.id];
+        if (!player) {
+            console.log('error: cant find player');
+            return false;
+        }
+
+        var currentMatch = matches[player.currentMatchId];
+
+        // Remove the player from the match
+        player.leaveMatch(currentMatch);
+
+        io.sockets.in(currentMatch.roomId()).emit('match_message', {
+            message: 'Player left the match'
         });
 
-        players.splice(players.indexOf(removePlayer), 1);
+        // Remove the match if no one is in it
+        if (currentMatch.isEmpty()) {
+            delete matches[currentMatch.id];
+        }
 
-        io.sockets.emit('player disconnect', socket.id);
+        // Remove the player from the players
+        delete players[player.id];
+
+        console.log(matches);
+        console.log(players);
     });
 });

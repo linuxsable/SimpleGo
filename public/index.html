@@ -19,12 +19,7 @@
     <script src="/javascripts/routers/main.js" type="text/javascript"></script>
     <script src="/javascripts/views/board.js" type="text/javascript"></script>
     <script src="/javascripts/views/stone.js" type="text/javascript"></script>
-    <script>
-        var socket = io.connect('http://localhost:3000');
-        socket.on('disconnect', function(id) {
-
-        });
-    </script>
+    <script src="/javascripts/views/chat.js" type="text/javascript"></script>
 </head>
 <body>
 <div class="container">
@@ -43,1066 +38,1070 @@
         </div>
         <div class="clearer"></div>
     </header>
-    <div class="board">
-        <div class="inner">
-                <div class="box" data-x="0" data-y="0"></div>
-                <div class="box" data-x="1" data-y="0"></div>
-                <div class="box" data-x="2" data-y="0"></div>
-                <div class="box" data-x="3" data-y="0"></div>
-                <div class="box" data-x="4" data-y="0"></div>
-                <div class="box" data-x="5" data-y="0"></div>
-                <div class="box" data-x="6" data-y="0"></div>
-                <div class="box" data-x="7" data-y="0"></div>
-                <div class="box" data-x="8" data-y="0"></div>
-                <div class="box" data-x="9" data-y="0"></div>
-                <div class="box" data-x="10" data-y="0"></div>
-                <div class="box" data-x="11" data-y="0"></div>
-                <div class="box" data-x="12" data-y="0"></div>
-                <div class="box" data-x="13" data-y="0"></div>
-                <div class="box" data-x="14" data-y="0"></div>
-                <div class="box" data-x="15" data-y="0"></div>
-                <div class="box" data-x="16" data-y="0"></div>
-                <div class="box" data-x="17" data-y="0"></div>
-                <div class="box" data-x="18" data-y="0"></div>
-                <div class="box" data-x="0" data-y="1"></div>
-                <div class="box" data-x="1" data-y="1"></div>
-                <div class="box" data-x="2" data-y="1"></div>
-                <div class="box" data-x="3" data-y="1"></div>
-                <div class="box" data-x="4" data-y="1"></div>
-                <div class="box" data-x="5" data-y="1"></div>
-                <div class="box" data-x="6" data-y="1"></div>
-                <div class="box" data-x="7" data-y="1"></div>
-                <div class="box" data-x="8" data-y="1"></div>
-                <div class="box" data-x="9" data-y="1"></div>
-                <div class="box" data-x="10" data-y="1"></div>
-                <div class="box" data-x="11" data-y="1"></div>
-                <div class="box" data-x="12" data-y="1"></div>
-                <div class="box" data-x="13" data-y="1"></div>
-                <div class="box" data-x="14" data-y="1"></div>
-                <div class="box" data-x="15" data-y="1"></div>
-                <div class="box" data-x="16" data-y="1"></div>
-                <div class="box" data-x="17" data-y="1"></div>
-                <div class="box" data-x="18" data-y="1"></div>
-                <div class="box" data-x="0" data-y="2"></div>
-                <div class="box" data-x="1" data-y="2"></div>
-                <div class="box" data-x="2" data-y="2"></div>
-                <div class="box" data-x="3" data-y="2"></div>
-                <div class="box" data-x="4" data-y="2"></div>
-                <div class="box" data-x="5" data-y="2"></div>
-                <div class="box" data-x="6" data-y="2"></div>
-                <div class="box" data-x="7" data-y="2"></div>
-                <div class="box" data-x="8" data-y="2"></div>
-                <div class="box" data-x="9" data-y="2"></div>
-                <div class="box" data-x="10" data-y="2"></div>
-                <div class="box" data-x="11" data-y="2"></div>
-                <div class="box" data-x="12" data-y="2"></div>
-                <div class="box" data-x="13" data-y="2"></div>
-                <div class="box" data-x="14" data-y="2"></div>
-                <div class="box" data-x="15" data-y="2"></div>
-                <div class="box" data-x="16" data-y="2"></div>
-                <div class="box" data-x="17" data-y="2"></div>
-                <div class="box" data-x="18" data-y="2"></div>
-                <div class="box" data-x="0" data-y="3"></div>
-                <div class="box" data-x="1" data-y="3"></div>
-                <div class="box" data-x="2" data-y="3"></div>
-                <div class="box" data-x="3" data-y="3"></div>
-                <div class="box" data-x="4" data-y="3"></div>
-                <div class="box" data-x="5" data-y="3"></div>
-                <div class="box" data-x="6" data-y="3"></div>
-                <div class="box" data-x="7" data-y="3"></div>
-                <div class="box" data-x="8" data-y="3"></div>
-                <div class="box" data-x="9" data-y="3"></div>
-                <div class="box" data-x="10" data-y="3"></div>
-                <div class="box" data-x="11" data-y="3"></div>
-                <div class="box" data-x="12" data-y="3"></div>
-                <div class="box" data-x="13" data-y="3"></div>
-                <div class="box" data-x="14" data-y="3"></div>
-                <div class="box" data-x="15" data-y="3"></div>
-                <div class="box" data-x="16" data-y="3"></div>
-                <div class="box" data-x="17" data-y="3"></div>
-                <div class="box" data-x="18" data-y="3"></div>
-                <div class="box" data-x="0" data-y="4"></div>
-                <div class="box" data-x="1" data-y="4"></div>
-                <div class="box" data-x="2" data-y="4"></div>
-                <div class="box" data-x="3" data-y="4"></div>
-                <div class="box" data-x="4" data-y="4"></div>
-                <div class="box" data-x="5" data-y="4"></div>
-                <div class="box" data-x="6" data-y="4"></div>
-                <div class="box" data-x="7" data-y="4"></div>
-                <div class="box" data-x="8" data-y="4"></div>
-                <div class="box" data-x="9" data-y="4"></div>
-                <div class="box" data-x="10" data-y="4"></div>
-                <div class="box" data-x="11" data-y="4"></div>
-                <div class="box" data-x="12" data-y="4"></div>
-                <div class="box" data-x="13" data-y="4"></div>
-                <div class="box" data-x="14" data-y="4"></div>
-                <div class="box" data-x="15" data-y="4"></div>
-                <div class="box" data-x="16" data-y="4"></div>
-                <div class="box" data-x="17" data-y="4"></div>
-                <div class="box" data-x="18" data-y="4"></div>
-                <div class="box" data-x="0" data-y="5"></div>
-                <div class="box" data-x="1" data-y="5"></div>
-                <div class="box" data-x="2" data-y="5"></div>
-                <div class="box" data-x="3" data-y="5"></div>
-                <div class="box" data-x="4" data-y="5"></div>
-                <div class="box" data-x="5" data-y="5"></div>
-                <div class="box" data-x="6" data-y="5"></div>
-                <div class="box" data-x="7" data-y="5"></div>
-                <div class="box" data-x="8" data-y="5"></div>
-                <div class="box" data-x="9" data-y="5"></div>
-                <div class="box" data-x="10" data-y="5"></div>
-                <div class="box" data-x="11" data-y="5"></div>
-                <div class="box" data-x="12" data-y="5"></div>
-                <div class="box" data-x="13" data-y="5"></div>
-                <div class="box" data-x="14" data-y="5"></div>
-                <div class="box" data-x="15" data-y="5"></div>
-                <div class="box" data-x="16" data-y="5"></div>
-                <div class="box" data-x="17" data-y="5"></div>
-                <div class="box" data-x="18" data-y="5"></div>
-                <div class="box" data-x="0" data-y="6"></div>
-                <div class="box" data-x="1" data-y="6"></div>
-                <div class="box" data-x="2" data-y="6"></div>
-                <div class="box" data-x="3" data-y="6"></div>
-                <div class="box" data-x="4" data-y="6"></div>
-                <div class="box" data-x="5" data-y="6"></div>
-                <div class="box" data-x="6" data-y="6"></div>
-                <div class="box" data-x="7" data-y="6"></div>
-                <div class="box" data-x="8" data-y="6"></div>
-                <div class="box" data-x="9" data-y="6"></div>
-                <div class="box" data-x="10" data-y="6"></div>
-                <div class="box" data-x="11" data-y="6"></div>
-                <div class="box" data-x="12" data-y="6"></div>
-                <div class="box" data-x="13" data-y="6"></div>
-                <div class="box" data-x="14" data-y="6"></div>
-                <div class="box" data-x="15" data-y="6"></div>
-                <div class="box" data-x="16" data-y="6"></div>
-                <div class="box" data-x="17" data-y="6"></div>
-                <div class="box" data-x="18" data-y="6"></div>
-                <div class="box" data-x="0" data-y="7"></div>
-                <div class="box" data-x="1" data-y="7"></div>
-                <div class="box" data-x="2" data-y="7"></div>
-                <div class="box" data-x="3" data-y="7"></div>
-                <div class="box" data-x="4" data-y="7"></div>
-                <div class="box" data-x="5" data-y="7"></div>
-                <div class="box" data-x="6" data-y="7"></div>
-                <div class="box" data-x="7" data-y="7"></div>
-                <div class="box" data-x="8" data-y="7"></div>
-                <div class="box" data-x="9" data-y="7"></div>
-                <div class="box" data-x="10" data-y="7"></div>
-                <div class="box" data-x="11" data-y="7"></div>
-                <div class="box" data-x="12" data-y="7"></div>
-                <div class="box" data-x="13" data-y="7"></div>
-                <div class="box" data-x="14" data-y="7"></div>
-                <div class="box" data-x="15" data-y="7"></div>
-                <div class="box" data-x="16" data-y="7"></div>
-                <div class="box" data-x="17" data-y="7"></div>
-                <div class="box" data-x="18" data-y="7"></div>
-                <div class="box" data-x="0" data-y="8"></div>
-                <div class="box" data-x="1" data-y="8"></div>
-                <div class="box" data-x="2" data-y="8"></div>
-                <div class="box" data-x="3" data-y="8"></div>
-                <div class="box" data-x="4" data-y="8"></div>
-                <div class="box" data-x="5" data-y="8"></div>
-                <div class="box" data-x="6" data-y="8"></div>
-                <div class="box" data-x="7" data-y="8"></div>
-                <div class="box" data-x="8" data-y="8"></div>
-                <div class="box" data-x="9" data-y="8"></div>
-                <div class="box" data-x="10" data-y="8"></div>
-                <div class="box" data-x="11" data-y="8"></div>
-                <div class="box" data-x="12" data-y="8"></div>
-                <div class="box" data-x="13" data-y="8"></div>
-                <div class="box" data-x="14" data-y="8"></div>
-                <div class="box" data-x="15" data-y="8"></div>
-                <div class="box" data-x="16" data-y="8"></div>
-                <div class="box" data-x="17" data-y="8"></div>
-                <div class="box" data-x="18" data-y="8"></div>
-                <div class="box" data-x="0" data-y="9"></div>
-                <div class="box" data-x="1" data-y="9"></div>
-                <div class="box" data-x="2" data-y="9"></div>
-                <div class="box" data-x="3" data-y="9"></div>
-                <div class="box" data-x="4" data-y="9"></div>
-                <div class="box" data-x="5" data-y="9"></div>
-                <div class="box" data-x="6" data-y="9"></div>
-                <div class="box" data-x="7" data-y="9"></div>
-                <div class="box" data-x="8" data-y="9"></div>
-                <div class="box" data-x="9" data-y="9"></div>
-                <div class="box" data-x="10" data-y="9"></div>
-                <div class="box" data-x="11" data-y="9"></div>
-                <div class="box" data-x="12" data-y="9"></div>
-                <div class="box" data-x="13" data-y="9"></div>
-                <div class="box" data-x="14" data-y="9"></div>
-                <div class="box" data-x="15" data-y="9"></div>
-                <div class="box" data-x="16" data-y="9"></div>
-                <div class="box" data-x="17" data-y="9"></div>
-                <div class="box" data-x="18" data-y="9"></div>
-                <div class="box" data-x="0" data-y="10"></div>
-                <div class="box" data-x="1" data-y="10"></div>
-                <div class="box" data-x="2" data-y="10"></div>
-                <div class="box" data-x="3" data-y="10"></div>
-                <div class="box" data-x="4" data-y="10"></div>
-                <div class="box" data-x="5" data-y="10"></div>
-                <div class="box" data-x="6" data-y="10"></div>
-                <div class="box" data-x="7" data-y="10"></div>
-                <div class="box" data-x="8" data-y="10"></div>
-                <div class="box" data-x="9" data-y="10"></div>
-                <div class="box" data-x="10" data-y="10"></div>
-                <div class="box" data-x="11" data-y="10"></div>
-                <div class="box" data-x="12" data-y="10"></div>
-                <div class="box" data-x="13" data-y="10"></div>
-                <div class="box" data-x="14" data-y="10"></div>
-                <div class="box" data-x="15" data-y="10"></div>
-                <div class="box" data-x="16" data-y="10"></div>
-                <div class="box" data-x="17" data-y="10"></div>
-                <div class="box" data-x="18" data-y="10"></div>
-                <div class="box" data-x="0" data-y="11"></div>
-                <div class="box" data-x="1" data-y="11"></div>
-                <div class="box" data-x="2" data-y="11"></div>
-                <div class="box" data-x="3" data-y="11"></div>
-                <div class="box" data-x="4" data-y="11"></div>
-                <div class="box" data-x="5" data-y="11"></div>
-                <div class="box" data-x="6" data-y="11"></div>
-                <div class="box" data-x="7" data-y="11"></div>
-                <div class="box" data-x="8" data-y="11"></div>
-                <div class="box" data-x="9" data-y="11"></div>
-                <div class="box" data-x="10" data-y="11"></div>
-                <div class="box" data-x="11" data-y="11"></div>
-                <div class="box" data-x="12" data-y="11"></div>
-                <div class="box" data-x="13" data-y="11"></div>
-                <div class="box" data-x="14" data-y="11"></div>
-                <div class="box" data-x="15" data-y="11"></div>
-                <div class="box" data-x="16" data-y="11"></div>
-                <div class="box" data-x="17" data-y="11"></div>
-                <div class="box" data-x="18" data-y="11"></div>
-                <div class="box" data-x="0" data-y="12"></div>
-                <div class="box" data-x="1" data-y="12"></div>
-                <div class="box" data-x="2" data-y="12"></div>
-                <div class="box" data-x="3" data-y="12"></div>
-                <div class="box" data-x="4" data-y="12"></div>
-                <div class="box" data-x="5" data-y="12"></div>
-                <div class="box" data-x="6" data-y="12"></div>
-                <div class="box" data-x="7" data-y="12"></div>
-                <div class="box" data-x="8" data-y="12"></div>
-                <div class="box" data-x="9" data-y="12"></div>
-                <div class="box" data-x="10" data-y="12"></div>
-                <div class="box" data-x="11" data-y="12"></div>
-                <div class="box" data-x="12" data-y="12"></div>
-                <div class="box" data-x="13" data-y="12"></div>
-                <div class="box" data-x="14" data-y="12"></div>
-                <div class="box" data-x="15" data-y="12"></div>
-                <div class="box" data-x="16" data-y="12"></div>
-                <div class="box" data-x="17" data-y="12"></div>
-                <div class="box" data-x="18" data-y="12"></div>
-                <div class="box" data-x="0" data-y="13"></div>
-                <div class="box" data-x="1" data-y="13"></div>
-                <div class="box" data-x="2" data-y="13"></div>
-                <div class="box" data-x="3" data-y="13"></div>
-                <div class="box" data-x="4" data-y="13"></div>
-                <div class="box" data-x="5" data-y="13"></div>
-                <div class="box" data-x="6" data-y="13"></div>
-                <div class="box" data-x="7" data-y="13"></div>
-                <div class="box" data-x="8" data-y="13"></div>
-                <div class="box" data-x="9" data-y="13"></div>
-                <div class="box" data-x="10" data-y="13"></div>
-                <div class="box" data-x="11" data-y="13"></div>
-                <div class="box" data-x="12" data-y="13"></div>
-                <div class="box" data-x="13" data-y="13"></div>
-                <div class="box" data-x="14" data-y="13"></div>
-                <div class="box" data-x="15" data-y="13"></div>
-                <div class="box" data-x="16" data-y="13"></div>
-                <div class="box" data-x="17" data-y="13"></div>
-                <div class="box" data-x="18" data-y="13"></div>
-                <div class="box" data-x="0" data-y="14"></div>
-                <div class="box" data-x="1" data-y="14"></div>
-                <div class="box" data-x="2" data-y="14"></div>
-                <div class="box" data-x="3" data-y="14"></div>
-                <div class="box" data-x="4" data-y="14"></div>
-                <div class="box" data-x="5" data-y="14"></div>
-                <div class="box" data-x="6" data-y="14"></div>
-                <div class="box" data-x="7" data-y="14"></div>
-                <div class="box" data-x="8" data-y="14"></div>
-                <div class="box" data-x="9" data-y="14"></div>
-                <div class="box" data-x="10" data-y="14"></div>
-                <div class="box" data-x="11" data-y="14"></div>
-                <div class="box" data-x="12" data-y="14"></div>
-                <div class="box" data-x="13" data-y="14"></div>
-                <div class="box" data-x="14" data-y="14"></div>
-                <div class="box" data-x="15" data-y="14"></div>
-                <div class="box" data-x="16" data-y="14"></div>
-                <div class="box" data-x="17" data-y="14"></div>
-                <div class="box" data-x="18" data-y="14"></div>
-                <div class="box" data-x="0" data-y="15"></div>
-                <div class="box" data-x="1" data-y="15"></div>
-                <div class="box" data-x="2" data-y="15"></div>
-                <div class="box" data-x="3" data-y="15"></div>
-                <div class="box" data-x="4" data-y="15"></div>
-                <div class="box" data-x="5" data-y="15"></div>
-                <div class="box" data-x="6" data-y="15"></div>
-                <div class="box" data-x="7" data-y="15"></div>
-                <div class="box" data-x="8" data-y="15"></div>
-                <div class="box" data-x="9" data-y="15"></div>
-                <div class="box" data-x="10" data-y="15"></div>
-                <div class="box" data-x="11" data-y="15"></div>
-                <div class="box" data-x="12" data-y="15"></div>
-                <div class="box" data-x="13" data-y="15"></div>
-                <div class="box" data-x="14" data-y="15"></div>
-                <div class="box" data-x="15" data-y="15"></div>
-                <div class="box" data-x="16" data-y="15"></div>
-                <div class="box" data-x="17" data-y="15"></div>
-                <div class="box" data-x="18" data-y="15"></div>
-                <div class="box" data-x="0" data-y="16"></div>
-                <div class="box" data-x="1" data-y="16"></div>
-                <div class="box" data-x="2" data-y="16"></div>
-                <div class="box" data-x="3" data-y="16"></div>
-                <div class="box" data-x="4" data-y="16"></div>
-                <div class="box" data-x="5" data-y="16"></div>
-                <div class="box" data-x="6" data-y="16"></div>
-                <div class="box" data-x="7" data-y="16"></div>
-                <div class="box" data-x="8" data-y="16"></div>
-                <div class="box" data-x="9" data-y="16"></div>
-                <div class="box" data-x="10" data-y="16"></div>
-                <div class="box" data-x="11" data-y="16"></div>
-                <div class="box" data-x="12" data-y="16"></div>
-                <div class="box" data-x="13" data-y="16"></div>
-                <div class="box" data-x="14" data-y="16"></div>
-                <div class="box" data-x="15" data-y="16"></div>
-                <div class="box" data-x="16" data-y="16"></div>
-                <div class="box" data-x="17" data-y="16"></div>
-                <div class="box" data-x="18" data-y="16"></div>
-                <div class="box" data-x="0" data-y="17"></div>
-        </div>
-        <div class="matrix">
-                <div class="box" data-x="0" data-y="0">
-                </div>
-                <div class="box" data-x="1" data-y="0">
-                </div>
-                <div class="box" data-x="2" data-y="0">
-                </div>
-                <div class="box" data-x="3" data-y="0">
-                </div>
-                <div class="box" data-x="4" data-y="0">
-                </div>
-                <div class="box" data-x="5" data-y="0">
-                </div>
-                <div class="box" data-x="6" data-y="0">
-                </div>
-                <div class="box" data-x="7" data-y="0">
-                </div>
-                <div class="box" data-x="8" data-y="0">
-                </div>
-                <div class="box" data-x="9" data-y="0">
-                </div>
-                <div class="box" data-x="10" data-y="0">
-                </div>
-                <div class="box" data-x="11" data-y="0">
-                </div>
-                <div class="box" data-x="12" data-y="0">
-                </div>
-                <div class="box" data-x="13" data-y="0">
-                </div>
-                <div class="box" data-x="14" data-y="0">
-                </div>
-                <div class="box" data-x="15" data-y="0">
-                </div>
-                <div class="box" data-x="16" data-y="0">
-                </div>
-                <div class="box" data-x="17" data-y="0">
-                </div>
-                <div class="box" data-x="18" data-y="0">
-                </div>
-                <div class="box" data-x="0" data-y="1">
-                </div>
-                <div class="box" data-x="1" data-y="1">
-                </div>
-                <div class="box" data-x="2" data-y="1">
-                </div>
-                <div class="box" data-x="3" data-y="1">
-                </div>
-                <div class="box" data-x="4" data-y="1">
-                </div>
-                <div class="box" data-x="5" data-y="1">
-                </div>
-                <div class="box" data-x="6" data-y="1">
-                </div>
-                <div class="box" data-x="7" data-y="1">
-                </div>
-                <div class="box" data-x="8" data-y="1">
-                </div>
-                <div class="box" data-x="9" data-y="1">
-                </div>
-                <div class="box" data-x="10" data-y="1">
-                </div>
-                <div class="box" data-x="11" data-y="1">
-                </div>
-                <div class="box" data-x="12" data-y="1">
-                </div>
-                <div class="box" data-x="13" data-y="1">
-                </div>
-                <div class="box" data-x="14" data-y="1">
-                </div>
-                <div class="box" data-x="15" data-y="1">
-                </div>
-                <div class="box" data-x="16" data-y="1">
-                </div>
-                <div class="box" data-x="17" data-y="1">
-                </div>
-                <div class="box" data-x="18" data-y="1">
-                </div>
-                <div class="box" data-x="0" data-y="2">
-                </div>
-                <div class="box" data-x="1" data-y="2">
-                </div>
-                <div class="box" data-x="2" data-y="2">
-                </div>
-                <div class="box" data-x="3" data-y="2">
-                </div>
-                <div class="box" data-x="4" data-y="2">
-                </div>
-                <div class="box" data-x="5" data-y="2">
-                </div>
-                <div class="box" data-x="6" data-y="2">
-                </div>
-                <div class="box" data-x="7" data-y="2">
-                </div>
-                <div class="box" data-x="8" data-y="2">
-                </div>
-                <div class="box" data-x="9" data-y="2">
-                </div>
-                <div class="box" data-x="10" data-y="2">
-                </div>
-                <div class="box" data-x="11" data-y="2">
-                </div>
-                <div class="box" data-x="12" data-y="2">
-                </div>
-                <div class="box" data-x="13" data-y="2">
-                </div>
-                <div class="box" data-x="14" data-y="2">
-                </div>
-                <div class="box" data-x="15" data-y="2">
-                </div>
-                <div class="box" data-x="16" data-y="2">
-                </div>
-                <div class="box" data-x="17" data-y="2">
-                </div>
-                <div class="box" data-x="18" data-y="2">
-                </div>
-                <div class="box" data-x="0" data-y="3">
-                </div>
-                <div class="box" data-x="1" data-y="3">
-                </div>
-                <div class="box" data-x="2" data-y="3">
-                </div>
-                <div class="box" data-x="3" data-y="3">
-                        <div class="starpoint"></div>
-                </div>
-                <div class="box" data-x="4" data-y="3">
-                </div>
-                <div class="box" data-x="5" data-y="3">
-                </div>
-                <div class="box" data-x="6" data-y="3">
-                </div>
-                <div class="box" data-x="7" data-y="3">
-                </div>
-                <div class="box" data-x="8" data-y="3">
-                </div>
-                <div class="box" data-x="9" data-y="3">
-                        <div class="starpoint"></div>
-                </div>
-                <div class="box" data-x="10" data-y="3">
-                </div>
-                <div class="box" data-x="11" data-y="3">
-                </div>
-                <div class="box" data-x="12" data-y="3">
-                </div>
-                <div class="box" data-x="13" data-y="3">
-                </div>
-                <div class="box" data-x="14" data-y="3">
-                </div>
-                <div class="box" data-x="15" data-y="3">
-                        <div class="starpoint"></div>
-                </div>
-                <div class="box" data-x="16" data-y="3">
-                </div>
-                <div class="box" data-x="17" data-y="3">
-                </div>
-                <div class="box" data-x="18" data-y="3">
-                </div>
-                <div class="box" data-x="0" data-y="4">
-                </div>
-                <div class="box" data-x="1" data-y="4">
-                </div>
-                <div class="box" data-x="2" data-y="4">
-                </div>
-                <div class="box" data-x="3" data-y="4">
-                </div>
-                <div class="box" data-x="4" data-y="4">
-                </div>
-                <div class="box" data-x="5" data-y="4">
-                </div>
-                <div class="box" data-x="6" data-y="4">
-                </div>
-                <div class="box" data-x="7" data-y="4">
-                </div>
-                <div class="box" data-x="8" data-y="4">
-                </div>
-                <div class="box" data-x="9" data-y="4">
-                </div>
-                <div class="box" data-x="10" data-y="4">
-                </div>
-                <div class="box" data-x="11" data-y="4">
-                </div>
-                <div class="box" data-x="12" data-y="4">
-                </div>
-                <div class="box" data-x="13" data-y="4">
-                </div>
-                <div class="box" data-x="14" data-y="4">
-                </div>
-                <div class="box" data-x="15" data-y="4">
-                </div>
-                <div class="box" data-x="16" data-y="4">
-                </div>
-                <div class="box" data-x="17" data-y="4">
-                </div>
-                <div class="box" data-x="18" data-y="4">
-                </div>
-                <div class="box" data-x="0" data-y="5">
-                </div>
-                <div class="box" data-x="1" data-y="5">
-                </div>
-                <div class="box" data-x="2" data-y="5">
-                </div>
-                <div class="box" data-x="3" data-y="5">
-                </div>
-                <div class="box" data-x="4" data-y="5">
-                </div>
-                <div class="box" data-x="5" data-y="5">
-                </div>
-                <div class="box" data-x="6" data-y="5">
-                </div>
-                <div class="box" data-x="7" data-y="5">
-                </div>
-                <div class="box" data-x="8" data-y="5">
-                </div>
-                <div class="box" data-x="9" data-y="5">
-                </div>
-                <div class="box" data-x="10" data-y="5">
-                </div>
-                <div class="box" data-x="11" data-y="5">
-                </div>
-                <div class="box" data-x="12" data-y="5">
-                </div>
-                <div class="box" data-x="13" data-y="5">
-                </div>
-                <div class="box" data-x="14" data-y="5">
-                </div>
-                <div class="box" data-x="15" data-y="5">
-                </div>
-                <div class="box" data-x="16" data-y="5">
-                </div>
-                <div class="box" data-x="17" data-y="5">
-                </div>
-                <div class="box" data-x="18" data-y="5">
-                </div>
-                <div class="box" data-x="0" data-y="6">
-                </div>
-                <div class="box" data-x="1" data-y="6">
-                </div>
-                <div class="box" data-x="2" data-y="6">
-                </div>
-                <div class="box" data-x="3" data-y="6">
-                </div>
-                <div class="box" data-x="4" data-y="6">
-                </div>
-                <div class="box" data-x="5" data-y="6">
-                </div>
-                <div class="box" data-x="6" data-y="6">
-                </div>
-                <div class="box" data-x="7" data-y="6">
-                </div>
-                <div class="box" data-x="8" data-y="6">
-                </div>
-                <div class="box" data-x="9" data-y="6">
-                </div>
-                <div class="box" data-x="10" data-y="6">
-                </div>
-                <div class="box" data-x="11" data-y="6">
-                </div>
-                <div class="box" data-x="12" data-y="6">
-                </div>
-                <div class="box" data-x="13" data-y="6">
-                </div>
-                <div class="box" data-x="14" data-y="6">
-                </div>
-                <div class="box" data-x="15" data-y="6">
-                </div>
-                <div class="box" data-x="16" data-y="6">
-                </div>
-                <div class="box" data-x="17" data-y="6">
-                </div>
-                <div class="box" data-x="18" data-y="6">
-                </div>
-                <div class="box" data-x="0" data-y="7">
-                </div>
-                <div class="box" data-x="1" data-y="7">
-                </div>
-                <div class="box" data-x="2" data-y="7">
-                </div>
-                <div class="box" data-x="3" data-y="7">
-                </div>
-                <div class="box" data-x="4" data-y="7">
-                </div>
-                <div class="box" data-x="5" data-y="7">
-                </div>
-                <div class="box" data-x="6" data-y="7">
-                </div>
-                <div class="box" data-x="7" data-y="7">
-                </div>
-                <div class="box" data-x="8" data-y="7">
-                </div>
-                <div class="box" data-x="9" data-y="7">
-                </div>
-                <div class="box" data-x="10" data-y="7">
-                </div>
-                <div class="box" data-x="11" data-y="7">
-                </div>
-                <div class="box" data-x="12" data-y="7">
-                </div>
-                <div class="box" data-x="13" data-y="7">
-                </div>
-                <div class="box" data-x="14" data-y="7">
-                </div>
-                <div class="box" data-x="15" data-y="7">
-                </div>
-                <div class="box" data-x="16" data-y="7">
-                </div>
-                <div class="box" data-x="17" data-y="7">
-                </div>
-                <div class="box" data-x="18" data-y="7">
-                </div>
-                <div class="box" data-x="0" data-y="8">
-                </div>
-                <div class="box" data-x="1" data-y="8">
-                </div>
-                <div class="box" data-x="2" data-y="8">
-                </div>
-                <div class="box" data-x="3" data-y="8">
-                </div>
-                <div class="box" data-x="4" data-y="8">
-                </div>
-                <div class="box" data-x="5" data-y="8">
-                </div>
-                <div class="box" data-x="6" data-y="8">
-                </div>
-                <div class="box" data-x="7" data-y="8">
-                </div>
-                <div class="box" data-x="8" data-y="8">
-                </div>
-                <div class="box" data-x="9" data-y="8">
-                </div>
-                <div class="box" data-x="10" data-y="8">
-                </div>
-                <div class="box" data-x="11" data-y="8">
-                </div>
-                <div class="box" data-x="12" data-y="8">
-                </div>
-                <div class="box" data-x="13" data-y="8">
-                </div>
-                <div class="box" data-x="14" data-y="8">
-                </div>
-                <div class="box" data-x="15" data-y="8">
-                </div>
-                <div class="box" data-x="16" data-y="8">
-                </div>
-                <div class="box" data-x="17" data-y="8">
-                </div>
-                <div class="box" data-x="18" data-y="8">
-                </div>
-                <div class="box" data-x="0" data-y="9">
-                </div>
-                <div class="box" data-x="1" data-y="9">
-                </div>
-                <div class="box" data-x="2" data-y="9">
-                </div>
-                <div class="box" data-x="3" data-y="9">
-                        <div class="starpoint"></div>
-                </div>
-                <div class="box" data-x="4" data-y="9">
-                </div>
-                <div class="box" data-x="5" data-y="9">
-                </div>
-                <div class="box" data-x="6" data-y="9">
-                </div>
-                <div class="box" data-x="7" data-y="9">
-                </div>
-                <div class="box" data-x="8" data-y="9">
-                </div>
-                <div class="box" data-x="9" data-y="9">
-                        <div class="starpoint"></div>
-                </div>
-                <div class="box" data-x="10" data-y="9">
-                </div>
-                <div class="box" data-x="11" data-y="9">
-                </div>
-                <div class="box" data-x="12" data-y="9">
-                </div>
-                <div class="box" data-x="13" data-y="9">
-                </div>
-                <div class="box" data-x="14" data-y="9">
-                </div>
-                <div class="box" data-x="15" data-y="9">
-                        <div class="starpoint"></div>
-                </div>
-                <div class="box" data-x="16" data-y="9">
-                </div>
-                <div class="box" data-x="17" data-y="9">
-                </div>
-                <div class="box" data-x="18" data-y="9">
-                </div>
-                <div class="box" data-x="0" data-y="10">
-                </div>
-                <div class="box" data-x="1" data-y="10">
-                </div>
-                <div class="box" data-x="2" data-y="10">
-                </div>
-                <div class="box" data-x="3" data-y="10">
-                </div>
-                <div class="box" data-x="4" data-y="10">
-                </div>
-                <div class="box" data-x="5" data-y="10">
-                </div>
-                <div class="box" data-x="6" data-y="10">
-                </div>
-                <div class="box" data-x="7" data-y="10">
-                </div>
-                <div class="box" data-x="8" data-y="10">
-                </div>
-                <div class="box" data-x="9" data-y="10">
-                </div>
-                <div class="box" data-x="10" data-y="10">
-                </div>
-                <div class="box" data-x="11" data-y="10">
-                </div>
-                <div class="box" data-x="12" data-y="10">
-                </div>
-                <div class="box" data-x="13" data-y="10">
-                </div>
-                <div class="box" data-x="14" data-y="10">
-                </div>
-                <div class="box" data-x="15" data-y="10">
-                </div>
-                <div class="box" data-x="16" data-y="10">
-                </div>
-                <div class="box" data-x="17" data-y="10">
-                </div>
-                <div class="box" data-x="18" data-y="10">
-                </div>
-                <div class="box" data-x="0" data-y="11">
-                </div>
-                <div class="box" data-x="1" data-y="11">
-                </div>
-                <div class="box" data-x="2" data-y="11">
-                </div>
-                <div class="box" data-x="3" data-y="11">
-                </div>
-                <div class="box" data-x="4" data-y="11">
-                </div>
-                <div class="box" data-x="5" data-y="11">
-                </div>
-                <div class="box" data-x="6" data-y="11">
-                </div>
-                <div class="box" data-x="7" data-y="11">
-                </div>
-                <div class="box" data-x="8" data-y="11">
-                </div>
-                <div class="box" data-x="9" data-y="11">
-                </div>
-                <div class="box" data-x="10" data-y="11">
-                </div>
-                <div class="box" data-x="11" data-y="11">
-                </div>
-                <div class="box" data-x="12" data-y="11">
-                </div>
-                <div class="box" data-x="13" data-y="11">
-                </div>
-                <div class="box" data-x="14" data-y="11">
-                </div>
-                <div class="box" data-x="15" data-y="11">
-                </div>
-                <div class="box" data-x="16" data-y="11">
-                </div>
-                <div class="box" data-x="17" data-y="11">
-                </div>
-                <div class="box" data-x="18" data-y="11">
-                </div>
-                <div class="box" data-x="0" data-y="12">
-                </div>
-                <div class="box" data-x="1" data-y="12">
-                </div>
-                <div class="box" data-x="2" data-y="12">
-                </div>
-                <div class="box" data-x="3" data-y="12">
-                </div>
-                <div class="box" data-x="4" data-y="12">
-                </div>
-                <div class="box" data-x="5" data-y="12">
-                </div>
-                <div class="box" data-x="6" data-y="12">
-                </div>
-                <div class="box" data-x="7" data-y="12">
-                </div>
-                <div class="box" data-x="8" data-y="12">
-                </div>
-                <div class="box" data-x="9" data-y="12">
-                </div>
-                <div class="box" data-x="10" data-y="12">
-                </div>
-                <div class="box" data-x="11" data-y="12">
-                </div>
-                <div class="box" data-x="12" data-y="12">
-                </div>
-                <div class="box" data-x="13" data-y="12">
-                </div>
-                <div class="box" data-x="14" data-y="12">
-                </div>
-                <div class="box" data-x="15" data-y="12">
-                </div>
-                <div class="box" data-x="16" data-y="12">
-                </div>
-                <div class="box" data-x="17" data-y="12">
-                </div>
-                <div class="box" data-x="18" data-y="12">
-                </div>
-                <div class="box" data-x="0" data-y="13">
-                </div>
-                <div class="box" data-x="1" data-y="13">
-                </div>
-                <div class="box" data-x="2" data-y="13">
-                </div>
-                <div class="box" data-x="3" data-y="13">
-                </div>
-                <div class="box" data-x="4" data-y="13">
-                </div>
-                <div class="box" data-x="5" data-y="13">
-                </div>
-                <div class="box" data-x="6" data-y="13">
-                </div>
-                <div class="box" data-x="7" data-y="13">
-                </div>
-                <div class="box" data-x="8" data-y="13">
-                </div>
-                <div class="box" data-x="9" data-y="13">
-                </div>
-                <div class="box" data-x="10" data-y="13">
-                </div>
-                <div class="box" data-x="11" data-y="13">
-                </div>
-                <div class="box" data-x="12" data-y="13">
-                </div>
-                <div class="box" data-x="13" data-y="13">
-                </div>
-                <div class="box" data-x="14" data-y="13">
-                </div>
-                <div class="box" data-x="15" data-y="13">
-                </div>
-                <div class="box" data-x="16" data-y="13">
-                </div>
-                <div class="box" data-x="17" data-y="13">
-                </div>
-                <div class="box" data-x="18" data-y="13">
-                </div>
-                <div class="box" data-x="0" data-y="14">
-                </div>
-                <div class="box" data-x="1" data-y="14">
-                </div>
-                <div class="box" data-x="2" data-y="14">
-                </div>
-                <div class="box" data-x="3" data-y="14">
-                </div>
-                <div class="box" data-x="4" data-y="14">
-                </div>
-                <div class="box" data-x="5" data-y="14">
-                </div>
-                <div class="box" data-x="6" data-y="14">
-                </div>
-                <div class="box" data-x="7" data-y="14">
-                </div>
-                <div class="box" data-x="8" data-y="14">
-                </div>
-                <div class="box" data-x="9" data-y="14">
-                </div>
-                <div class="box" data-x="10" data-y="14">
-                </div>
-                <div class="box" data-x="11" data-y="14">
-                </div>
-                <div class="box" data-x="12" data-y="14">
-                </div>
-                <div class="box" data-x="13" data-y="14">
-                </div>
-                <div class="box" data-x="14" data-y="14">
-                </div>
-                <div class="box" data-x="15" data-y="14">
-                </div>
-                <div class="box" data-x="16" data-y="14">
-                </div>
-                <div class="box" data-x="17" data-y="14">
-                </div>
-                <div class="box" data-x="18" data-y="14">
-                </div>
-                <div class="box" data-x="0" data-y="15">
-                </div>
-                <div class="box" data-x="1" data-y="15">
-                </div>
-                <div class="box" data-x="2" data-y="15">
-                </div>
-                <div class="box" data-x="3" data-y="15">
-                        <div class="starpoint"></div>
-                </div>
-                <div class="box" data-x="4" data-y="15">
-                </div>
-                <div class="box" data-x="5" data-y="15">
-                </div>
-                <div class="box" data-x="6" data-y="15">
-                </div>
-                <div class="box" data-x="7" data-y="15">
-                </div>
-                <div class="box" data-x="8" data-y="15">
-                </div>
-                <div class="box" data-x="9" data-y="15">
-                        <div class="starpoint"></div>
-                </div>
-                <div class="box" data-x="10" data-y="15">
-                </div>
-                <div class="box" data-x="11" data-y="15">
-                </div>
-                <div class="box" data-x="12" data-y="15">
-                </div>
-                <div class="box" data-x="13" data-y="15">
-                </div>
-                <div class="box" data-x="14" data-y="15">
-                </div>
-                <div class="box" data-x="15" data-y="15">
-                        <div class="starpoint"></div>
-                </div>
-                <div class="box" data-x="16" data-y="15">
-                </div>
-                <div class="box" data-x="17" data-y="15">
-                </div>
-                <div class="box" data-x="18" data-y="15">
-                </div>
-                <div class="box" data-x="0" data-y="16">
-                </div>
-                <div class="box" data-x="1" data-y="16">
-                </div>
-                <div class="box" data-x="2" data-y="16">
-                </div>
-                <div class="box" data-x="3" data-y="16">
-                </div>
-                <div class="box" data-x="4" data-y="16">
-                </div>
-                <div class="box" data-x="5" data-y="16">
-                </div>
-                <div class="box" data-x="6" data-y="16">
-                </div>
-                <div class="box" data-x="7" data-y="16">
-                </div>
-                <div class="box" data-x="8" data-y="16">
-                </div>
-                <div class="box" data-x="9" data-y="16">
-                </div>
-                <div class="box" data-x="10" data-y="16">
-                </div>
-                <div class="box" data-x="11" data-y="16">
-                </div>
-                <div class="box" data-x="12" data-y="16">
-                </div>
-                <div class="box" data-x="13" data-y="16">
-                </div>
-                <div class="box" data-x="14" data-y="16">
-                </div>
-                <div class="box" data-x="15" data-y="16">
-                </div>
-                <div class="box" data-x="16" data-y="16">
-                </div>
-                <div class="box" data-x="17" data-y="16">
-                </div>
-                <div class="box" data-x="18" data-y="16">
-                </div>
-                <div class="box" data-x="0" data-y="17">
-                </div>
-                <div class="box" data-x="1" data-y="17">
-                </div>
-                <div class="box" data-x="2" data-y="17">
-                </div>
-                <div class="box" data-x="3" data-y="17">
-                </div>
-                <div class="box" data-x="4" data-y="17">
-                </div>
-                <div class="box" data-x="5" data-y="17">
-                </div>
-                <div class="box" data-x="6" data-y="17">
-                </div>
-                <div class="box" data-x="7" data-y="17">
-                </div>
-                <div class="box" data-x="8" data-y="17">
-                </div>
-                <div class="box" data-x="9" data-y="17">
-                </div>
-                <div class="box" data-x="10" data-y="17">
-                </div>
-                <div class="box" data-x="11" data-y="17">
-                </div>
-                <div class="box" data-x="12" data-y="17">
-                </div>
-                <div class="box" data-x="13" data-y="17">
-                </div>
-                <div class="box" data-x="14" data-y="17">
-                </div>
-                <div class="box" data-x="15" data-y="17">
-                </div>
-                <div class="box" data-x="16" data-y="17">
-                </div>
-                <div class="box" data-x="17" data-y="17">
-                </div>
-                <div class="box" data-x="18" data-y="17">
-                </div>
-                <div class="box" data-x="0" data-y="18">
-                </div>
-                <div class="box" data-x="1" data-y="18">
-                </div>
-                <div class="box" data-x="2" data-y="18">
-                </div>
-                <div class="box" data-x="3" data-y="18">
-                </div>
-                <div class="box" data-x="4" data-y="18">
-                </div>
-                <div class="box" data-x="5" data-y="18">
-                </div>
-                <div class="box" data-x="6" data-y="18">
-                </div>
-                <div class="box" data-x="7" data-y="18">
-                </div>
-                <div class="box" data-x="8" data-y="18">
-                </div>
-                <div class="box" data-x="9" data-y="18">
-                </div>
-                <div class="box" data-x="10" data-y="18">
-                </div>
-                <div class="box" data-x="11" data-y="18">
-                </div>
-                <div class="box" data-x="12" data-y="18">
-                </div>
-                <div class="box" data-x="13" data-y="18">
-                </div>
-                <div class="box" data-x="14" data-y="18">
-                </div>
-                <div class="box" data-x="15" data-y="18">
-                </div>
-                <div class="box" data-x="16" data-y="18">
-                </div>
-                <div class="box" data-x="17" data-y="18">
-                </div>
-                <div class="box" data-x="18" data-y="18">
-                </div>
-        </div>
+    <div class="centered">
+        <div class="board">
+            <div class="inner">
+                    <div class="box" data-x="0" data-y="0"></div>
+                    <div class="box" data-x="1" data-y="0"></div>
+                    <div class="box" data-x="2" data-y="0"></div>
+                    <div class="box" data-x="3" data-y="0"></div>
+                    <div class="box" data-x="4" data-y="0"></div>
+                    <div class="box" data-x="5" data-y="0"></div>
+                    <div class="box" data-x="6" data-y="0"></div>
+                    <div class="box" data-x="7" data-y="0"></div>
+                    <div class="box" data-x="8" data-y="0"></div>
+                    <div class="box" data-x="9" data-y="0"></div>
+                    <div class="box" data-x="10" data-y="0"></div>
+                    <div class="box" data-x="11" data-y="0"></div>
+                    <div class="box" data-x="12" data-y="0"></div>
+                    <div class="box" data-x="13" data-y="0"></div>
+                    <div class="box" data-x="14" data-y="0"></div>
+                    <div class="box" data-x="15" data-y="0"></div>
+                    <div class="box" data-x="16" data-y="0"></div>
+                    <div class="box" data-x="17" data-y="0"></div>
+                    <div class="box" data-x="18" data-y="0"></div>
+                    <div class="box" data-x="0" data-y="1"></div>
+                    <div class="box" data-x="1" data-y="1"></div>
+                    <div class="box" data-x="2" data-y="1"></div>
+                    <div class="box" data-x="3" data-y="1"></div>
+                    <div class="box" data-x="4" data-y="1"></div>
+                    <div class="box" data-x="5" data-y="1"></div>
+                    <div class="box" data-x="6" data-y="1"></div>
+                    <div class="box" data-x="7" data-y="1"></div>
+                    <div class="box" data-x="8" data-y="1"></div>
+                    <div class="box" data-x="9" data-y="1"></div>
+                    <div class="box" data-x="10" data-y="1"></div>
+                    <div class="box" data-x="11" data-y="1"></div>
+                    <div class="box" data-x="12" data-y="1"></div>
+                    <div class="box" data-x="13" data-y="1"></div>
+                    <div class="box" data-x="14" data-y="1"></div>
+                    <div class="box" data-x="15" data-y="1"></div>
+                    <div class="box" data-x="16" data-y="1"></div>
+                    <div class="box" data-x="17" data-y="1"></div>
+                    <div class="box" data-x="18" data-y="1"></div>
+                    <div class="box" data-x="0" data-y="2"></div>
+                    <div class="box" data-x="1" data-y="2"></div>
+                    <div class="box" data-x="2" data-y="2"></div>
+                    <div class="box" data-x="3" data-y="2"></div>
+                    <div class="box" data-x="4" data-y="2"></div>
+                    <div class="box" data-x="5" data-y="2"></div>
+                    <div class="box" data-x="6" data-y="2"></div>
+                    <div class="box" data-x="7" data-y="2"></div>
+                    <div class="box" data-x="8" data-y="2"></div>
+                    <div class="box" data-x="9" data-y="2"></div>
+                    <div class="box" data-x="10" data-y="2"></div>
+                    <div class="box" data-x="11" data-y="2"></div>
+                    <div class="box" data-x="12" data-y="2"></div>
+                    <div class="box" data-x="13" data-y="2"></div>
+                    <div class="box" data-x="14" data-y="2"></div>
+                    <div class="box" data-x="15" data-y="2"></div>
+                    <div class="box" data-x="16" data-y="2"></div>
+                    <div class="box" data-x="17" data-y="2"></div>
+                    <div class="box" data-x="18" data-y="2"></div>
+                    <div class="box" data-x="0" data-y="3"></div>
+                    <div class="box" data-x="1" data-y="3"></div>
+                    <div class="box" data-x="2" data-y="3"></div>
+                    <div class="box" data-x="3" data-y="3"></div>
+                    <div class="box" data-x="4" data-y="3"></div>
+                    <div class="box" data-x="5" data-y="3"></div>
+                    <div class="box" data-x="6" data-y="3"></div>
+                    <div class="box" data-x="7" data-y="3"></div>
+                    <div class="box" data-x="8" data-y="3"></div>
+                    <div class="box" data-x="9" data-y="3"></div>
+                    <div class="box" data-x="10" data-y="3"></div>
+                    <div class="box" data-x="11" data-y="3"></div>
+                    <div class="box" data-x="12" data-y="3"></div>
+                    <div class="box" data-x="13" data-y="3"></div>
+                    <div class="box" data-x="14" data-y="3"></div>
+                    <div class="box" data-x="15" data-y="3"></div>
+                    <div class="box" data-x="16" data-y="3"></div>
+                    <div class="box" data-x="17" data-y="3"></div>
+                    <div class="box" data-x="18" data-y="3"></div>
+                    <div class="box" data-x="0" data-y="4"></div>
+                    <div class="box" data-x="1" data-y="4"></div>
+                    <div class="box" data-x="2" data-y="4"></div>
+                    <div class="box" data-x="3" data-y="4"></div>
+                    <div class="box" data-x="4" data-y="4"></div>
+                    <div class="box" data-x="5" data-y="4"></div>
+                    <div class="box" data-x="6" data-y="4"></div>
+                    <div class="box" data-x="7" data-y="4"></div>
+                    <div class="box" data-x="8" data-y="4"></div>
+                    <div class="box" data-x="9" data-y="4"></div>
+                    <div class="box" data-x="10" data-y="4"></div>
+                    <div class="box" data-x="11" data-y="4"></div>
+                    <div class="box" data-x="12" data-y="4"></div>
+                    <div class="box" data-x="13" data-y="4"></div>
+                    <div class="box" data-x="14" data-y="4"></div>
+                    <div class="box" data-x="15" data-y="4"></div>
+                    <div class="box" data-x="16" data-y="4"></div>
+                    <div class="box" data-x="17" data-y="4"></div>
+                    <div class="box" data-x="18" data-y="4"></div>
+                    <div class="box" data-x="0" data-y="5"></div>
+                    <div class="box" data-x="1" data-y="5"></div>
+                    <div class="box" data-x="2" data-y="5"></div>
+                    <div class="box" data-x="3" data-y="5"></div>
+                    <div class="box" data-x="4" data-y="5"></div>
+                    <div class="box" data-x="5" data-y="5"></div>
+                    <div class="box" data-x="6" data-y="5"></div>
+                    <div class="box" data-x="7" data-y="5"></div>
+                    <div class="box" data-x="8" data-y="5"></div>
+                    <div class="box" data-x="9" data-y="5"></div>
+                    <div class="box" data-x="10" data-y="5"></div>
+                    <div class="box" data-x="11" data-y="5"></div>
+                    <div class="box" data-x="12" data-y="5"></div>
+                    <div class="box" data-x="13" data-y="5"></div>
+                    <div class="box" data-x="14" data-y="5"></div>
+                    <div class="box" data-x="15" data-y="5"></div>
+                    <div class="box" data-x="16" data-y="5"></div>
+                    <div class="box" data-x="17" data-y="5"></div>
+                    <div class="box" data-x="18" data-y="5"></div>
+                    <div class="box" data-x="0" data-y="6"></div>
+                    <div class="box" data-x="1" data-y="6"></div>
+                    <div class="box" data-x="2" data-y="6"></div>
+                    <div class="box" data-x="3" data-y="6"></div>
+                    <div class="box" data-x="4" data-y="6"></div>
+                    <div class="box" data-x="5" data-y="6"></div>
+                    <div class="box" data-x="6" data-y="6"></div>
+                    <div class="box" data-x="7" data-y="6"></div>
+                    <div class="box" data-x="8" data-y="6"></div>
+                    <div class="box" data-x="9" data-y="6"></div>
+                    <div class="box" data-x="10" data-y="6"></div>
+                    <div class="box" data-x="11" data-y="6"></div>
+                    <div class="box" data-x="12" data-y="6"></div>
+                    <div class="box" data-x="13" data-y="6"></div>
+                    <div class="box" data-x="14" data-y="6"></div>
+                    <div class="box" data-x="15" data-y="6"></div>
+                    <div class="box" data-x="16" data-y="6"></div>
+                    <div class="box" data-x="17" data-y="6"></div>
+                    <div class="box" data-x="18" data-y="6"></div>
+                    <div class="box" data-x="0" data-y="7"></div>
+                    <div class="box" data-x="1" data-y="7"></div>
+                    <div class="box" data-x="2" data-y="7"></div>
+                    <div class="box" data-x="3" data-y="7"></div>
+                    <div class="box" data-x="4" data-y="7"></div>
+                    <div class="box" data-x="5" data-y="7"></div>
+                    <div class="box" data-x="6" data-y="7"></div>
+                    <div class="box" data-x="7" data-y="7"></div>
+                    <div class="box" data-x="8" data-y="7"></div>
+                    <div class="box" data-x="9" data-y="7"></div>
+                    <div class="box" data-x="10" data-y="7"></div>
+                    <div class="box" data-x="11" data-y="7"></div>
+                    <div class="box" data-x="12" data-y="7"></div>
+                    <div class="box" data-x="13" data-y="7"></div>
+                    <div class="box" data-x="14" data-y="7"></div>
+                    <div class="box" data-x="15" data-y="7"></div>
+                    <div class="box" data-x="16" data-y="7"></div>
+                    <div class="box" data-x="17" data-y="7"></div>
+                    <div class="box" data-x="18" data-y="7"></div>
+                    <div class="box" data-x="0" data-y="8"></div>
+                    <div class="box" data-x="1" data-y="8"></div>
+                    <div class="box" data-x="2" data-y="8"></div>
+                    <div class="box" data-x="3" data-y="8"></div>
+                    <div class="box" data-x="4" data-y="8"></div>
+                    <div class="box" data-x="5" data-y="8"></div>
+                    <div class="box" data-x="6" data-y="8"></div>
+                    <div class="box" data-x="7" data-y="8"></div>
+                    <div class="box" data-x="8" data-y="8"></div>
+                    <div class="box" data-x="9" data-y="8"></div>
+                    <div class="box" data-x="10" data-y="8"></div>
+                    <div class="box" data-x="11" data-y="8"></div>
+                    <div class="box" data-x="12" data-y="8"></div>
+                    <div class="box" data-x="13" data-y="8"></div>
+                    <div class="box" data-x="14" data-y="8"></div>
+                    <div class="box" data-x="15" data-y="8"></div>
+                    <div class="box" data-x="16" data-y="8"></div>
+                    <div class="box" data-x="17" data-y="8"></div>
+                    <div class="box" data-x="18" data-y="8"></div>
+                    <div class="box" data-x="0" data-y="9"></div>
+                    <div class="box" data-x="1" data-y="9"></div>
+                    <div class="box" data-x="2" data-y="9"></div>
+                    <div class="box" data-x="3" data-y="9"></div>
+                    <div class="box" data-x="4" data-y="9"></div>
+                    <div class="box" data-x="5" data-y="9"></div>
+                    <div class="box" data-x="6" data-y="9"></div>
+                    <div class="box" data-x="7" data-y="9"></div>
+                    <div class="box" data-x="8" data-y="9"></div>
+                    <div class="box" data-x="9" data-y="9"></div>
+                    <div class="box" data-x="10" data-y="9"></div>
+                    <div class="box" data-x="11" data-y="9"></div>
+                    <div class="box" data-x="12" data-y="9"></div>
+                    <div class="box" data-x="13" data-y="9"></div>
+                    <div class="box" data-x="14" data-y="9"></div>
+                    <div class="box" data-x="15" data-y="9"></div>
+                    <div class="box" data-x="16" data-y="9"></div>
+                    <div class="box" data-x="17" data-y="9"></div>
+                    <div class="box" data-x="18" data-y="9"></div>
+                    <div class="box" data-x="0" data-y="10"></div>
+                    <div class="box" data-x="1" data-y="10"></div>
+                    <div class="box" data-x="2" data-y="10"></div>
+                    <div class="box" data-x="3" data-y="10"></div>
+                    <div class="box" data-x="4" data-y="10"></div>
+                    <div class="box" data-x="5" data-y="10"></div>
+                    <div class="box" data-x="6" data-y="10"></div>
+                    <div class="box" data-x="7" data-y="10"></div>
+                    <div class="box" data-x="8" data-y="10"></div>
+                    <div class="box" data-x="9" data-y="10"></div>
+                    <div class="box" data-x="10" data-y="10"></div>
+                    <div class="box" data-x="11" data-y="10"></div>
+                    <div class="box" data-x="12" data-y="10"></div>
+                    <div class="box" data-x="13" data-y="10"></div>
+                    <div class="box" data-x="14" data-y="10"></div>
+                    <div class="box" data-x="15" data-y="10"></div>
+                    <div class="box" data-x="16" data-y="10"></div>
+                    <div class="box" data-x="17" data-y="10"></div>
+                    <div class="box" data-x="18" data-y="10"></div>
+                    <div class="box" data-x="0" data-y="11"></div>
+                    <div class="box" data-x="1" data-y="11"></div>
+                    <div class="box" data-x="2" data-y="11"></div>
+                    <div class="box" data-x="3" data-y="11"></div>
+                    <div class="box" data-x="4" data-y="11"></div>
+                    <div class="box" data-x="5" data-y="11"></div>
+                    <div class="box" data-x="6" data-y="11"></div>
+                    <div class="box" data-x="7" data-y="11"></div>
+                    <div class="box" data-x="8" data-y="11"></div>
+                    <div class="box" data-x="9" data-y="11"></div>
+                    <div class="box" data-x="10" data-y="11"></div>
+                    <div class="box" data-x="11" data-y="11"></div>
+                    <div class="box" data-x="12" data-y="11"></div>
+                    <div class="box" data-x="13" data-y="11"></div>
+                    <div class="box" data-x="14" data-y="11"></div>
+                    <div class="box" data-x="15" data-y="11"></div>
+                    <div class="box" data-x="16" data-y="11"></div>
+                    <div class="box" data-x="17" data-y="11"></div>
+                    <div class="box" data-x="18" data-y="11"></div>
+                    <div class="box" data-x="0" data-y="12"></div>
+                    <div class="box" data-x="1" data-y="12"></div>
+                    <div class="box" data-x="2" data-y="12"></div>
+                    <div class="box" data-x="3" data-y="12"></div>
+                    <div class="box" data-x="4" data-y="12"></div>
+                    <div class="box" data-x="5" data-y="12"></div>
+                    <div class="box" data-x="6" data-y="12"></div>
+                    <div class="box" data-x="7" data-y="12"></div>
+                    <div class="box" data-x="8" data-y="12"></div>
+                    <div class="box" data-x="9" data-y="12"></div>
+                    <div class="box" data-x="10" data-y="12"></div>
+                    <div class="box" data-x="11" data-y="12"></div>
+                    <div class="box" data-x="12" data-y="12"></div>
+                    <div class="box" data-x="13" data-y="12"></div>
+                    <div class="box" data-x="14" data-y="12"></div>
+                    <div class="box" data-x="15" data-y="12"></div>
+                    <div class="box" data-x="16" data-y="12"></div>
+                    <div class="box" data-x="17" data-y="12"></div>
+                    <div class="box" data-x="18" data-y="12"></div>
+                    <div class="box" data-x="0" data-y="13"></div>
+                    <div class="box" data-x="1" data-y="13"></div>
+                    <div class="box" data-x="2" data-y="13"></div>
+                    <div class="box" data-x="3" data-y="13"></div>
+                    <div class="box" data-x="4" data-y="13"></div>
+                    <div class="box" data-x="5" data-y="13"></div>
+                    <div class="box" data-x="6" data-y="13"></div>
+                    <div class="box" data-x="7" data-y="13"></div>
+                    <div class="box" data-x="8" data-y="13"></div>
+                    <div class="box" data-x="9" data-y="13"></div>
+                    <div class="box" data-x="10" data-y="13"></div>
+                    <div class="box" data-x="11" data-y="13"></div>
+                    <div class="box" data-x="12" data-y="13"></div>
+                    <div class="box" data-x="13" data-y="13"></div>
+                    <div class="box" data-x="14" data-y="13"></div>
+                    <div class="box" data-x="15" data-y="13"></div>
+                    <div class="box" data-x="16" data-y="13"></div>
+                    <div class="box" data-x="17" data-y="13"></div>
+                    <div class="box" data-x="18" data-y="13"></div>
+                    <div class="box" data-x="0" data-y="14"></div>
+                    <div class="box" data-x="1" data-y="14"></div>
+                    <div class="box" data-x="2" data-y="14"></div>
+                    <div class="box" data-x="3" data-y="14"></div>
+                    <div class="box" data-x="4" data-y="14"></div>
+                    <div class="box" data-x="5" data-y="14"></div>
+                    <div class="box" data-x="6" data-y="14"></div>
+                    <div class="box" data-x="7" data-y="14"></div>
+                    <div class="box" data-x="8" data-y="14"></div>
+                    <div class="box" data-x="9" data-y="14"></div>
+                    <div class="box" data-x="10" data-y="14"></div>
+                    <div class="box" data-x="11" data-y="14"></div>
+                    <div class="box" data-x="12" data-y="14"></div>
+                    <div class="box" data-x="13" data-y="14"></div>
+                    <div class="box" data-x="14" data-y="14"></div>
+                    <div class="box" data-x="15" data-y="14"></div>
+                    <div class="box" data-x="16" data-y="14"></div>
+                    <div class="box" data-x="17" data-y="14"></div>
+                    <div class="box" data-x="18" data-y="14"></div>
+                    <div class="box" data-x="0" data-y="15"></div>
+                    <div class="box" data-x="1" data-y="15"></div>
+                    <div class="box" data-x="2" data-y="15"></div>
+                    <div class="box" data-x="3" data-y="15"></div>
+                    <div class="box" data-x="4" data-y="15"></div>
+                    <div class="box" data-x="5" data-y="15"></div>
+                    <div class="box" data-x="6" data-y="15"></div>
+                    <div class="box" data-x="7" data-y="15"></div>
+                    <div class="box" data-x="8" data-y="15"></div>
+                    <div class="box" data-x="9" data-y="15"></div>
+                    <div class="box" data-x="10" data-y="15"></div>
+                    <div class="box" data-x="11" data-y="15"></div>
+                    <div class="box" data-x="12" data-y="15"></div>
+                    <div class="box" data-x="13" data-y="15"></div>
+                    <div class="box" data-x="14" data-y="15"></div>
+                    <div class="box" data-x="15" data-y="15"></div>
+                    <div class="box" data-x="16" data-y="15"></div>
+                    <div class="box" data-x="17" data-y="15"></div>
+                    <div class="box" data-x="18" data-y="15"></div>
+                    <div class="box" data-x="0" data-y="16"></div>
+                    <div class="box" data-x="1" data-y="16"></div>
+                    <div class="box" data-x="2" data-y="16"></div>
+                    <div class="box" data-x="3" data-y="16"></div>
+                    <div class="box" data-x="4" data-y="16"></div>
+                    <div class="box" data-x="5" data-y="16"></div>
+                    <div class="box" data-x="6" data-y="16"></div>
+                    <div class="box" data-x="7" data-y="16"></div>
+                    <div class="box" data-x="8" data-y="16"></div>
+                    <div class="box" data-x="9" data-y="16"></div>
+                    <div class="box" data-x="10" data-y="16"></div>
+                    <div class="box" data-x="11" data-y="16"></div>
+                    <div class="box" data-x="12" data-y="16"></div>
+                    <div class="box" data-x="13" data-y="16"></div>
+                    <div class="box" data-x="14" data-y="16"></div>
+                    <div class="box" data-x="15" data-y="16"></div>
+                    <div class="box" data-x="16" data-y="16"></div>
+                    <div class="box" data-x="17" data-y="16"></div>
+                    <div class="box" data-x="18" data-y="16"></div>
+                    <div class="box" data-x="0" data-y="17"></div>
+            </div>
+            <div class="matrix">
+                    <div class="box" data-x="0" data-y="0">
+                    </div>
+                    <div class="box" data-x="1" data-y="0">
+                    </div>
+                    <div class="box" data-x="2" data-y="0">
+                    </div>
+                    <div class="box" data-x="3" data-y="0">
+                    </div>
+                    <div class="box" data-x="4" data-y="0">
+                    </div>
+                    <div class="box" data-x="5" data-y="0">
+                    </div>
+                    <div class="box" data-x="6" data-y="0">
+                    </div>
+                    <div class="box" data-x="7" data-y="0">
+                    </div>
+                    <div class="box" data-x="8" data-y="0">
+                    </div>
+                    <div class="box" data-x="9" data-y="0">
+                    </div>
+                    <div class="box" data-x="10" data-y="0">
+                    </div>
+                    <div class="box" data-x="11" data-y="0">
+                    </div>
+                    <div class="box" data-x="12" data-y="0">
+                    </div>
+                    <div class="box" data-x="13" data-y="0">
+                    </div>
+                    <div class="box" data-x="14" data-y="0">
+                    </div>
+                    <div class="box" data-x="15" data-y="0">
+                    </div>
+                    <div class="box" data-x="16" data-y="0">
+                    </div>
+                    <div class="box" data-x="17" data-y="0">
+                    </div>
+                    <div class="box" data-x="18" data-y="0">
+                    </div>
+                    <div class="box" data-x="0" data-y="1">
+                    </div>
+                    <div class="box" data-x="1" data-y="1">
+                    </div>
+                    <div class="box" data-x="2" data-y="1">
+                    </div>
+                    <div class="box" data-x="3" data-y="1">
+                    </div>
+                    <div class="box" data-x="4" data-y="1">
+                    </div>
+                    <div class="box" data-x="5" data-y="1">
+                    </div>
+                    <div class="box" data-x="6" data-y="1">
+                    </div>
+                    <div class="box" data-x="7" data-y="1">
+                    </div>
+                    <div class="box" data-x="8" data-y="1">
+                    </div>
+                    <div class="box" data-x="9" data-y="1">
+                    </div>
+                    <div class="box" data-x="10" data-y="1">
+                    </div>
+                    <div class="box" data-x="11" data-y="1">
+                    </div>
+                    <div class="box" data-x="12" data-y="1">
+                    </div>
+                    <div class="box" data-x="13" data-y="1">
+                    </div>
+                    <div class="box" data-x="14" data-y="1">
+                    </div>
+                    <div class="box" data-x="15" data-y="1">
+                    </div>
+                    <div class="box" data-x="16" data-y="1">
+                    </div>
+                    <div class="box" data-x="17" data-y="1">
+                    </div>
+                    <div class="box" data-x="18" data-y="1">
+                    </div>
+                    <div class="box" data-x="0" data-y="2">
+                    </div>
+                    <div class="box" data-x="1" data-y="2">
+                    </div>
+                    <div class="box" data-x="2" data-y="2">
+                    </div>
+                    <div class="box" data-x="3" data-y="2">
+                    </div>
+                    <div class="box" data-x="4" data-y="2">
+                    </div>
+                    <div class="box" data-x="5" data-y="2">
+                    </div>
+                    <div class="box" data-x="6" data-y="2">
+                    </div>
+                    <div class="box" data-x="7" data-y="2">
+                    </div>
+                    <div class="box" data-x="8" data-y="2">
+                    </div>
+                    <div class="box" data-x="9" data-y="2">
+                    </div>
+                    <div class="box" data-x="10" data-y="2">
+                    </div>
+                    <div class="box" data-x="11" data-y="2">
+                    </div>
+                    <div class="box" data-x="12" data-y="2">
+                    </div>
+                    <div class="box" data-x="13" data-y="2">
+                    </div>
+                    <div class="box" data-x="14" data-y="2">
+                    </div>
+                    <div class="box" data-x="15" data-y="2">
+                    </div>
+                    <div class="box" data-x="16" data-y="2">
+                    </div>
+                    <div class="box" data-x="17" data-y="2">
+                    </div>
+                    <div class="box" data-x="18" data-y="2">
+                    </div>
+                    <div class="box" data-x="0" data-y="3">
+                    </div>
+                    <div class="box" data-x="1" data-y="3">
+                    </div>
+                    <div class="box" data-x="2" data-y="3">
+                    </div>
+                    <div class="box" data-x="3" data-y="3">
+                            <div class="starpoint"></div>
+                    </div>
+                    <div class="box" data-x="4" data-y="3">
+                    </div>
+                    <div class="box" data-x="5" data-y="3">
+                    </div>
+                    <div class="box" data-x="6" data-y="3">
+                    </div>
+                    <div class="box" data-x="7" data-y="3">
+                    </div>
+                    <div class="box" data-x="8" data-y="3">
+                    </div>
+                    <div class="box" data-x="9" data-y="3">
+                            <div class="starpoint"></div>
+                    </div>
+                    <div class="box" data-x="10" data-y="3">
+                    </div>
+                    <div class="box" data-x="11" data-y="3">
+                    </div>
+                    <div class="box" data-x="12" data-y="3">
+                    </div>
+                    <div class="box" data-x="13" data-y="3">
+                    </div>
+                    <div class="box" data-x="14" data-y="3">
+                    </div>
+                    <div class="box" data-x="15" data-y="3">
+                            <div class="starpoint"></div>
+                    </div>
+                    <div class="box" data-x="16" data-y="3">
+                    </div>
+                    <div class="box" data-x="17" data-y="3">
+                    </div>
+                    <div class="box" data-x="18" data-y="3">
+                    </div>
+                    <div class="box" data-x="0" data-y="4">
+                    </div>
+                    <div class="box" data-x="1" data-y="4">
+                    </div>
+                    <div class="box" data-x="2" data-y="4">
+                    </div>
+                    <div class="box" data-x="3" data-y="4">
+                    </div>
+                    <div class="box" data-x="4" data-y="4">
+                    </div>
+                    <div class="box" data-x="5" data-y="4">
+                    </div>
+                    <div class="box" data-x="6" data-y="4">
+                    </div>
+                    <div class="box" data-x="7" data-y="4">
+                    </div>
+                    <div class="box" data-x="8" data-y="4">
+                    </div>
+                    <div class="box" data-x="9" data-y="4">
+                    </div>
+                    <div class="box" data-x="10" data-y="4">
+                    </div>
+                    <div class="box" data-x="11" data-y="4">
+                    </div>
+                    <div class="box" data-x="12" data-y="4">
+                    </div>
+                    <div class="box" data-x="13" data-y="4">
+                    </div>
+                    <div class="box" data-x="14" data-y="4">
+                    </div>
+                    <div class="box" data-x="15" data-y="4">
+                    </div>
+                    <div class="box" data-x="16" data-y="4">
+                    </div>
+                    <div class="box" data-x="17" data-y="4">
+                    </div>
+                    <div class="box" data-x="18" data-y="4">
+                    </div>
+                    <div class="box" data-x="0" data-y="5">
+                    </div>
+                    <div class="box" data-x="1" data-y="5">
+                    </div>
+                    <div class="box" data-x="2" data-y="5">
+                    </div>
+                    <div class="box" data-x="3" data-y="5">
+                    </div>
+                    <div class="box" data-x="4" data-y="5">
+                    </div>
+                    <div class="box" data-x="5" data-y="5">
+                    </div>
+                    <div class="box" data-x="6" data-y="5">
+                    </div>
+                    <div class="box" data-x="7" data-y="5">
+                    </div>
+                    <div class="box" data-x="8" data-y="5">
+                    </div>
+                    <div class="box" data-x="9" data-y="5">
+                    </div>
+                    <div class="box" data-x="10" data-y="5">
+                    </div>
+                    <div class="box" data-x="11" data-y="5">
+                    </div>
+                    <div class="box" data-x="12" data-y="5">
+                    </div>
+                    <div class="box" data-x="13" data-y="5">
+                    </div>
+                    <div class="box" data-x="14" data-y="5">
+                    </div>
+                    <div class="box" data-x="15" data-y="5">
+                    </div>
+                    <div class="box" data-x="16" data-y="5">
+                    </div>
+                    <div class="box" data-x="17" data-y="5">
+                    </div>
+                    <div class="box" data-x="18" data-y="5">
+                    </div>
+                    <div class="box" data-x="0" data-y="6">
+                    </div>
+                    <div class="box" data-x="1" data-y="6">
+                    </div>
+                    <div class="box" data-x="2" data-y="6">
+                    </div>
+                    <div class="box" data-x="3" data-y="6">
+                    </div>
+                    <div class="box" data-x="4" data-y="6">
+                    </div>
+                    <div class="box" data-x="5" data-y="6">
+                    </div>
+                    <div class="box" data-x="6" data-y="6">
+                    </div>
+                    <div class="box" data-x="7" data-y="6">
+                    </div>
+                    <div class="box" data-x="8" data-y="6">
+                    </div>
+                    <div class="box" data-x="9" data-y="6">
+                    </div>
+                    <div class="box" data-x="10" data-y="6">
+                    </div>
+                    <div class="box" data-x="11" data-y="6">
+                    </div>
+                    <div class="box" data-x="12" data-y="6">
+                    </div>
+                    <div class="box" data-x="13" data-y="6">
+                    </div>
+                    <div class="box" data-x="14" data-y="6">
+                    </div>
+                    <div class="box" data-x="15" data-y="6">
+                    </div>
+                    <div class="box" data-x="16" data-y="6">
+                    </div>
+                    <div class="box" data-x="17" data-y="6">
+                    </div>
+                    <div class="box" data-x="18" data-y="6">
+                    </div>
+                    <div class="box" data-x="0" data-y="7">
+                    </div>
+                    <div class="box" data-x="1" data-y="7">
+                    </div>
+                    <div class="box" data-x="2" data-y="7">
+                    </div>
+                    <div class="box" data-x="3" data-y="7">
+                    </div>
+                    <div class="box" data-x="4" data-y="7">
+                    </div>
+                    <div class="box" data-x="5" data-y="7">
+                    </div>
+                    <div class="box" data-x="6" data-y="7">
+                    </div>
+                    <div class="box" data-x="7" data-y="7">
+                    </div>
+                    <div class="box" data-x="8" data-y="7">
+                    </div>
+                    <div class="box" data-x="9" data-y="7">
+                    </div>
+                    <div class="box" data-x="10" data-y="7">
+                    </div>
+                    <div class="box" data-x="11" data-y="7">
+                    </div>
+                    <div class="box" data-x="12" data-y="7">
+                    </div>
+                    <div class="box" data-x="13" data-y="7">
+                    </div>
+                    <div class="box" data-x="14" data-y="7">
+                    </div>
+                    <div class="box" data-x="15" data-y="7">
+                    </div>
+                    <div class="box" data-x="16" data-y="7">
+                    </div>
+                    <div class="box" data-x="17" data-y="7">
+                    </div>
+                    <div class="box" data-x="18" data-y="7">
+                    </div>
+                    <div class="box" data-x="0" data-y="8">
+                    </div>
+                    <div class="box" data-x="1" data-y="8">
+                    </div>
+                    <div class="box" data-x="2" data-y="8">
+                    </div>
+                    <div class="box" data-x="3" data-y="8">
+                    </div>
+                    <div class="box" data-x="4" data-y="8">
+                    </div>
+                    <div class="box" data-x="5" data-y="8">
+                    </div>
+                    <div class="box" data-x="6" data-y="8">
+                    </div>
+                    <div class="box" data-x="7" data-y="8">
+                    </div>
+                    <div class="box" data-x="8" data-y="8">
+                    </div>
+                    <div class="box" data-x="9" data-y="8">
+                    </div>
+                    <div class="box" data-x="10" data-y="8">
+                    </div>
+                    <div class="box" data-x="11" data-y="8">
+                    </div>
+                    <div class="box" data-x="12" data-y="8">
+                    </div>
+                    <div class="box" data-x="13" data-y="8">
+                    </div>
+                    <div class="box" data-x="14" data-y="8">
+                    </div>
+                    <div class="box" data-x="15" data-y="8">
+                    </div>
+                    <div class="box" data-x="16" data-y="8">
+                    </div>
+                    <div class="box" data-x="17" data-y="8">
+                    </div>
+                    <div class="box" data-x="18" data-y="8">
+                    </div>
+                    <div class="box" data-x="0" data-y="9">
+                    </div>
+                    <div class="box" data-x="1" data-y="9">
+                    </div>
+                    <div class="box" data-x="2" data-y="9">
+                    </div>
+                    <div class="box" data-x="3" data-y="9">
+                            <div class="starpoint"></div>
+                    </div>
+                    <div class="box" data-x="4" data-y="9">
+                    </div>
+                    <div class="box" data-x="5" data-y="9">
+                    </div>
+                    <div class="box" data-x="6" data-y="9">
+                    </div>
+                    <div class="box" data-x="7" data-y="9">
+                    </div>
+                    <div class="box" data-x="8" data-y="9">
+                    </div>
+                    <div class="box" data-x="9" data-y="9">
+                            <div class="starpoint"></div>
+                    </div>
+                    <div class="box" data-x="10" data-y="9">
+                    </div>
+                    <div class="box" data-x="11" data-y="9">
+                    </div>
+                    <div class="box" data-x="12" data-y="9">
+                    </div>
+                    <div class="box" data-x="13" data-y="9">
+                    </div>
+                    <div class="box" data-x="14" data-y="9">
+                    </div>
+                    <div class="box" data-x="15" data-y="9">
+                            <div class="starpoint"></div>
+                    </div>
+                    <div class="box" data-x="16" data-y="9">
+                    </div>
+                    <div class="box" data-x="17" data-y="9">
+                    </div>
+                    <div class="box" data-x="18" data-y="9">
+                    </div>
+                    <div class="box" data-x="0" data-y="10">
+                    </div>
+                    <div class="box" data-x="1" data-y="10">
+                    </div>
+                    <div class="box" data-x="2" data-y="10">
+                    </div>
+                    <div class="box" data-x="3" data-y="10">
+                    </div>
+                    <div class="box" data-x="4" data-y="10">
+                    </div>
+                    <div class="box" data-x="5" data-y="10">
+                    </div>
+                    <div class="box" data-x="6" data-y="10">
+                    </div>
+                    <div class="box" data-x="7" data-y="10">
+                    </div>
+                    <div class="box" data-x="8" data-y="10">
+                    </div>
+                    <div class="box" data-x="9" data-y="10">
+                    </div>
+                    <div class="box" data-x="10" data-y="10">
+                    </div>
+                    <div class="box" data-x="11" data-y="10">
+                    </div>
+                    <div class="box" data-x="12" data-y="10">
+                    </div>
+                    <div class="box" data-x="13" data-y="10">
+                    </div>
+                    <div class="box" data-x="14" data-y="10">
+                    </div>
+                    <div class="box" data-x="15" data-y="10">
+                    </div>
+                    <div class="box" data-x="16" data-y="10">
+                    </div>
+                    <div class="box" data-x="17" data-y="10">
+                    </div>
+                    <div class="box" data-x="18" data-y="10">
+                    </div>
+                    <div class="box" data-x="0" data-y="11">
+                    </div>
+                    <div class="box" data-x="1" data-y="11">
+                    </div>
+                    <div class="box" data-x="2" data-y="11">
+                    </div>
+                    <div class="box" data-x="3" data-y="11">
+                    </div>
+                    <div class="box" data-x="4" data-y="11">
+                    </div>
+                    <div class="box" data-x="5" data-y="11">
+                    </div>
+                    <div class="box" data-x="6" data-y="11">
+                    </div>
+                    <div class="box" data-x="7" data-y="11">
+                    </div>
+                    <div class="box" data-x="8" data-y="11">
+                    </div>
+                    <div class="box" data-x="9" data-y="11">
+                    </div>
+                    <div class="box" data-x="10" data-y="11">
+                    </div>
+                    <div class="box" data-x="11" data-y="11">
+                    </div>
+                    <div class="box" data-x="12" data-y="11">
+                    </div>
+                    <div class="box" data-x="13" data-y="11">
+                    </div>
+                    <div class="box" data-x="14" data-y="11">
+                    </div>
+                    <div class="box" data-x="15" data-y="11">
+                    </div>
+                    <div class="box" data-x="16" data-y="11">
+                    </div>
+                    <div class="box" data-x="17" data-y="11">
+                    </div>
+                    <div class="box" data-x="18" data-y="11">
+                    </div>
+                    <div class="box" data-x="0" data-y="12">
+                    </div>
+                    <div class="box" data-x="1" data-y="12">
+                    </div>
+                    <div class="box" data-x="2" data-y="12">
+                    </div>
+                    <div class="box" data-x="3" data-y="12">
+                    </div>
+                    <div class="box" data-x="4" data-y="12">
+                    </div>
+                    <div class="box" data-x="5" data-y="12">
+                    </div>
+                    <div class="box" data-x="6" data-y="12">
+                    </div>
+                    <div class="box" data-x="7" data-y="12">
+                    </div>
+                    <div class="box" data-x="8" data-y="12">
+                    </div>
+                    <div class="box" data-x="9" data-y="12">
+                    </div>
+                    <div class="box" data-x="10" data-y="12">
+                    </div>
+                    <div class="box" data-x="11" data-y="12">
+                    </div>
+                    <div class="box" data-x="12" data-y="12">
+                    </div>
+                    <div class="box" data-x="13" data-y="12">
+                    </div>
+                    <div class="box" data-x="14" data-y="12">
+                    </div>
+                    <div class="box" data-x="15" data-y="12">
+                    </div>
+                    <div class="box" data-x="16" data-y="12">
+                    </div>
+                    <div class="box" data-x="17" data-y="12">
+                    </div>
+                    <div class="box" data-x="18" data-y="12">
+                    </div>
+                    <div class="box" data-x="0" data-y="13">
+                    </div>
+                    <div class="box" data-x="1" data-y="13">
+                    </div>
+                    <div class="box" data-x="2" data-y="13">
+                    </div>
+                    <div class="box" data-x="3" data-y="13">
+                    </div>
+                    <div class="box" data-x="4" data-y="13">
+                    </div>
+                    <div class="box" data-x="5" data-y="13">
+                    </div>
+                    <div class="box" data-x="6" data-y="13">
+                    </div>
+                    <div class="box" data-x="7" data-y="13">
+                    </div>
+                    <div class="box" data-x="8" data-y="13">
+                    </div>
+                    <div class="box" data-x="9" data-y="13">
+                    </div>
+                    <div class="box" data-x="10" data-y="13">
+                    </div>
+                    <div class="box" data-x="11" data-y="13">
+                    </div>
+                    <div class="box" data-x="12" data-y="13">
+                    </div>
+                    <div class="box" data-x="13" data-y="13">
+                    </div>
+                    <div class="box" data-x="14" data-y="13">
+                    </div>
+                    <div class="box" data-x="15" data-y="13">
+                    </div>
+                    <div class="box" data-x="16" data-y="13">
+                    </div>
+                    <div class="box" data-x="17" data-y="13">
+                    </div>
+                    <div class="box" data-x="18" data-y="13">
+                    </div>
+                    <div class="box" data-x="0" data-y="14">
+                    </div>
+                    <div class="box" data-x="1" data-y="14">
+                    </div>
+                    <div class="box" data-x="2" data-y="14">
+                    </div>
+                    <div class="box" data-x="3" data-y="14">
+                    </div>
+                    <div class="box" data-x="4" data-y="14">
+                    </div>
+                    <div class="box" data-x="5" data-y="14">
+                    </div>
+                    <div class="box" data-x="6" data-y="14">
+                    </div>
+                    <div class="box" data-x="7" data-y="14">
+                    </div>
+                    <div class="box" data-x="8" data-y="14">
+                    </div>
+                    <div class="box" data-x="9" data-y="14">
+                    </div>
+                    <div class="box" data-x="10" data-y="14">
+                    </div>
+                    <div class="box" data-x="11" data-y="14">
+                    </div>
+                    <div class="box" data-x="12" data-y="14">
+                    </div>
+                    <div class="box" data-x="13" data-y="14">
+                    </div>
+                    <div class="box" data-x="14" data-y="14">
+                    </div>
+                    <div class="box" data-x="15" data-y="14">
+                    </div>
+                    <div class="box" data-x="16" data-y="14">
+                    </div>
+                    <div class="box" data-x="17" data-y="14">
+                    </div>
+                    <div class="box" data-x="18" data-y="14">
+                    </div>
+                    <div class="box" data-x="0" data-y="15">
+                    </div>
+                    <div class="box" data-x="1" data-y="15">
+                    </div>
+                    <div class="box" data-x="2" data-y="15">
+                    </div>
+                    <div class="box" data-x="3" data-y="15">
+                            <div class="starpoint"></div>
+                    </div>
+                    <div class="box" data-x="4" data-y="15">
+                    </div>
+                    <div class="box" data-x="5" data-y="15">
+                    </div>
+                    <div class="box" data-x="6" data-y="15">
+                    </div>
+                    <div class="box" data-x="7" data-y="15">
+                    </div>
+                    <div class="box" data-x="8" data-y="15">
+                    </div>
+                    <div class="box" data-x="9" data-y="15">
+                            <div class="starpoint"></div>
+                    </div>
+                    <div class="box" data-x="10" data-y="15">
+                    </div>
+                    <div class="box" data-x="11" data-y="15">
+                    </div>
+                    <div class="box" data-x="12" data-y="15">
+                    </div>
+                    <div class="box" data-x="13" data-y="15">
+                    </div>
+                    <div class="box" data-x="14" data-y="15">
+                    </div>
+                    <div class="box" data-x="15" data-y="15">
+                            <div class="starpoint"></div>
+                    </div>
+                    <div class="box" data-x="16" data-y="15">
+                    </div>
+                    <div class="box" data-x="17" data-y="15">
+                    </div>
+                    <div class="box" data-x="18" data-y="15">
+                    </div>
+                    <div class="box" data-x="0" data-y="16">
+                    </div>
+                    <div class="box" data-x="1" data-y="16">
+                    </div>
+                    <div class="box" data-x="2" data-y="16">
+                    </div>
+                    <div class="box" data-x="3" data-y="16">
+                    </div>
+                    <div class="box" data-x="4" data-y="16">
+                    </div>
+                    <div class="box" data-x="5" data-y="16">
+                    </div>
+                    <div class="box" data-x="6" data-y="16">
+                    </div>
+                    <div class="box" data-x="7" data-y="16">
+                    </div>
+                    <div class="box" data-x="8" data-y="16">
+                    </div>
+                    <div class="box" data-x="9" data-y="16">
+                    </div>
+                    <div class="box" data-x="10" data-y="16">
+                    </div>
+                    <div class="box" data-x="11" data-y="16">
+                    </div>
+                    <div class="box" data-x="12" data-y="16">
+                    </div>
+                    <div class="box" data-x="13" data-y="16">
+                    </div>
+                    <div class="box" data-x="14" data-y="16">
+                    </div>
+                    <div class="box" data-x="15" data-y="16">
+                    </div>
+                    <div class="box" data-x="16" data-y="16">
+                    </div>
+                    <div class="box" data-x="17" data-y="16">
+                    </div>
+                    <div class="box" data-x="18" data-y="16">
+                    </div>
+                    <div class="box" data-x="0" data-y="17">
+                    </div>
+                    <div class="box" data-x="1" data-y="17">
+                    </div>
+                    <div class="box" data-x="2" data-y="17">
+                    </div>
+                    <div class="box" data-x="3" data-y="17">
+                    </div>
+                    <div class="box" data-x="4" data-y="17">
+                    </div>
+                    <div class="box" data-x="5" data-y="17">
+                    </div>
+                    <div class="box" data-x="6" data-y="17">
+                    </div>
+                    <div class="box" data-x="7" data-y="17">
+                    </div>
+                    <div class="box" data-x="8" data-y="17">
+                    </div>
+                    <div class="box" data-x="9" data-y="17">
+                    </div>
+                    <div class="box" data-x="10" data-y="17">
+                    </div>
+                    <div class="box" data-x="11" data-y="17">
+                    </div>
+                    <div class="box" data-x="12" data-y="17">
+                    </div>
+                    <div class="box" data-x="13" data-y="17">
+                    </div>
+                    <div class="box" data-x="14" data-y="17">
+                    </div>
+                    <div class="box" data-x="15" data-y="17">
+                    </div>
+                    <div class="box" data-x="16" data-y="17">
+                    </div>
+                    <div class="box" data-x="17" data-y="17">
+                    </div>
+                    <div class="box" data-x="18" data-y="17">
+                    </div>
+                    <div class="box" data-x="0" data-y="18">
+                    </div>
+                    <div class="box" data-x="1" data-y="18">
+                    </div>
+                    <div class="box" data-x="2" data-y="18">
+                    </div>
+                    <div class="box" data-x="3" data-y="18">
+                    </div>
+                    <div class="box" data-x="4" data-y="18">
+                    </div>
+                    <div class="box" data-x="5" data-y="18">
+                    </div>
+                    <div class="box" data-x="6" data-y="18">
+                    </div>
+                    <div class="box" data-x="7" data-y="18">
+                    </div>
+                    <div class="box" data-x="8" data-y="18">
+                    </div>
+                    <div class="box" data-x="9" data-y="18">
+                    </div>
+                    <div class="box" data-x="10" data-y="18">
+                    </div>
+                    <div class="box" data-x="11" data-y="18">
+                    </div>
+                    <div class="box" data-x="12" data-y="18">
+                    </div>
+                    <div class="box" data-x="13" data-y="18">
+                    </div>
+                    <div class="box" data-x="14" data-y="18">
+                    </div>
+                    <div class="box" data-x="15" data-y="18">
+                    </div>
+                    <div class="box" data-x="16" data-y="18">
+                    </div>
+                    <div class="box" data-x="17" data-y="18">
+                    </div>
+                    <div class="box" data-x="18" data-y="18">
+                    </div>
+            </div>
+    </div>
+    <div class="chat">
+        <div class="content"></div>
     </div>
 </div>
 

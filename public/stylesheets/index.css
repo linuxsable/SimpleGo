@@ -42,12 +42,16 @@ body {
   padding-right: 10px;
 }
 
+.container .centered {
+  width: 1000px;
+  margin: 0 auto;
+}
+
 .container .board {
   width: 780px;
   height: 780px;
+  float: left;
   position: relative;
-  padding: 0;
-  margin: 0 auto;
   background-image: url("../images/retina_wood_@2X.png");
   border-radius: 2px;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
@@ -126,4 +130,16 @@ body {
   background-image: -o-radial-gradient(12px 7px, circle farthest-corner, #444444, #222222 22px);
   background-image: -ms-radial-gradient(12px 7px, circle farthest-corner, #444444, #222222 22px);
   background-image: radial-gradient(12px 7px, circle farthest-corner, #444444, #222222 22px);
+}
+
+.container .chat {
+  width: 219px;
+  height: 780px;
+  float: right;
+  border: 1px solid #ccc;
+  border-left: none;
+}
+
+.container .chat .content {
+
 }
