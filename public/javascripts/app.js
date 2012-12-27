@@ -10,7 +10,8 @@ window.App = {
         },
 
         showNamePrompt: function() {
-            var name = prompt("What's your name?", "Player");
+            var currentName = localStorage.getItem('config:playerName');
+            var name = prompt("What's your name?", currentName);
             localStorage.setItem('config:playerName', name);
         },
 

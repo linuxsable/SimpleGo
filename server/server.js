@@ -8,7 +8,7 @@ var app = require('express')(),
     Player = require('./Player').Player,
     Match = require('./Match').Match;
 
-server.listen(3000);
+server.listen(80);
 
 app.use(express.static(path.normalize(__dirname + '/../public')));
 app.get('/*', function(req, res) {
@@ -80,6 +80,9 @@ io.sockets.on('connection', function(socket) {
         }
 
         var match = matches[data.matchId];
+
+        // Keep a buffer
+        match.enterChatMessage(data.message);
 
         io.sockets.in(match.roomId()).emit('chat_message_sent', {
             message: data.message,

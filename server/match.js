@@ -5,6 +5,7 @@ function Match(id) {
     this.black = null;
     this.white = null;
     this.spectators = {};
+    this.chatMessages = [];
 }
 
 Match.prototype.roomId = function() {
@@ -70,6 +71,10 @@ Match.prototype.removePlayer = function(player) {
 
 Match.prototype.isEmpty = function() {
     return !this.black && !this.white && _.isEmpty(this.spectators);
+};
+
+Match.prototype.enterChatMessage = function(msg) {
+    this.chatMessages.push(msg);
 };
 
 exports.Match = Match;

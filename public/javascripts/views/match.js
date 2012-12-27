@@ -15,7 +15,7 @@ App.Views.Match = Backbone.View.extend({
     setupSockets: function() {
         var _this = this;
         
-        this.socket = io.connect('http://localhost:3000');
+        this.socket = io.connect();
         
         this.socket.emit('join_match', {
             id: _this.matchId,

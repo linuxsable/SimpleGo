@@ -22,13 +22,14 @@ App.Views.Chat = Backbone.View.extend({
 
     chatKeypress: function(e) {
         var _this = this;
-        var msg = $(e.currentTarget).val();
         if (e.which == 13) {
+            var $current = $(e.currentTarget);
             this.parentView.socket.emit('chat_message', {
-                message: msg,
+                message: $current.val(),
                 matchId: _this.parentView.matchId,
                 playerName: App.helpers.getPlayerName()
             });
+            $current.val('');
         }
     }
 });
