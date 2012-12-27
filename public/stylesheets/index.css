@@ -9,17 +9,19 @@ body {
 }
 
 .container header {
-  padding: 10px 20px;
+  padding: 10px 15px;
   color: #fff;
   font-size: 12px;
   margin-bottom: 20px;
-  background: #333;
-  height: 18px;
+  background: #222;
+  height: 15px;
 }
 
 .container header .logo {
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: bold;
   float: left;
+  color: #fff;
 }
 
 .container header .right {
@@ -43,7 +45,7 @@ body {
 }
 
 .container .centered {
-  width: 1000px;
+  width: 1051px;
   margin: 0 auto;
 }
 
@@ -133,13 +135,29 @@ body {
 }
 
 .container .chat {
-  width: 219px;
+  width: 239px;
   height: 780px;
   float: right;
-  border: 1px solid #ccc;
-  border-left: none;
+  border: 1px solid #222;
+  margin-left: 30px;
+  position: relative;
+}
+
+.container .chat header {
+  font-size: 14px;
+  font-weight: bold;
+  background: #222;
 }
 
 .container .chat .content {
+  padding: 0 10px;
+}
 
+.container .chat input {
+  position: absolute;
+  bottom: 0;
+  width: 237px;
+  height: 20px;
+  border: none;
+  border-top: 1px solid #222;
 }

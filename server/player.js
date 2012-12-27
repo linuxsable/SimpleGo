@@ -1,8 +1,13 @@
-function Player(socket) {
+function Player(socket, playerName) {
     this.socket = socket;
     this.id = socket.id;
-    this.name = null;
     this.currentMatchId = null;
+
+    if (playerName) {
+        this.name = playerName;
+    } else {
+        this.name = 'Player';
+    }
 }
 
 Player.prototype.joinMatch = function(match) {

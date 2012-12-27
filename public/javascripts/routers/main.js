@@ -10,12 +10,8 @@ App.Routers.Main = Backbone.Router.extend({
     },
 
     match: function(id) {
-        window.boardView = new App.Views.Board({
-            id: id
-        });
-
-        window.chatView = new App.Views.Chat({
-            id: id
+        window.matchView = new App.Views.Match({
+            matchId: id
         });
     }
 });
