@@ -5,10 +5,10 @@ var app = require('express')(),
     path = require('path'),
     crypto = require('crypto'),
     _ = require('underscore'),
-    Player = require('./Player').Player,
-    Match = require('./Match').Match;
+    Player = require('./player').Player,
+    Match = require('./match').Match;
 
-server.listen(80);
+server.listen(3000);
 
 app.use(express.static(path.normalize(__dirname + '/../public')));
 app.get('/*', function(req, res) {

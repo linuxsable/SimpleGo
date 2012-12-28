@@ -1,7 +1,6 @@
 window.App = {
     Views: {},
     Routers: {},
-    Engine: null,
     BENCHMARK: true,
 
     helpers: {

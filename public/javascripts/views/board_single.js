@@ -6,13 +6,11 @@ App.Views.Board = Backbone.View.extend({
     },
 
     initialize: function() {
-        App.Engine.init();
         this.$stoneSound = $('#stone-1')[0]
         this.currentStones = {
             // Example values:
             // '3,12': 'stoneView object'
         };
-        this.startGameTimer();
     },
 
     placeStone: function(e) {
@@ -88,16 +86,5 @@ App.Views.Board = Backbone.View.extend({
     updateCaptureCounters: function() {
         $('header .captures .white').html(App.Engine.captureCounts[2]);
         $('header .captures .black').html(App.Engine.captureCounts[1]);
-    },
-
-    startGameTimer: function() {
-        setInterval(function() {
-            var time = App.Engine.getMatchTimeInMiliseconds();
-            var seconds = moment.duration(time).seconds();
-            var minutes = moment.duration(time).minutes();
-            var hour = moment.duration(time).hours();
-            var value = hour + ':' + minutes + ':' + seconds
-            $('header .timer').html(value);
-        }, 1000);
     }
 });

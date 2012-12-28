@@ -1,29 +1,16 @@
-App.Engine = {
-    matrix: [],
-    moveHistory: [],
-    initialized: false,
-    started: false,
-    matchStartTime: null,
+var _ = require('underscore');
 
-    captureCounts: {
-        1: 0,
-        2: 0
-    },
+function Engine() {
+    this.matrix = [];
+    this.moveHistory = [];
+    this.captureCounts = { 1: 0, 2: 0 };
+    this.COLORS = { BLACK: 1, WHITE: 2 };
 
-    COLORS: {
-        BLACK: 1,
-        WHITE: 2
-    },
+    this.initMatrix();
+}
 
-    init: function() {
-        if (this.initialized) {
-            throw 'already initialized';
-        }
-        this.initMatrix();
-        this.initialized = true;
-        return true;
-    },
-
+_.extend(Engine.prototype, {
+    // Setup the default values for the matrix
     initMatrix: function() {
         var x, y;
         this.matrix = (function() {
@@ -43,26 +30,6 @@ App.Engine = {
         })();
     },
 
-    startMatch: function() {
-        if (this.started) {
-            throw 'already started';
-        }
-        this.startTimer();
-        this.started = true;
-    },
-
-    startTimer: function() {
-        this.matchStartTime = new Date;
-    },
-
-    getMatchTimeInMiliseconds: function() {
-        if (!this.started) {
-            return 0;
-        } else {
-            return new Date - this.matchStartTime;
-        }
-    },
-
     getMoveCount: function() {
         return this.moveHistory.length;
     },
@@ -74,10 +41,6 @@ App.Engine = {
 
         if (!this.isValidMove(color, x, y)) {
             return false;
-        }
-
-        if (!this.started) {
-            this.startMatch();
         }
 
         this.matrix[x][y] = color;
@@ -152,7 +115,6 @@ App.Engine = {
     },
 
     hasLiberties: function(x, y, visited) {
-
         if (visited == null) {
             visited = {};
         }
@@ -231,4 +193,6 @@ App.Engine = {
         }
         return captures;
     }
-};
+});
+
+exports.Engine = Engine;

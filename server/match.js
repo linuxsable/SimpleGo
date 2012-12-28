@@ -1,4 +1,5 @@
 var _ = require('underscore');
+var Engine = require('./engine').Engine;
 
 function Match(id) {
     this.id = id;
@@ -6,6 +7,7 @@ function Match(id) {
     this.white = null;
     this.spectators = {};
     this.chatMessages = [];
+    this.engine = new Engine();
 }
 
 Match.prototype.roomId = function() {
