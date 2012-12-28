@@ -29,21 +29,6 @@ body {
   margin-top: 3px;
 }
 
-.container header .right .moves {
-  float: right;
-  padding-right: 10px;
-}
-
-.container header .right .timer {
-  float: right;
-  padding-right: 10px;
-}
-
-.container header .right .captures {
-  float: right;
-  padding-right: 10px;
-}
-
 .container .centered {
   width: 1051px;
   margin: 0 auto;

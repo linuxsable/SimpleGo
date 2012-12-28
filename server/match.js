@@ -10,73 +10,79 @@ function Match(id) {
     this.engine = new Engine();
 }
 
-Match.prototype.roomId = function() {
-    return 'match:' + this.id;
-};
+_.extend(Match.prototype, {
+    roomId: function() {
+        return 'match:' + this.id;    
+    },
 
-Match.prototype.joinAsBlack = function(player) {
-    player.joinMatch(this);
-    this.black = player;
-};
+    joinAsBlack: function(player) {
+        player.joinMatch(this);
+        this.black = player;    
+    },
 
-Match.prototype.joinAsWhite = function(player) {
-    player.joinMatch(this);
-    this.white = player;
-};
+    joinAsWhite: function(player) {
+        player.joinMatch(this);
+        this.white = player;
+    },
 
-Match.prototype.joinAsSpectator = function(player) {
-    player.joinMatch(this);
-    this.spectators[player.id] = player;
-};
+    joinAsSpectator: function(player) {
+        player.joinMatch(this);
+        this.spectators[player.id] = player;    
+    },
 
-Match.prototype.needsOpponent = function() {
-    return !this.white;
-};
+    needsOpponent: function() {
+        return !this.white;    
+    },
 
-Match.prototype.isPlayerInMatch = function(player) {
-    return this.isPlayerBlack(player) || this.isPlayerWhite(player) || this.isPlayerASpectator(player);
-};
+    isPlayerInMatch: function(player) {
+        return this.isPlayerBlack(player) || this.isPlayerWhite(player) || this.isPlayerASpectator(player);    
+    },
 
-Match.prototype.isPlayerBlack = function(player) {
-    return this.black.id == player.id;
-};
+    isPlayerBlack: function(player) {
+        return this.black.id == player.id;    
+    },
 
-Match.prototype.isPlayerWhite = function(player) {
-    return this.white.id == player.id;
-};
+    isPlayerWhite: function(player) {
+        return this.white.id == player.id;    
+    },
 
-Match.prototype.isPlayerASpectator = function(player) {
-    var isSpectator = false;
-    _.each(this.spectators, function(spectator) {
-        if (spectator.id == player.id) {
-            isSpectator;
-            return false;
+    isPlayerASpectator: function(player) {
+        var isSpectator = false;
+        _.each(this.spectators, function(spectator) {
+            if (spectator.id == player.id) {
+                isSpectator;
+                return false;
+            }
+        });
+        return isSpectator;
+    },
+
+    removePlayer: function(player) {
+        if (this.isPlayerBlack(player)) {
+            this.black = null;
+            return 1;
         }
-    });
-    return isSpectator;
-};
+        else if (this.isPlayerWhite(player)) {
+            this.white = null;
+            return 2;
+        }
+        else if (this.isPlayerASpectator(player)) {
+            delete this.spectators[player.id];
+            return 3;
+        }
+    },
 
-Match.prototype.removePlayer = function(player) {
-    if (this.isPlayerBlack(player)) {
-        this.black = null;
-        return 1;
-    }
-    else if (this.isPlayerWhite(player)) {
-        this.white = null;
-        return 2;
-    }
-    else if (this.isPlayerASpectator(player)) {
-        delete this.spectators[player.id];
-        return 3;
-    }
-};
+    isEmpty: function() {
+        return !this.black && !this.white && _.isEmpty(this.spectators);
+    },
 
-Match.prototype.isEmpty = function() {
-    return !this.black && !this.white && _.isEmpty(this.spectators);
-};
-
-Match.prototype.enterChatMessage = function(msg) {
-    this.chatMessages.push(msg);
-};
+    enterChatMessage: function(playerName, msg) {
+        this.chatMessages.push({
+            playerName: playerName,
+            msg: msg,
+            timestamp: new Date().getTime()
+        });
+    }
+});
 
 exports.Match = Match;

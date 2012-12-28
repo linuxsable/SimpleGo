@@ -10,7 +10,7 @@ App.Views.Chat = Backbone.View.extend({
         this.$content = this.$el.find('.content');
     },
 
-    enterMessage: function(text, name) {
+    enterMessage: function(name, text) {
         var msg = $('<div class="message" />');
         if (name) {
             msg.html(name + ': ' + text);    

@@ -22,12 +22,24 @@ App.Views.Match = Backbone.View.extend({
             playerName: App.helpers.getPlayerName()
         });
 
+        // This gets fired once the client has
+        // joined the match. used for initalizing
+        // game state, etc
+        this.socket.on('joined_match', function(data) {
+            // Fill in the chat messages prior
+            _.each(data.chatMessages, function(item) {
+                _this.chatView.enterMessage(item.playerName, item.msg);
+            });
+
+            // Fill in the game state
+        });
+
         this.socket.on('match_message', function(data) {
-            _this.chatView.enterMessage(data.message);
+            _this.chatView.enterMessage(null, data.message);
         });
 
         this.socket.on('chat_message_sent', function(data) {
-            _this.chatView.enterMessage(data.message, data.playerName);
+            _this.chatView.enterMessage(data.playerName, data.message);
         });
     }
 });

@@ -19,10 +19,6 @@ app.get('/*', function(req, res) {
 var players = {};
 var matches = {};
 
-io.configure(function() {
-
-});
-
 io.sockets.on('connection', function(socket) {
     // Join a match room
     socket.on('join_match', function(data) {
@@ -59,6 +55,13 @@ io.sockets.on('connection', function(socket) {
             });
         }
 
+        // Let the client know they've connected,
+        // and send along the payload of the current
+        // game state to initalize their instance
+        socket.emit('joined_match', {
+            chatMessages: match.chatMessages
+        });
+
         console.log('join');
         console.log(matches);
     });
@@ -82,7 +85,7 @@ io.sockets.on('connection', function(socket) {
         var match = matches[data.matchId];
 
         // Keep a buffer
-        match.enterChatMessage(data.message);
+        match.enterChatMessage(data.playerName, data.message);
 
         io.sockets.in(match.roomId()).emit('chat_message_sent', {
             message: data.message,

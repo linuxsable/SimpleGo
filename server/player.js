@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 function Player(socket, playerName) {
     this.socket = socket;
     this.id = socket.id;
@@ -10,15 +12,17 @@ function Player(socket, playerName) {
     }
 }
 
-Player.prototype.joinMatch = function(match) {
-    this.socket.join(match.roomId());
-    this.currentMatchId = match.id;
-};
+_.extend(Player.prototype, {
+    joinMatch: function(match) {
+        this.socket.join(match.roomId());
+        this.currentMatchId = match.id;
+    },
 
-Player.prototype.leaveMatch = function(match) {
-    this.socket.leave(match.roomId());
-    this.currentMatchId = null;
-    return match.removePlayer(this);
-};
+    leaveMatch: function(match) {
+        this.socket.leave(match.roomId());
+        this.currentMatchId = null;
+        return match.removePlayer(this);    
+    }
+});
 
 exports.Player = Player;
