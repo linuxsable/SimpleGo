@@ -138,6 +138,18 @@ body {
   padding: 0 10px;
 }
 
+.container .chat .content .message {
+  padding: 2px 0;
+}
+
+.container .chat .content .message.system {
+  font-style: italic;
+}
+
+.container .chat .content .message span {
+  font-weight: bold;
+}
+
 .container .chat input {
   position: absolute;
   bottom: 0;

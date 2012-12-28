@@ -27,19 +27,15 @@ App.Views.Match = Backbone.View.extend({
         // game state, etc
         this.socket.on('joined_match', function(data) {
             // Fill in the chat messages prior
-            _.each(data.chatMessages, function(item) {
-                _this.chatView.enterMessage(item.playerName, item.msg);
+            _.each(data.messageLog, function(item) {
+                _this.chatView.insertMessage(item.type, item.msg, item.playerName);
             });
 
             // Fill in the game state
         });
 
-        this.socket.on('match_message', function(data) {
-            _this.chatView.enterMessage(null, data.message);
-        });
-
-        this.socket.on('chat_message_sent', function(data) {
-            _this.chatView.enterMessage(data.playerName, data.message);
+        this.socket.on('chat_message', function(data) {
+            _this.chatView.insertMessage(data.type, data.msg, data.playerName);
         });
     }
 });

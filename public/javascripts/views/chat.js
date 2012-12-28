@@ -10,21 +10,23 @@ App.Views.Chat = Backbone.View.extend({
         this.$content = this.$el.find('.content');
     },
 
-    enterMessage: function(name, text) {
-        var msg = $('<div class="message" />');
-        if (name) {
-            msg.html(name + ': ' + text);    
-        } else {
-            msg.html(text);
-        }
-        this.$content.append(msg);
+    // Needs to be converted to using templates
+    insertMessage: function(type, msg, playerName) {
+        var msg = new App.Views.ChatMessage({
+            parentView: this,
+            type: type,
+            msg: msg,
+            playerName: playerName
+        });
+
+        this.$content.append(msg.render().el);
     },
 
     chatKeypress: function(e) {
         var _this = this;
         if (e.which == 13) {
             var $current = $(e.currentTarget);
-            this.parentView.socket.emit('chat_message', {
+            this.parentView.socket.emit('send_chat_message', {
                 message: $current.val(),
                 matchId: _this.parentView.matchId,
                 playerName: App.helpers.getPlayerName()

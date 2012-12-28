@@ -6,9 +6,12 @@ function Match(id) {
     this.black = null;
     this.white = null;
     this.spectators = {};
-    this.chatMessages = [];
+    this.messageLog = [];
     this.engine = new Engine();
 }
+
+// Class level constants
+Match.MESSAGE_TYPE = { CHAT: 1, SYSTEM: 2 };
 
 _.extend(Match.prototype, {
     roomId: function() {
@@ -76,12 +79,17 @@ _.extend(Match.prototype, {
         return !this.black && !this.white && _.isEmpty(this.spectators);
     },
 
-    enterChatMessage: function(playerName, msg) {
-        this.chatMessages.push({
-            playerName: playerName,
+    logMessage: function(type, msg, playerName) {
+        var entry = {
+            type: type,
             msg: msg,
+            playerName: playerName,
             timestamp: new Date().getTime()
-        });
+        };
+
+        this.messageLog.push(entry);
+
+        return entry;
     }
 });
 

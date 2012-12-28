@@ -36,37 +36,42 @@ io.sockets.on('connection', function(socket) {
             var match = matches[data.id];
             if (match.needsOpponent()) {
                 match.joinAsWhite(player);
-                io.sockets.in(match.roomId()).emit('match_message', {
-                    message: player.name + ' joined as white'
-                });
+                var msgEntry = match.logMessage(
+                    Match.MESSAGE_TYPE.SYSTEM,
+                    player.name + ' joined as white'
+                );
             } else {
                 match.joinAsSpectator(player);
-                io.sockets.in(match.roomId()).emit('match_message', {
-                    message: player.name + ' joined as spectator'
-                });
+                var msgEntry = match.logMessage(
+                    Match.MESSAGE_TYPE.SYSTEM,
+                    player.name + ' joined as spectator'
+                );
             }
         } else {
             // If there's no match, create one    
             var match = new Match(data.id);
             matches[data.id] = match;
             match.joinAsBlack(player);
-            io.sockets.in(match.roomId()).emit('match_message', {
-                message: player.name + ' joined as black'
-            });
+            var msgEntry = match.logMessage(
+                Match.MESSAGE_TYPE.SYSTEM,
+                player.name + ' joined as black'
+            );
         }
+
+        socket.broadcast.to(match.roomId()).emit('chat_message', msgEntry);
 
         // Let the client know they've connected,
         // and send along the payload of the current
         // game state to initalize their instance
         socket.emit('joined_match', {
-            chatMessages: match.chatMessages
+            messageLog: match.messageLog
         });
 
         console.log('join');
         console.log(matches);
     });
 
-    socket.on('chat_message', function(data) {
+    socket.on('send_chat_message', function(data) {
         if (!data.message) {
             console.log('error: no message');
             return false;
@@ -85,12 +90,13 @@ io.sockets.on('connection', function(socket) {
         var match = matches[data.matchId];
 
         // Keep a buffer
-        match.enterChatMessage(data.playerName, data.message);
+        var logEntry = match.logMessage(
+            Match.MESSAGE_TYPE.CHAT,
+            data.message,
+            data.playerName
+        );
 
-        io.sockets.in(match.roomId()).emit('chat_message_sent', {
-            message: data.message,
-            playerName: data.playerName
-        });
+        io.sockets.in(match.roomId()).emit('chat_message', logEntry);
     });
 
     socket.on('disconnect', function() {
@@ -106,9 +112,12 @@ io.sockets.on('connection', function(socket) {
         // Remove the player from the match
         player.leaveMatch(currentMatch);
 
-        io.sockets.in(currentMatch.roomId()).emit('match_message', {
-            message: player.name + ' left the match'
-        });
+        var msgEntry = currentMatch.logMessage(
+            Match.MESSAGE_TYPE.SYSTEM,
+            player.name + ' left the match'
+        );
+
+        socket.broadcast.to(currentMatch.roomId()).emit('chat_message', msgEntry);
 
         // Remove the match if no one is in it
         if (currentMatch.isEmpty()) {
