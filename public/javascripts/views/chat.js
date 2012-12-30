@@ -2,7 +2,7 @@ App.Views.Chat = Backbone.View.extend({
     el: '.chat',
 
     events: {
-        'keypress input': 'chatKeypress'
+        
     },
 
     initialize: function() {
@@ -28,7 +28,7 @@ App.Views.Chat = Backbone.View.extend({
         this.$content.append(msg.render().el);
 
         // Scroll to bottom
-        this.$el.scrollTop(this.$el.height());
+        this.$el.scrollTop(this.$el.height() + this.$content.height());
     },
 
     chatKeypress: function(e) {

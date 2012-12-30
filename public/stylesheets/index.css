@@ -155,10 +155,14 @@ body {
   float: right;
   width: 239px;
   height: 20px;
+  left: -2px;
+  position: relative;
 }
 
 .container .chat-input input {
-  width: 100%;
+  width: 229px;
+  margin: 0;
+  padding: 5px;
   border: 1px solid #222;
   border-top: none;
 }
