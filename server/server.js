@@ -89,6 +89,11 @@ io.sockets.on('connection', function(socket) {
             return ack(false);
         }
 
+        // Don't allow the game to start without an opponent
+        if (match.needsOpponent()) {
+            return ack(false);
+        }
+
         var playerColor = match.getPlayerColor(player);
 
         // Enter the move, get back the results of that move
