@@ -37,5 +37,12 @@ App.Views.Match = Backbone.View.extend({
         this.socket.on('chat_message', function(data) {
             _this.chatView.insertMessage(data.type, data.msg, data.playerName);
         });
+
+        this.socket.on('placed_stone', function(data) {
+            _this.boardView.placeOpponentStone(data.color, data.moveCoord);
+            if (data.isCapture) {
+                
+            }
+        });
     }
 });

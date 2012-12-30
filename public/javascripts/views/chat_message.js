@@ -20,7 +20,6 @@ App.Views.ChatMessage = Backbone.View.extend({
 
     // Should update to use mustache template
     render: function() {
-        console.log(this);
         if (this.type == this.TYPES.CHAT) {
             if (this.playerName) {
                 this.$el.html('<span>' + this.playerName + '</span>: ' + this.msg);

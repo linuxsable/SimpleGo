@@ -34,6 +34,8 @@ _.extend(Engine.prototype, {
         return this.moveHistory.length;
     },
 
+    // Returns false on error, true on success, array on capture
+    // Array of capture is an array of captured stones
     enterMove: function(color, x, y) {
         if (!this.isValidColor(color)) {
             return false;

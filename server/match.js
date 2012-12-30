@@ -5,6 +5,7 @@ function Match(id) {
     this.id = id;
     this.black = null;
     this.white = null;
+    this.lastPlayerTurn = null;
     this.spectators = {};
     this.messageLog = [];
     this.engine = new Engine();
@@ -49,6 +50,14 @@ _.extend(Match.prototype, {
         return this.white.id == player.id;    
     },
 
+    getPlayerColor: function(player) {
+        if (this.isPlayerBlack(player)) {
+            return this.engine.COLORS.BLACK;
+        } else {
+            return this.engine.COLORS.WHITE;
+        }
+    },
+
     isPlayerASpectator: function(player) {
         var isSpectator = false;
         _.each(this.spectators, function(spectator) {
@@ -90,6 +99,23 @@ _.extend(Match.prototype, {
         this.messageLog.push(entry);
 
         return entry;
+    },
+
+    isPlayersTurn: function(player) {
+        // Black starts if game hasn't started
+        if (this.lastPlayerTurn == null) {
+            return this.isPlayerBlack(player);
+        }
+        return this.lastPlayerTurn.id != player.id;
+    },
+
+    placeStone: function(player, coord) {
+        var color = this.getPlayerColor(player);
+        var result = this.engine.enterMove(color, coord.x, coord.y);
+        if (result !== false) {
+            this.lastPlayerTurn = player;
+        }
+        return result;
     }
 });
 

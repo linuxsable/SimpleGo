@@ -58,6 +58,7 @@ io.sockets.on('connection', function(socket) {
             );
         }
 
+        // Let everyone know they have entered the room
         socket.broadcast.to(match.roomId()).emit('chat_message', msgEntry);
 
         // Let the client know they've connected,
@@ -69,6 +70,49 @@ io.sockets.on('connection', function(socket) {
 
         console.log('join');
         console.log(matches);
+    });
+
+    socket.on('place_stone', function(data, ack) {
+        console.log(data);
+
+        var match = matches[data.matchId];
+        if (!match) {
+            console.log('error: match not found');
+            return false;
+        }
+
+        // Let's find the current player in the array
+        var player = players[socket.id];
+
+        // Don't let the non-players turn go
+        if (!match.isPlayersTurn(player)) {
+            return ack(false);
+        }
+
+        var playerColor = match.getPlayerColor(player);
+
+        // Enter the move, get back the results of that move
+        var result = match.placeStone(player, data.coord);
+
+        if (_.isArray(result)) {
+            // It's a capture
+            ack(true, {
+                color: playerColor,
+                captures: result
+            });
+        } else {
+            ack(result, { color: playerColor }); 
+
+            // Send the results to the other players
+            if (result) {
+                socket.broadcast.to(match.roomId()).emit('placed_stone', {
+                    isCapture: false,
+                    captures: null,
+                    moveCoord: data.coord,
+                    color: playerColor
+                });
+            }
+        }        
     });
 
     socket.on('send_chat_message', function(data) {

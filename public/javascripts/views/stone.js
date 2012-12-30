@@ -7,10 +7,10 @@ App.Views.Stone = Backbone.View.extend({
     },
 
     render: function() {
-        if (this.color == App.Engine.COLORS.WHITE) {
-            this.$el.addClass('white');
-        } else {
+        if (this.color == 1) {
             this.$el.addClass('black');
+        } else {
+            this.$el.addClass('white');
         }
         return this;
     },
