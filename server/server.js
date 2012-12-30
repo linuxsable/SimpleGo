@@ -65,7 +65,8 @@ io.sockets.on('connection', function(socket) {
         // and send along the payload of the current
         // game state to initalize their instance
         socket.emit('joined_match', {
-            messageLog: match.messageLog
+            messageLog: match.messageLog,
+            moveHistory: match.engine.moveHistory
         });
 
         console.log('join');

@@ -121,11 +121,12 @@ body {
 
 .container .chat {
   width: 239px;
-  height: 780px;
+  height: 760px;
   float: right;
   border: 1px solid #222;
   margin-left: 30px;
   position: relative;
+  overflow: scroll;
 }
 
 .container .chat header {
@@ -150,11 +151,14 @@ body {
   font-weight: bold;
 }
 
-.container .chat input {
-  position: absolute;
-  bottom: 0;
-  width: 237px;
+.container .chat-input {
+  float: right;
+  width: 239px;
   height: 20px;
-  border: none;
-  border-top: 1px solid #222;
+}
+
+.container .chat-input input {
+  width: 100%;
+  border: 1px solid #222;
+  border-top: none;
 }

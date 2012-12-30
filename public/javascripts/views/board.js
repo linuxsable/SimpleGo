@@ -14,6 +14,13 @@ App.Views.Board = Backbone.View.extend({
         };
     },
 
+    setupFromServer: function(moveHistory) {
+        var _this = this;
+        _.each(moveHistory, function(move) {
+            _this.placeStoneWithoutEvents(move.color, { x: move.x, y: move.y }, false);
+        });
+    },
+
     placeStone: function(e) {
         var _this = this;
         var $box = $(e.currentTarget);
@@ -47,12 +54,20 @@ App.Views.Board = Backbone.View.extend({
         });
     },
 
-    placeOpponentStone: function(color, coord) {
+    placeStoneWithoutEvents: function(color, coord, playSound) {
+        if (playSound == undefined) {
+            playSound = true;
+        }
+
         var $box = this.$el.find('.matrix .box[data-x="' + coord.x + '"][data-y="' + coord.y + '"]');
         var stoneView = new App.Views.Stone({ color: color });
+        
         $box.append(stoneView.render().el);
         this.currentStones[coord.x + ',' + coord.y] = stoneView;
-        this.playStoneSound();
+
+        if (playSound) {
+            this.playStoneSound();
+        }
     },
 
     removeStones: function(coordList) {

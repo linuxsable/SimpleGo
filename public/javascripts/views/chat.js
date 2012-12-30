@@ -8,6 +8,12 @@ App.Views.Chat = Backbone.View.extend({
     initialize: function() {
         this.parentView = this.options.parentView;
         this.$content = this.$el.find('.content');
+
+        // HACK
+        var _this = this;
+        $('.chat-input input').on('keypress', function(e) {
+            _this.chatKeypress(e);
+        });
     },
 
     // Needs to be converted to using templates
@@ -20,6 +26,9 @@ App.Views.Chat = Backbone.View.extend({
         });
 
         this.$content.append(msg.render().el);
+
+        // Scroll to bottom
+        this.$el.scrollTop(this.$el.height());
     },
 
     chatKeypress: function(e) {
