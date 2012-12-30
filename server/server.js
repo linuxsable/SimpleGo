@@ -94,11 +94,18 @@ io.sockets.on('connection', function(socket) {
         // Enter the move, get back the results of that move
         var result = match.placeStone(player, data.coord);
 
+        // It's a capture
         if (_.isArray(result)) {
-            // It's a capture
             ack(true, {
                 color: playerColor,
                 captures: result
+            });
+
+            socket.broadcast.to(match.roomId()).emit('placed_stone', {
+                isCapture: true,
+                captures: result,
+                moveCoord: data.coord,
+                color: playerColor
             });
         } else {
             ack(result, { color: playerColor }); 

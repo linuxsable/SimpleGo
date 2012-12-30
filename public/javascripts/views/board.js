@@ -8,6 +8,10 @@ App.Views.Board = Backbone.View.extend({
     initialize: function() {
         this.parentView = this.options.parentView;
         this.$stoneSound = $('#stone-1')[0];
+        this.currentStones = {
+            // Example values:
+            // '3,12': 'stoneView object'
+        };
     },
 
     placeStone: function(e) {
@@ -34,7 +38,8 @@ App.Views.Board = Backbone.View.extend({
                 // Place the stone on the board
                 _this.playStoneSound();
                 var stoneView = new App.Views.Stone({ color: meta.color });
-                $box.append(stoneView.render().el);    
+                $box.append(stoneView.render().el);
+                _this.currentStones[xCoord + ',' + yCoord] = stoneView;
             } else {
                 // Some sort of server error
                 console.log('something went wrong from server');
@@ -44,14 +49,29 @@ App.Views.Board = Backbone.View.extend({
 
     placeOpponentStone: function(color, coord) {
         var $box = this.$el.find('.matrix .box[data-x="' + coord.x + '"][data-y="' + coord.y + '"]');
-        console.log($box);
         var stoneView = new App.Views.Stone({ color: color });
         $box.append(stoneView.render().el);
+        this.currentStones[coord.x + ',' + coord.y] = stoneView;
         this.playStoneSound();
     },
 
-    removeStones: function() {
+    removeStones: function(coordList) {
+        var _this = this;
+        _.each(coordList, function(coord) {
+            var key = coord.join(',');
+            if (_this.currentStones.hasOwnProperty(key)) {
+                _this.currentStones[key].destory();
+            }
+            delete _this.currentStones[key];
+        });
+    },
 
+    removeAllStones: function() {
+        _.each(this.currentStones, function(stone, key) {
+            stone.destory();
+        });
+        this.currentStones = {};
+        return true;
     },
 
     playStoneSound: function() {
