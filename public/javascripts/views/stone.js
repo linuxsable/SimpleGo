@@ -4,6 +4,8 @@ App.Views.Stone = Backbone.View.extend({
 
     initialize: function() {
         this.color = this.options.color;
+        this.ghost = this.options.ghost;
+        this.showHistoryMarker = this.options.showHistoryMarker;
     },
 
     render: function() {
@@ -12,7 +14,15 @@ App.Views.Stone = Backbone.View.extend({
         } else {
             this.$el.addClass('white');
         }
-        this.insertHistoryMarker();
+
+        if (this.ghost) {
+            this.$el.addClass('ghost');
+        }
+
+        if (this.showHistoryMarker) {
+            this.insertHistoryMarker();
+        }
+
         return this;
     },
 

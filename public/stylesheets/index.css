@@ -103,6 +103,10 @@ body {
   position: relative;
 }
 
+.container .board .matrix .box .stone.ghost {
+  opacity: 0.5;
+}
+
 .container .board .matrix .box .stone.white {
   background-image: -moz-radial-gradient(12px 7px, circle farthest-corner, white, #ecebeb 22px);
   background-image: -webkit-radial-gradient(12px 7px, circle farthest-corner, white, #ecebeb 22px);

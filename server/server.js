@@ -66,7 +66,9 @@ io.sockets.on('connection', function(socket) {
         // game state to initalize their instance
         socket.emit('joined_match', {
             messageLog: match.messageLog,
-            moveHistory: match.engine.moveHistory
+            moveHistory: match.engine.moveHistory,
+            playerColor: match.getPlayerColor(player),
+            isPlayersTurn: match.isPlayersTurn(player)
         });
 
         console.log('join');
@@ -111,7 +113,8 @@ io.sockets.on('connection', function(socket) {
                 isCapture: true,
                 captures: result,
                 moveCoord: data.coord,
-                color: playerColor
+                color: playerColor,
+                isPlayersTurn: match.isPlayersTurn(player)
             });
         } else {
             ack(result, { color: playerColor }); 
@@ -122,7 +125,8 @@ io.sockets.on('connection', function(socket) {
                     isCapture: false,
                     captures: null,
                     moveCoord: data.coord,
-                    color: playerColor
+                    color: playerColor,
+                    isPlayersTurn: match.isPlayersTurn(player)
                 });
             }
         }        

@@ -2,13 +2,14 @@ App.Views.Board = Backbone.View.extend({
     el: '.board',
 
     events: {
-        'click .matrix .box': 'placeStone' 
+        'click .matrix .box': 'placeStone',
+        'mouseenter .matrix .box': 'showGhostStone',
+        'mouseleave .matrix .box': 'hideGhostStone'
     },
 
     initialize: function() {
         this.parentView = this.options.parentView;
         this.$stoneSound = $('#stone-1')[0];
-        this.lastStoneView = null;
         this.currentStones = {
             // Example values:
             // '3,12': 'stoneView object'
@@ -23,6 +24,11 @@ App.Views.Board = Backbone.View.extend({
     },
 
     placeStone: function(e) {
+        // Don't do anything if not turn
+        if (!this.parentView.isPlayersTurn) {
+            return;
+        }
+
         var _this = this;
         var $box = $(e.currentTarget);
         var xCoord = $box.data('x');
@@ -38,6 +44,11 @@ App.Views.Board = Backbone.View.extend({
         }, function(valid, meta) {
             // These only get run when the server acks it
             if (valid) {
+                _this.parentView.isPlayersTurn = false;
+
+                // Remove the ghost stone
+                $box.find('.stone.ghost').remove();
+
                 // Remove captures stones if they exist
                 if (!_.isEmpty(meta.captures)) {
                     _this.removeStones(meta.captures);
@@ -47,7 +58,7 @@ App.Views.Board = Backbone.View.extend({
                 _this.removeLastMarker();
 
                 // Place the stone on the board
-                var stoneView = new App.Views.Stone({ color: meta.color });
+                var stoneView = new App.Views.Stone({ color: meta.color, showHistoryMarker: true });
                 $box.append(stoneView.render().el);
                 _this.currentStones[xCoord + ',' + yCoord] = stoneView;
                 _this.playStoneSound();
@@ -66,7 +77,7 @@ App.Views.Board = Backbone.View.extend({
         this.removeLastMarker();
 
         var $box = this.$el.find('.matrix .box[data-x="' + coord.x + '"][data-y="' + coord.y + '"]');
-        var stoneView = new App.Views.Stone({ color: color });
+        var stoneView = new App.Views.Stone({ color: color, showHistoryMarker: true });
         
         $box.append(stoneView.render().el);
         this.currentStones[coord.x + ',' + coord.y] = stoneView;
@@ -96,9 +107,34 @@ App.Views.Board = Backbone.View.extend({
     },
 
     removeLastMarker: function() {
-        console.time('removeLastMarker');
         this.$el.find('.matrix .box .stone .marker').remove();
-        console.timeEnd('removeLastMarker');
+    },
+
+    showGhostStone: function(e) {
+        // Only show this when it's the players turn
+        if (!this.parentView.isPlayersTurn) {
+            return;
+        }
+
+        var $box = $(e.currentTarget);
+
+        // Do nothing if stone exists
+        if ( $box.find('.stone').length ) {
+            return;
+        }
+
+        var stoneView = new App.Views.Stone({
+            color: this.parentView.playerColor,
+            ghost: true,
+            showHistoryMarker: false
+        });
+
+        $box.append(stoneView.render().el);
+    },
+
+    hideGhostStone: function(e) {
+        var $box = $(e.currentTarget);
+        $box.find('.stone.ghost').remove();
     },
 
     playStoneSound: function() {

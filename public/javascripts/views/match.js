@@ -7,6 +7,8 @@ App.Views.Match = Backbone.View.extend({
 
     initialize: function() {
         this.matchId = this.options.matchId;
+        this.playerColor = null;
+        this.isPlayersTurn = false;
         this.boardView = new App.Views.Board({ parentView: this });
         this.chatView = new App.Views.Chat({ parentView: this });
         this.setupSockets();
@@ -26,6 +28,9 @@ App.Views.Match = Backbone.View.extend({
         // joined the match. used for initalizing
         // game state, etc
         this.socket.on('joined_match', function(data) {
+            _this.playerColor = data.playerColor;
+            _this.isPlayersTurn = data.isPlayersTurn;
+
             // Fill in the chat messages prior
             _.each(data.messageLog, function(item) {
                 _this.chatView.insertMessage(item.type, item.msg, item.playerName);
@@ -40,6 +45,7 @@ App.Views.Match = Backbone.View.extend({
         });
 
         this.socket.on('placed_stone', function(data) {
+            _this.isPlayersTurn = !data.isPlayersTurn;
             _this.boardView.placeStoneWithoutEvents(data.color, data.moveCoord);
             if (data.isCapture) {
                 _this.boardView.removeStones(data.captures);
