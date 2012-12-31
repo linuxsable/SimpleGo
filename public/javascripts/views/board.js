@@ -8,6 +8,7 @@ App.Views.Board = Backbone.View.extend({
     initialize: function() {
         this.parentView = this.options.parentView;
         this.$stoneSound = $('#stone-1')[0];
+        this.lastStoneView = null;
         this.currentStones = {
             // Example values:
             // '3,12': 'stoneView object'
@@ -42,11 +43,14 @@ App.Views.Board = Backbone.View.extend({
                     _this.removeStones(meta.captures);
                 }
 
+                // Remove last marker
+                _this.removeLastMarker();
+
                 // Place the stone on the board
-                _this.playStoneSound();
                 var stoneView = new App.Views.Stone({ color: meta.color });
                 $box.append(stoneView.render().el);
                 _this.currentStones[xCoord + ',' + yCoord] = stoneView;
+                _this.playStoneSound();
             } else {
                 // Some sort of server error
                 console.log('something went wrong from server');
@@ -58,6 +62,8 @@ App.Views.Board = Backbone.View.extend({
         if (playSound == undefined) {
             playSound = true;
         }
+
+        this.removeLastMarker();
 
         var $box = this.$el.find('.matrix .box[data-x="' + coord.x + '"][data-y="' + coord.y + '"]');
         var stoneView = new App.Views.Stone({ color: color });
@@ -87,6 +93,12 @@ App.Views.Board = Backbone.View.extend({
         });
         this.currentStones = {};
         return true;
+    },
+
+    removeLastMarker: function() {
+        console.time('removeLastMarker');
+        this.$el.find('.matrix .box .stone .marker').remove();
+        console.timeEnd('removeLastMarker');
     },
 
     playStoneSound: function() {

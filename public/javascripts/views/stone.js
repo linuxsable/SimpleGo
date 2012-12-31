@@ -12,7 +12,16 @@ App.Views.Stone = Backbone.View.extend({
         } else {
             this.$el.addClass('white');
         }
+        this.insertHistoryMarker();
         return this;
+    },
+
+    insertHistoryMarker: function() {
+        this.$el.html( $('<div class="marker">') );
+    },
+
+    removeHistoryMarker: function() {
+        this.$el.html('');
     },
 
     destory: function() {

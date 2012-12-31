@@ -42,7 +42,6 @@ App.Views.Match = Backbone.View.extend({
         this.socket.on('placed_stone', function(data) {
             _this.boardView.placeStoneWithoutEvents(data.color, data.moveCoord);
             if (data.isCapture) {
-                console.log(data.isCapture);
                 _this.boardView.removeStones(data.captures);
             }
         });

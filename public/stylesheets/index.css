@@ -112,18 +112,35 @@ body {
 }
 
 .container .board .matrix .box .stone.black {
-  background-image: -moz-radial-gradient(12px 7px, circle farthest-corner, #444444, #222222 22px);
-  background-image: -webkit-radial-gradient(12px 7px, circle farthest-corner, #444444, #222222 22px);
-  background-image: -o-radial-gradient(12px 7px, circle farthest-corner, #444444, #222222 22px);
-  background-image: -ms-radial-gradient(12px 7px, circle farthest-corner, #444444, #222222 22px);
-  background-image: radial-gradient(12px 7px, circle farthest-corner, #444444, #222222 22px);
+  background-image: -moz-radial-gradient(12px 7px, circle farthest-corner, #444, #111 22px);
+  background-image: -webkit-radial-gradient(12px 7px, circle farthest-corner, #444, #111 22px);
+  background-image: -o-radial-gradient(12px 7px, circle farthest-corner, #444, #111 22px);
+  background-image: -ms-radial-gradient(12px 7px, circle farthest-corner, #444, #111 22px);
+  background-image: radial-gradient(12px 7px, circle farthest-corner, #444, #111 22px);
+}
+
+.container .board .matrix .box .stone .marker {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  border-radius: 8px;
+}
+
+.container .board .matrix .box .stone.white .marker {
+  background: #ddd;
+}
+
+.container .board .matrix .box .stone.black .marker {
+  background: #555;
 }
 
 .container .chat {
   width: 239px;
-  height: 760px;
+  height: 755px;
   float: right;
-  border: 1px solid #222;
+  border: 1px solid #444;
   margin-left: 30px;
   position: relative;
   overflow: scroll;
@@ -132,7 +149,7 @@ body {
 .container .chat header {
   font-size: 14px;
   font-weight: bold;
-  background: #222;
+  background: #444;
 }
 
 .container .chat .content {
