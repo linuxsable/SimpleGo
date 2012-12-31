@@ -1,10 +1,13 @@
 var _ = require('underscore');
+var helpers = require('./helpers');
 var Engine = require('./engine').Engine;
 
 function Match(id) {
     this.id = id;
     this.black = null;
+    this.blackSocketId = null;
     this.white = null;
+    this.whiteSocketId = null;
     this.lastPlayerTurn = null;
     this.spectators = {};
     this.messageLog = [];
@@ -20,13 +23,22 @@ _.extend(Match.prototype, {
     },
 
     joinAsBlack: function(player) {
+        if (this.blackSocketId && this.blackSocketId != player.id) {
+            return false;
+        }
         player.joinMatch(this);
         this.black = player;    
+        this.blackSocketId = player.id;
     },
 
     joinAsWhite: function(player) {
+        // Can't join as white already joined
+        if (this.whiteSocketId && this.whiteSocketId != player.id) {
+            return false;
+        }
         player.joinMatch(this);
         this.white = player;
+        this.whiteSocketId = player.id;
     },
 
     joinAsSpectator: function(player) {
@@ -35,7 +47,7 @@ _.extend(Match.prototype, {
     },
 
     needsOpponent: function() {
-        return !this.white;    
+        return !this.whiteSocketId;
     },
 
     isPlayerInMatch: function(player) {
@@ -48,6 +60,14 @@ _.extend(Match.prototype, {
 
     isPlayerWhite: function(player) {
         return this.white.id == player.id;    
+    },
+    
+    wasPlayerBlack: function(player) {
+        return this.blackSocketId == player.id;
+    },
+
+    wasPlayerWhite: function(player) {
+        return this.whiteSocketId == player.id;
     },
 
     getPlayerColor: function(player) {
@@ -62,7 +82,7 @@ _.extend(Match.prototype, {
         var isSpectator = false;
         _.each(this.spectators, function(spectator) {
             if (spectator.id == player.id) {
-                isSpectator;
+                isSpectator = true;
                 return false;
             }
         });

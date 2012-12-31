@@ -5,6 +5,7 @@ var app = require('express')(),
     path = require('path'),
     crypto = require('crypto'),
     _ = require('underscore'),
+    helpers = require('./helpers').helpers,
     Player = require('./player').Player,
     Match = require('./match').Match;
 
@@ -31,31 +32,37 @@ io.sockets.on('connection', function(socket) {
         var player = new Player(socket, data.playerName);
         players[player.id] = player;
 
+        var msgEntry;
+
         // If there's a match, join it
         if (matches.hasOwnProperty(data.id)) {
             var match = matches[data.id];
-            if (match.needsOpponent()) {
+
+            // Is it a rejoin because the player got disconnected?
+            if (match.wasPlayerBlack(player)) {
+                match.joinAsBlack(player);
+                msgEntry = helpers.blackJoinMessage(match, player);
+            }
+            else if (match.wasPlayerWhite(player)) {
                 match.joinAsWhite(player);
-                var msgEntry = match.logMessage(
-                    Match.MESSAGE_TYPE.SYSTEM,
-                    player.name + ' joined as white'
-                );
-            } else {
-                match.joinAsSpectator(player);
-                var msgEntry = match.logMessage(
-                    Match.MESSAGE_TYPE.SYSTEM,
-                    player.name + ' joined as spectator'
-                );
+                msgEntry = helpers.whiteJoinMessage(match, player);
+            }
+            // This isn't a rejoin from a disconnect
+            else {
+                if (match.needsOpponent()) {
+                    match.joinAsWhite(player);
+                    msgEntry = helpers.whiteJoinMessage(match, player);
+                } else {
+                    match.joinAsSpectator(player);
+                    msgEntry = helpers.spectatorJoinMessage(match, player);
+                }
             }
         } else {
             // If there's no match, create one    
             var match = new Match(data.id);
             matches[data.id] = match;
             match.joinAsBlack(player);
-            var msgEntry = match.logMessage(
-                Match.MESSAGE_TYPE.SYSTEM,
-                player.name + ' joined as black'
-            );
+            msgEntry = helpers.blackJoinMessage(match, player);
         }
 
         // Let everyone know they have entered the room
@@ -188,7 +195,6 @@ io.sockets.on('connection', function(socket) {
         // Remove the player from the players
         delete players[player.id];
 
-        console.log(matches);
-        console.log(players);
+        console.log(currentMatch);
     });
 });
