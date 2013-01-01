@@ -69,9 +69,9 @@ _.extend(Engine.prototype, {
     },
 
     oppositeColor: function(color) {
-        if(color === this.COLORS.BLACK) {
+        if (color === this.COLORS.BLACK) {
             return this.COLORS.WHITE;
-        } else if(color === this.COLORS.WHITE) {
+        } else if (color === this.COLORS.WHITE) {
             return this.COLORS.BLACK;
         }
     },
