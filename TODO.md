@@ -1,4 +1,5 @@
-- V1 Milestone TODOs
+V1 Milestone TODOs
+==================
 
 * Board coordinates
 * Fluid board (can be resized to fit screen)
