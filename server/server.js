@@ -39,12 +39,10 @@ io.sockets.on('connection', function(socket) {
             var match = matches[data.id];
 
             // Is it a rejoin because the player got disconnected?
-            if (match.doesPlayerHaveBlackAuthHash(player)) {
-                match.joinAsBlack(player);
+            if (match.doesPlayerHaveBlackAuthHash(player) && match.joinAsBlack(player)) {
                 msgEntry = match.blackJoinMessage(player, true);
             }
-            else if (match.doesPlayerHaveWhiteAuthHash(player)) {
-                match.joinAsWhite(player);
+            else if (match.doesPlayerHaveWhiteAuthHash(player) && match.joinAsWhite(player)) {
                 msgEntry = match.whiteJoinMessage(player, true);
             }
             // This isn't a rejoin from a disconnect

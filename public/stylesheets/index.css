@@ -137,7 +137,7 @@ body {
 }
 
 .container .board .matrix .box .stone.black .marker {
-  background: #444;
+  background: #666;
 }
 
 .container .chat {

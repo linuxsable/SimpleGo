@@ -28,20 +28,22 @@ _.extend(Match.prototype, {
         // Attempt a rejoin
         if (this.blackAuthHashTaken) {
             if (player.matchAuthHash == this.blackAuthHash) {
-                player.joinMatch(this, this.blackAuthHash);
-                this.black = player;
-                return true;    
-            } else {
-                return false;
+                if (this.black == null) {
+                    player.joinMatch(this, this.blackAuthHash);
+                    this.black = player;    
+                    return true;
+                }
             }
         }
 
         // It's a first time black join
         else {
-            player.joinMatch(this, this.blackAuthHash);
-            this.black = player;
-            this.blackAuthHashTaken = true;
-            return true;
+            if (this.black == null) {
+                player.joinMatch(this, this.blackAuthHash);
+                this.black = player;
+                this.blackAuthHashTaken = true;
+                return true;
+            }
         }
 
         return false;
@@ -50,18 +52,21 @@ _.extend(Match.prototype, {
     joinAsWhite: function(player) {
         if (this.whiteAuthHashTaken) {
             if (player.matchAuthHash == this.whiteAuthHash) {
-                player.joinMatch(this, this.whiteAuthHash);
-                this.white = player;
-            } else {
-                return false;
+                if (this.white == null) {
+                    player.joinMatch(this, this.whiteAuthHash);
+                    this.white = player;    
+                    return true;
+                }   
             }
         }
 
         else {
-            player.joinMatch(this, this.whiteAuthHash);
-            this.white = player;
-            this.whiteAuthHashTaken = true;
-            return true;
+            if (this.white == null) {
+                player.joinMatch(this, this.whiteAuthHash);
+                this.white = player;
+                this.whiteAuthHashTaken = true;
+                return true;    
+            }
         }
 
         return false;
