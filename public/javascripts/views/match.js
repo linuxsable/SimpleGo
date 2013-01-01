@@ -21,7 +21,8 @@ App.Views.Match = Backbone.View.extend({
         
         this.socket.emit('join_match', {
             id: _this.matchId,
-            playerName: App.helpers.getPlayerName()
+            playerName: App.helpers.getPlayerName(),
+            matchAuthHash: App.helpers.getAuthHash(this.matchId)
         });
 
         // This gets fired once the client has
@@ -30,6 +31,8 @@ App.Views.Match = Backbone.View.extend({
         this.socket.on('joined_match', function(data) {
             _this.playerColor = data.playerColor;
             _this.isPlayersTurn = data.isPlayersTurn;
+
+            App.helpers.setAuthHash(_this.matchId, data.matchAuthHash);
 
             // Fill in the chat messages prior
             _.each(data.messageLog, function(item) {

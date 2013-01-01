@@ -1,13 +1,15 @@
 var _ = require('underscore');
-var helpers = require('./helpers');
 var Engine = require('./engine').Engine;
+var crypto = require('crypto');
 
 function Match(id) {
     this.id = id;
     this.black = null;
-    this.blackSocketId = null;
+    this.blackAuthHash = this.createSaltedHash();
+    this.blackAuthHashTaken = false;
     this.white = null;
-    this.whiteSocketId = null;
+    this.whiteAuthHash = this.createSaltedHash();
+    this.whiteAuthHashTaken = false;
     this.lastPlayerTurn = null;
     this.spectators = {};
     this.messageLog = [];
@@ -23,31 +25,55 @@ _.extend(Match.prototype, {
     },
 
     joinAsBlack: function(player) {
-        if (this.blackSocketId && this.blackSocketId != player.id) {
-            return false;
+        // Attempt a rejoin
+        if (this.blackAuthHashTaken) {
+            if (player.matchAuthHash == this.blackAuthHash) {
+                player.joinMatch(this, this.blackAuthHash);
+                this.black = player;
+                return true;    
+            } else {
+                return false;
+            }
         }
-        player.joinMatch(this);
-        this.black = player;    
-        this.blackSocketId = player.id;
+
+        // It's a first time black join
+        else {
+            player.joinMatch(this, this.blackAuthHash);
+            this.black = player;
+            this.blackAuthHashTaken = true;
+            return true;
+        }
+
+        return false;
     },
 
     joinAsWhite: function(player) {
-        // Can't join as white already joined
-        if (this.whiteSocketId && this.whiteSocketId != player.id) {
-            return false;
+        if (this.whiteAuthHashTaken) {
+            if (player.matchAuthHash == this.whiteAuthHash) {
+                player.joinMatch(this, this.whiteAuthHash);
+                this.white = player;
+            } else {
+                return false;
+            }
         }
-        player.joinMatch(this);
-        this.white = player;
-        this.whiteSocketId = player.id;
+
+        else {
+            player.joinMatch(this, this.whiteAuthHash);
+            this.white = player;
+            this.whiteAuthHashTaken = true;
+            return true;
+        }
+
+        return false;
     },
 
     joinAsSpectator: function(player) {
-        player.joinMatch(this);
+        player.joinMatch(this, null);
         this.spectators[player.id] = player;    
     },
 
     needsOpponent: function() {
-        return !this.whiteSocketId;
+        return !this.whiteAuthHashTaken;
     },
 
     isPlayerInMatch: function(player) {
@@ -55,19 +81,17 @@ _.extend(Match.prototype, {
     },
 
     isPlayerBlack: function(player) {
-        return this.black.id == player.id;    
+        if (this.black) {
+            return this.black.id == player.id;
+        }
+        return false;
     },
 
     isPlayerWhite: function(player) {
-        return this.white.id == player.id;    
-    },
-    
-    wasPlayerBlack: function(player) {
-        return this.blackSocketId == player.id;
-    },
-
-    wasPlayerWhite: function(player) {
-        return this.whiteSocketId == player.id;
+        if (this.white) {
+            return this.white.id == player.id;        
+        }
+        return false;
     },
 
     getPlayerColor: function(player) {
@@ -136,6 +160,54 @@ _.extend(Match.prototype, {
             this.lastPlayerTurn = player;
         }
         return result;
+    },
+
+    createSaltedHash: function() {
+        var salt = crypto.randomBytes(128).toString('base64');
+        var textSalt = 'tread.softly.because.you.tread.on.my.dreams';
+        return crypto.createHash('md5').update(salt + textSalt).digest('hex');
+    },
+
+    whiteJoinMessage: function(player, rejoin) {
+        var joinMsg = rejoin ? 'rejoined' : 'joined';
+        return this.logMessage(
+            Match.MESSAGE_TYPE.SYSTEM,
+            player.name + ' ' + joinMsg + ' as white'
+        );
+    },
+
+    blackJoinMessage: function(player, rejoin) {
+        var joinMsg = rejoin ? 'rejoined' : 'joined';
+        return this.logMessage(
+            Match.MESSAGE_TYPE.SYSTEM,
+            player.name + ' ' + joinMsg + ' as black'
+        );
+    },
+
+    spectatorJoinMessage: function(player, rejoin) {
+        var joinMsg = rejoin ? 'rejoined' : 'joined';
+        return this.logMessage(
+            Match.MESSAGE_TYPE.SYSTEM,
+            player.name + ' ' + joinMsg + ' as spectator'
+        );
+    },
+
+    isAuthHashValid: function(player) {
+        if (this.isPlayerBlack(player)) {
+            return this.blackAuthHash == player.matchAuthHash;
+        }
+        else if (this.isPlayerWhite(player)) {
+            return this.whiteAuthHash == player.matchAuthHash;
+        }
+        return null;
+    },
+
+    doesPlayerHaveBlackAuthHash: function(player) {
+        return player.matchAuthHash == this.blackAuthHash;
+    },
+
+    doesPlayerHaveWhiteAuthHash: function(player) {
+        return player.matchAuthHash == this.whiteAuthHash;
     }
 });
 

@@ -20,6 +20,14 @@ window.App = {
                 return 'Player';
             }
             return name;
+        },
+
+        getAuthHash: function(matchId) {
+            return localStorage.getItem('match:' + matchId + ':auth_hash');
+        },
+
+        setAuthHash: function(matchId, value) {
+            return localStorage.setItem('match:' + matchId + ':auth_hash', value);
         }
     },
 

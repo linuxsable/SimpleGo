@@ -29,7 +29,7 @@ io.sockets.on('connection', function(socket) {
         }
 
         // Create player object
-        var player = new Player(socket, data.playerName);
+        var player = new Player(socket, data.playerName, data.matchAuthHash);
         players[player.id] = player;
 
         var msgEntry;
@@ -39,22 +39,22 @@ io.sockets.on('connection', function(socket) {
             var match = matches[data.id];
 
             // Is it a rejoin because the player got disconnected?
-            if (match.wasPlayerBlack(player)) {
+            if (match.doesPlayerHaveBlackAuthHash(player)) {
                 match.joinAsBlack(player);
-                msgEntry = helpers.blackJoinMessage(match, player);
+                msgEntry = match.blackJoinMessage(player, true);
             }
-            else if (match.wasPlayerWhite(player)) {
+            else if (match.doesPlayerHaveWhiteAuthHash(player)) {
                 match.joinAsWhite(player);
-                msgEntry = helpers.whiteJoinMessage(match, player);
+                msgEntry = match.whiteJoinMessage(player, true);
             }
             // This isn't a rejoin from a disconnect
             else {
                 if (match.needsOpponent()) {
                     match.joinAsWhite(player);
-                    msgEntry = helpers.whiteJoinMessage(match, player);
+                    msgEntry = match.whiteJoinMessage(player);
                 } else {
                     match.joinAsSpectator(player);
-                    msgEntry = helpers.spectatorJoinMessage(match, player);
+                    msgEntry = match.spectatorJoinMessage(player);
                 }
             }
         } else {
@@ -62,7 +62,7 @@ io.sockets.on('connection', function(socket) {
             var match = new Match(data.id);
             matches[data.id] = match;
             match.joinAsBlack(player);
-            msgEntry = helpers.blackJoinMessage(match, player);
+            msgEntry = match.blackJoinMessage(player);
         }
 
         // Let everyone know they have entered the room
@@ -75,11 +75,11 @@ io.sockets.on('connection', function(socket) {
             messageLog: match.messageLog,
             moveHistory: match.engine.moveHistory,
             playerColor: match.getPlayerColor(player),
-            isPlayersTurn: match.isPlayersTurn(player)
+            isPlayersTurn: match.isPlayersTurn(player),
+            matchAuthHash: player.matchAuthHash
         });
 
-        console.log('join');
-        console.log(matches);
+        // console.log(matches);
     });
 
     socket.on('place_stone', function(data, ack) {
@@ -101,6 +101,12 @@ io.sockets.on('connection', function(socket) {
 
         // Don't allow the game to start without an opponent
         if (match.needsOpponent()) {
+            return ack(false);
+        }
+
+        // Check the auth hash
+        if (!match.isAuthHashValid(player)) {
+            console.log('bad auth hash!');
             return ack(false);
         }
 

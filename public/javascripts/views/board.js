@@ -37,6 +37,7 @@ App.Views.Board = Backbone.View.extend({
         // Ask permission if the move is valid
         this.parentView.socket.emit('place_stone', {
             matchId: this.parentView.matchId,
+            authHash: App.helpers.getAuthHash(this.parentView.matchId),
             coord: {
                 x: xCoord,
                 y: yCoord
