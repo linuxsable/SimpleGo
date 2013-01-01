@@ -127,7 +127,7 @@ io.sockets.on('connection', function(socket) {
                 captures: result,
                 moveCoord: data.coord,
                 color: playerColor,
-                isPlayersTurn: match.isPlayersTurn(player)
+                isPlayersTurn: !match.isPlayersTurn(player)
             });
         } else {
             ack(result, { color: playerColor }); 
@@ -139,7 +139,7 @@ io.sockets.on('connection', function(socket) {
                     captures: null,
                     moveCoord: data.coord,
                     color: playerColor,
-                    isPlayersTurn: match.isPlayersTurn(player)
+                    isPlayersTurn: !match.isPlayersTurn(player)
                 });
             }
         }        

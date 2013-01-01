@@ -48,7 +48,7 @@ App.Views.Match = Backbone.View.extend({
         });
 
         this.socket.on('placed_stone', function(data) {
-            _this.isPlayersTurn = !data.isPlayersTurn;
+            _this.isPlayersTurn = data.isPlayersTurn;
             _this.boardView.placeStoneWithoutEvents(data.color, data.moveCoord);
             if (data.isCapture) {
                 _this.boardView.removeStones(data.captures);

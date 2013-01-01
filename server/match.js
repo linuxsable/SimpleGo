@@ -147,10 +147,15 @@ _.extend(Match.prototype, {
 
     isPlayersTurn: function(player) {
         // Black starts if game hasn't started
-        if (this.lastPlayerTurn == null) {
+        if (!this.lastPlayerTurn) {
             return this.isPlayerBlack(player);
         }
-        return this.lastPlayerTurn.id != player.id;
+        // Handles a bug with rejoining. Reset the matchAuthHash
+        // to the last rejoined played.
+        else if (this.lastPlayerTurn.matchAuthHash == null) {
+            this.lastPlayerTurn = player;
+        }
+        return this.lastPlayerTurn.matchAuthHash != player.matchAuthHash;
     },
 
     placeStone: function(player, coord) {
