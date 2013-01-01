@@ -10,6 +10,7 @@ App.Views.Board = Backbone.View.extend({
     initialize: function() {
         this.parentView = this.options.parentView;
         this.$stoneSound = $('#stone-1')[0];
+        this.$stoneSoundOpponent = $('#stone-2')[0];
         this.currentStones = {
             // Example values:
             // '3,12': 'stoneView object'
@@ -84,7 +85,7 @@ App.Views.Board = Backbone.View.extend({
         this.currentStones[coord.x + ',' + coord.y] = stoneView;
 
         if (playSound) {
-            this.playStoneSound();
+            this.playOpponentStoneSound();
         }
     },
 
@@ -141,5 +142,10 @@ App.Views.Board = Backbone.View.extend({
     playStoneSound: function() {
         this.$stoneSound.load();
         this.$stoneSound.play();
+    },
+
+    playOpponentStoneSound: function() {
+        this.$stoneSoundOpponent.load();
+        this.$stoneSoundOpponent.play();
     }
 });
