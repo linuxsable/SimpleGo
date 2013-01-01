@@ -133,11 +133,11 @@ body {
 }
 
 .container .board .matrix .box .stone.white .marker {
-  background: #ddd;
+  background: #ccc;
 }
 
 .container .board .matrix .box .stone.black .marker {
-  background: #555;
+  background: #444;
 }
 
 .container .chat {
