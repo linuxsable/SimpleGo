@@ -5,6 +5,7 @@ function Engine() {
     this.moveHistory = [];
     this.captureCounts = { 1: 0, 2: 0 };
     this.COLORS = { BLACK: 1, WHITE: 2 };
+    this.koCoord = { x: -1, y: -1 };
 
     this.initMatrix();
 }
@@ -67,6 +68,14 @@ _.extend(Engine.prototype, {
         return color === this.COLORS.BLACK || color === this.COLORS.WHITE;
     },
 
+    oppositeColor: function(color) {
+        if(color === this.COLORS.BLACK) {
+            return this.COLORS.WHITE;
+        } else if(color === this.COLORS.WHITE) {
+            return this.COLORS.BLACK;
+        }
+    },
+
     isValidCoord: function(x, y) {
         if (x > 18 || x < 0) {
             return false;
@@ -87,6 +96,11 @@ _.extend(Engine.prototype, {
         }
 
         if (!this.isCoordOpen(x, y)) {
+            return false;
+        }
+
+        // Illegal to play on ko coordinate
+        if (x === this.koCoord.x && y === this.koCoord.y) {
             return false;
         }
 
@@ -114,6 +128,18 @@ _.extend(Engine.prototype, {
         console.timeEnd('is capture');
 
         return result;
+    },
+
+    isKo: function(color, x, y, captures) {
+        // It can only be a ko if only 1 stone was captured
+        if (captures.length != 1) {
+           return false;
+        }
+
+        // It is a ko if the opponent immediately playing in the spot where the stone
+        // was captured would also be a capture
+        return (this.isCapture(this.oppositeColor(color), captures[0][0], captures[0][1]));
+        
     },
 
     hasLiberties: function(x, y, visited) {
@@ -193,6 +219,19 @@ _.extend(Engine.prototype, {
         if (this.isValidCoord(x, y + 1) && !this.isCoordOpen(x, y + 1) && this.getColorAtCoord(x, y + 1) !== color && !this.hasLiberties(x, y + 1)) {
             captures = captures.concat(this.capture(x, y + 1));
         }
+
+        // Take care of ko
+        if (this.isKo(color, x, y, captures)) {
+            // Set variable to keep track of where illegal ko move is
+            this.koCoord.x = captures[0][0];
+            this.koCoord.y = captures[0][1];
+            // TODO: Need to add code to mark ko on board
+        } else {
+            // Not a ko, clear out ko coordinates
+            this.koCoord.x = -1;
+            this.koCoord.y = -1;
+        }
+
         return captures;
     }
 });
