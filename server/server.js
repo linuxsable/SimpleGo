@@ -161,14 +161,40 @@ io.sockets.on('connection', function(socket) {
 
         var match = matches[data.matchId];
 
-        // Keep a buffer
-        var logEntry = match.logMessage(
-            Match.MESSAGE_TYPE.CHAT,
-            data.message,
-            data.playerName
-        );
+        // Check if it's a command, not a message
+        if (match.isServerMessage(data.message)) {
+            var commandMessage;
+            switch (data.message) {
+                case '/stats':
+                    commandMessage = 'Server stats';
+                    commandMessage += '<br/>Matches: ' + _.size(matches);
+                    commandMessage += '<br/>Players: ' + _.size(players);
+                    break;
+                default:
+                    commandMessage = 'Help'
+                    commandMessage += '<br/>Available commands: /h, /stats';
+                    break;
+            }
 
-        io.sockets.in(match.roomId()).emit('chat_message', logEntry);
+            var entry = match.createMessage(
+                Match.MESSAGE_TYPE.COMMAND,
+                commandMessage,
+                null
+            );
+
+            socket.emit('chat_message', entry);
+        }
+
+        else {
+            // Keep a buffer
+            var logEntry = match.logMessage(
+                Match.MESSAGE_TYPE.CHAT,
+                data.message,
+                data.playerName
+            );
+
+            io.sockets.in(match.roomId()).emit('chat_message', logEntry);    
+        }
     });
 
     socket.on('disconnect', function() {

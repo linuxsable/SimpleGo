@@ -168,6 +168,10 @@ body {
   font-style: italic;
 }
 
+.container .chat .content .message.command {
+  color: #666;
+}
+
 .container .chat .content .message span {
   font-weight: bold;
 }

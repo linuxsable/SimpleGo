@@ -17,7 +17,7 @@ function Match(id) {
 }
 
 // Class level constants
-Match.MESSAGE_TYPE = { CHAT: 1, SYSTEM: 2 };
+Match.MESSAGE_TYPE = { CHAT: 1, SYSTEM: 2, COMMAND: 3 };
 
 _.extend(Match.prototype, {
     roomId: function() {
@@ -137,16 +137,18 @@ _.extend(Match.prototype, {
         return !this.black && !this.white && _.isEmpty(this.spectators);
     },
 
-    logMessage: function(type, msg, playerName) {
-        var entry = {
+    createMessage: function(type, msg, playerName) {
+        return {
             type: type,
             msg: msg,
             playerName: playerName,
             timestamp: new Date().getTime()
         };
+    },
 
+    logMessage: function(type, msg, playerName) {
+        var entry = this.createMessage(type, msg, playerName);
         this.messageLog.push(entry);
-
         return entry;
     },
 
@@ -218,6 +220,10 @@ _.extend(Match.prototype, {
 
     doesPlayerHaveWhiteAuthHash: function(player) {
         return player.matchAuthHash == this.whiteAuthHash;
+    },
+
+    isServerMessage: function(message) {
+        return message && message[0] == '/';
     }
 });
 

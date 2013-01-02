@@ -14,7 +14,8 @@ App.Views.ChatMessage = Backbone.View.extend({
 
         this.TYPES = {
             CHAT: 1,
-            SYSTEM: 2
+            SYSTEM: 2,
+            COMMAND: 3
         };
     },
 
@@ -30,6 +31,11 @@ App.Views.ChatMessage = Backbone.View.extend({
 
         else if (this.type == this.TYPES.SYSTEM) {
             this.$el.addClass('system');
+            this.$el.html(this.msg);
+        }
+
+        else if (this.type == this.TYPES.COMMAND) {
+            this.$el.addClass('command');
             this.$el.html(this.msg);
         }
 
