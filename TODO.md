@@ -10,3 +10,7 @@ V1 Milestone TODOs
 * Basic timer
 * Proper board state loading
 * Persistence
+* Old browser blocking
+* FAQ page
+* About Page
+* User feedback UI

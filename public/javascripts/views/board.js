@@ -2,9 +2,9 @@ App.Views.Board = Backbone.View.extend({
     el: '.board',
 
     events: {
-        'click .matrix .box': 'placeStone',
-        'mouseenter .matrix .box': 'showGhostStone',
-        'mouseleave .matrix .box': 'hideGhostStone'
+        'click .matrix table td': 'placeStone',
+        'mouseenter .matrix table td': 'showGhostStone',
+        'mouseleave .matrix table td': 'hideGhostStone'
     },
 
     initialize: function() {

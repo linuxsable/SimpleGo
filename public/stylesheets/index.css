@@ -1,3 +1,9 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
@@ -35,12 +41,12 @@ body {
 }
 
 .container .board {
-  width: 780px;
-  height: 780px;
+  width: 800px;
+  height: 800px;
   float: left;
   position: relative;
   background-image: url("../images/retina_wood_@2X.png");
-  border-radius: 2px;
+  border-radius: 1px;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -50,41 +56,46 @@ body {
   user-select: none;
 }
 
-.container .board .inner, .container .board .matrix {
-  width: 720px;
-  height: 720px;
+.container .board .inner {
+  width: 780px;
+  height: 780px;
   position: absolute;
   top: 50%;
   left: 50%;
   margin: -360px 0 0 -360px;
-  border-top: 1px solid #333;
-  border-left: 1px solid #333;
 }
 
-.container .board .inner .box, .container .board .matrix .box {
-  width: 39px;
-  height: 39px;
-  float: left;
-  border-right: 1px solid #333;
-  border-bottom: 1px solid #333;
-}
-
-.container .board .matrix {
-  width: 760px;
-  height: 760px;
-  margin: -380px 0 0 -380px;
-  z-index: 2;
-  border: none;
-}
-
-.container .board .matrix .box {
-  width: 40px;
-  height: 40px;
-  border: none;
+.container .board .inner table {
   position: relative;
 }
 
-.container .board .matrix .box .starpoint {
+.container .board .inner table td {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #555;
+}
+
+.container .board .matrix {
+  width: 780px;
+  height: 780px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -380px 0 0 -380px;
+  z-index: 2;
+}
+
+.container .board .matrix table {
+  position: relative;
+}
+
+.container .board .matrix table td {
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.container .board .matrix table td .starpoint {
   width: 7px;
   height: 7px;
   background: #333;
@@ -94,20 +105,20 @@ body {
   left: 17px;
 }
 
-.container .board .matrix .box .stone {
+.container .board .matrix table td .stone {
   width: 38px;
   height: 38px;
   margin: 1px 0 0 1px;
   border-radius: 20px;
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
   position: relative;
 }
 
-.container .board .matrix .box .stone.ghost {
+.container .board .matrix table td .stone.ghost {
   opacity: 0.5;
 }
 
-.container .board .matrix .box .stone.white {
+.container .board .matrix table td .stone.white {
   background-image: -moz-radial-gradient(12px 7px, circle farthest-corner, white, #ecebeb 22px);
   background-image: -webkit-radial-gradient(12px 7px, circle farthest-corner, white, #ecebeb 22px);
   background-image: -o-radial-gradient(12px 7px, circle farthest-corner, white, #ecebeb 22px);
@@ -115,7 +126,7 @@ body {
   background-image: radial-gradient(12px 7px, circle farthest-corner, white, #ecebeb 22px);
 }
 
-.container .board .matrix .box .stone.black {
+.container .board .matrix table td .stone.black {
   background-image: -moz-radial-gradient(12px 7px, circle farthest-corner, #444, #111 22px);
   background-image: -webkit-radial-gradient(12px 7px, circle farthest-corner, #444, #111 22px);
   background-image: -o-radial-gradient(12px 7px, circle farthest-corner, #444, #111 22px);
@@ -123,7 +134,7 @@ body {
   background-image: radial-gradient(12px 7px, circle farthest-corner, #444, #111 22px);
 }
 
-.container .board .matrix .box .stone .marker {
+.container .board .matrix table td .stone .marker {
   width: 10px;
   height: 10px;
   position: absolute;
@@ -132,11 +143,11 @@ body {
   border-radius: 8px;
 }
 
-.container .board .matrix .box .stone.white .marker {
+.container .board .matrix table td .stone.white .marker {
   background: #ccc;
 }
 
-.container .board .matrix .box .stone.black .marker {
+.container .board .matrix table td .stone.black .marker {
   background: #666;
 }
 
