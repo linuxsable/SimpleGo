@@ -5,7 +5,6 @@ var app = require('express')(),
     path = require('path'),
     crypto = require('crypto'),
     _ = require('underscore'),
-    helpers = require('./helpers').helpers,
     Player = require('./player').Player,
     Match = require('./match').Match;
 
