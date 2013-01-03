@@ -39,9 +39,26 @@ body {
   margin: 0 auto;
 }
 
+.container .centered .board-header {
+  width: 770px;
+  height: 30px;
+  position: relative;
+  font-size: 14px;
+}
+
+.container .centered .board-header .left {
+  position: absolute;
+  left: 0;
+}
+
+.container .centered .board-header .right {
+  position: absolute;
+  right: 0;
+}
+
 .container .board {
-  width: 800px;
-  height: 800px;
+  width: 770px;
+  height: 770px;
   float: left;
   position: relative;
   background-image: url("../images/retina_wood_@2X.png");
@@ -95,13 +112,13 @@ body {
 }
 
 .container .board .matrix table td .starpoint {
-  width: 7px;
-  height: 7px;
+  width: 5px;
+  height: 5px;
   background: #333;
   border-radius: 10px;
   position: absolute;
-  top: 16px;
-  left: 16px;
+  top: 17px;
+  left: 17px;
 }
 
 .container .board .matrix table td .stone {
@@ -170,7 +187,9 @@ body {
 }
 
 .container .chat .content .message {
-  padding: 2px 0;
+  padding: 1px 0;
+  line-height: 16px;
+  color: #444;
 }
 
 .container .chat .content .message.system {
@@ -198,4 +217,8 @@ body {
   padding: 5px;
   border: 1px solid #222;
   border-top: none;
+}
+
+.container .chat-input input:focus {
+  outline: none;
 }
