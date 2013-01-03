@@ -1,7 +1,6 @@
 V1 Milestone TODOs
 ==================
 
-* Board coordinates
 * Fluid board (can be resized to fit screen)
 * Match header for game information
 * Connected players list
@@ -14,3 +13,9 @@ V1 Milestone TODOs
 * FAQ page
 * About Page
 * User feedback UI
+
+V2 Milestone
+============
+
+* Board coordinates
+* Public list of current games
