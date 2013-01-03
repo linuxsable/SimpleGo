@@ -169,6 +169,8 @@ io.sockets.on('connection', function(socket) {
                     commandMessage += '<br/>Matches: ' + _.size(matches);
                     commandMessage += '<br/>Players: ' + _.size(players);
                     break;
+                case '/me':
+                    break;
                 default:
                     commandMessage = 'Help'
                     commandMessage += '<br/>Available commands: /h, /stats';

@@ -78,7 +78,7 @@ App.Views.Board = Backbone.View.extend({
 
         this.removeLastMarker();
 
-        var $box = this.$el.find('.matrix .box[data-x="' + coord.x + '"][data-y="' + coord.y + '"]');
+        var $box = this.$el.find('.matrix td[data-x="' + coord.x + '"][data-y="' + coord.y + '"]');
         var stoneView = new App.Views.Stone({ color: color, showHistoryMarker: true });
         
         $box.append(stoneView.render().el);
@@ -109,7 +109,7 @@ App.Views.Board = Backbone.View.extend({
     },
 
     removeLastMarker: function() {
-        this.$el.find('.matrix .box .stone .marker').remove();
+        this.$el.find('.matrix td .stone .marker').remove();
     },
 
     showGhostStone: function(e) {

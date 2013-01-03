@@ -20,7 +20,6 @@ body {
   font-size: 12px;
   margin-bottom: 20px;
   background: #222;
-  height: 15px;
 }
 
 .container header .logo {
@@ -72,7 +71,7 @@ body {
 .container .board .inner table td {
   width: 40px;
   height: 40px;
-  border: 1px solid #555;
+  border: 1px solid #333;
 }
 
 .container .board .matrix {
@@ -81,7 +80,7 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -380px 0 0 -380px;
+  margin: -379px 0 0 -379px;
   z-index: 2;
 }
 
@@ -101,14 +100,13 @@ body {
   background: #333;
   border-radius: 10px;
   position: absolute;
-  top: 17px;
-  left: 17px;
+  top: 16px;
+  left: 16px;
 }
 
 .container .board .matrix table td .stone {
-  width: 38px;
-  height: 38px;
-  margin: 1px 0 0 1px;
+  width: 39px;
+  height: 39px;
   border-radius: 20px;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
   position: relative;
@@ -135,11 +133,11 @@ body {
 }
 
 .container .board .matrix table td .stone .marker {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   position: absolute;
-  top: 14px;
-  left: 14px;
+  top: 15px;
+  left: 15px;
   border-radius: 8px;
 }
 
@@ -154,7 +152,7 @@ body {
 .container .chat {
   width: 239px;
   height: 755px;
-  float: right;
+  float: left;
   border: 1px solid #444;
   margin-left: 30px;
   position: relative;
@@ -188,15 +186,14 @@ body {
 }
 
 .container .chat-input {
-  float: right;
+  float: left;
   width: 239px;
   height: 20px;
-  left: -2px;
-  position: relative;
+  margin-left: 30px;
 }
 
 .container .chat-input input {
-  width: 229px;
+  width: 100%;
   margin: 0;
   padding: 5px;
   border: 1px solid #222;
