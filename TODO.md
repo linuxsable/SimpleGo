@@ -19,3 +19,6 @@ V2 Milestone
 
 * Board coordinates
 * Public list of current games
+* Moving through game history with arrows
+* Scoring
+* Handicap

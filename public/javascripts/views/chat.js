@@ -14,6 +14,8 @@ App.Views.Chat = Backbone.View.extend({
         $('.chat-input input').on('keypress', function(e) {
             _this.chatKeypress(e);
         });
+
+        this.focus();
     },
 
     // Needs to be converted to using templates
@@ -42,5 +44,9 @@ App.Views.Chat = Backbone.View.extend({
             });
             $current.val('');
         }
+    },
+
+    focus: function() {
+        $('.chat-input input').focus();
     }
 });

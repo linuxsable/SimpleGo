@@ -69,6 +69,9 @@ App.Views.Board = Backbone.View.extend({
                 console.log('something went wrong from server');
             }
         });
+        
+        // Focus back on the chat
+        this.parentView.chatView.focus();
     },
 
     placeStoneWithoutEvents: function(color, coord, playSound) {
