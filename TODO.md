@@ -13,6 +13,8 @@ V1 Milestone TODOs
 * FAQ page
 * About Page
 * User feedback UI
+* Sound caching
+* Dynamic title tag for plays
 
 V2 Milestone
 ============
