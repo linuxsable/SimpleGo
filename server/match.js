@@ -16,13 +16,13 @@ function Match(id) {
     this.messageLog = [];
     this.engine = new Engine();
 
-    this.dbConnection = mysql.createConnection({
-        host: 'localhost',
-        user: '',
-        password: ''
-    });
+    // this.dbConnection = mysql.createConnection({
+    //     host: 'localhost',
+    //     user: '',
+    //     password: ''
+    // });
 
-    this.dbConnection.connect();
+    // this.dbConnection.connect();
 }
 
 // Class level constants
