@@ -11,6 +11,7 @@ App.Views.Match = Backbone.View.extend({
         this.isPlayersTurn = false;
         this.boardView = new App.Views.Board({ parentView: this });
         this.chatView = new App.Views.Chat({ parentView: this });
+        this.defaultTitle = 'HakuGo: Beautiful Go with a Friend';
         this.setupSockets();
     },
 
@@ -30,7 +31,7 @@ App.Views.Match = Backbone.View.extend({
         // game state, etc
         this.socket.on('joined_match', function(data) {
             _this.playerColor = data.playerColor;
-            _this.isPlayersTurn = data.isPlayersTurn;
+            _this.updatePlayersTurn(data.isPlayersTurn);
 
             App.helpers.setAuthHash(_this.matchId, data.matchAuthHash);
 
@@ -48,11 +49,20 @@ App.Views.Match = Backbone.View.extend({
         });
 
         this.socket.on('placed_stone', function(data) {
-            _this.isPlayersTurn = data.isPlayersTurn;
+            _this.updatePlayersTurn(data.isPlayersTurn);
             _this.boardView.placeStoneWithoutEvents(data.color, data.moveCoord);
             if (data.isCapture) {
                 _this.boardView.removeStones(data.captures);
             }
         });
+    },
+
+    updatePlayersTurn: function(value) {
+        this.isPlayersTurn = value;
+        if (value) {
+            document.title = '(Turn) ' + this.defaultTitle;
+        } else {
+            document.title = this.defaultTitle;
+        }
     }
 });

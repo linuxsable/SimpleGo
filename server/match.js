@@ -1,6 +1,7 @@
 var _ = require('underscore');
 var Engine = require('./engine').Engine;
 var crypto = require('crypto');
+var mysql = require('mysql');
 
 function Match(id) {
     this.id = id;
@@ -14,6 +15,14 @@ function Match(id) {
     this.spectators = {};
     this.messageLog = [];
     this.engine = new Engine();
+
+    this.dbConnection = mysql.createConnection({
+        host: 'localhost',
+        user: '',
+        password: ''
+    });
+
+    this.dbConnection.connect();
 }
 
 // Class level constants
@@ -224,6 +233,10 @@ _.extend(Match.prototype, {
 
     isServerMessage: function(message) {
         return message && message[0] == '/';
+    },
+
+    syncToDB: function() {
+        console.log(this.dbConnection);
     }
 });
 

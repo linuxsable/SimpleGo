@@ -1,6 +1,6 @@
 {
   "name": "HakuGo",
-  "version": "0.0.1-22",
+  "version": "0.0.1-23",
   "private": true,
   "scripts": {
     "start": "node server/server.js"
@@ -9,7 +9,8 @@
     "express": "3.0.4",
     "jade": "*",
     "socket.io": "",
-    "underscore": ""
+    "underscore": "",
+    "mysql": ""
   },
   "subdomain": "linuxsable.hakugo",
   "engines": {

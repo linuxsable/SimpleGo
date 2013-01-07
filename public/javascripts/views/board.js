@@ -46,7 +46,7 @@ App.Views.Board = Backbone.View.extend({
         }, function(valid, meta) {
             // These only get run when the server acks it
             if (valid) {
-                _this.parentView.isPlayersTurn = false;
+                _this.parentView.updatePlayersTurn(false);
 
                 // Remove the ghost stone
                 $box.find('.stone.ghost').remove();
