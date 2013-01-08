@@ -13,8 +13,9 @@ V1 Milestone TODOs
 * FAQ page
 * About Page
 * User feedback UI
-* Sound caching
-* Dynamic title tag for plays
+* ~~Sound caching~~
+* ~~Dynamic title tag for plays~~
+* ~~BUG: Spectators showing ghost stones~~
 
 V2 Milestone
 ============

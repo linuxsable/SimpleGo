@@ -73,7 +73,8 @@ io.sockets.on('connection', function(socket) {
             moveHistory: match.engine.moveHistory,
             playerColor: match.getPlayerColor(player),
             isPlayersTurn: match.isPlayersTurn(player),
-            matchAuthHash: player.matchAuthHash
+            matchAuthHash: player.matchAuthHash,
+            isSpectator: match.isPlayerASpectator(player)
         });
 
         // console.log(matches);

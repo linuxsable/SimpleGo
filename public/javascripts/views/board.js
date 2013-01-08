@@ -30,6 +30,11 @@ App.Views.Board = Backbone.View.extend({
             return;
         }
 
+        // Don't let spectator send events either
+        if (this.parentView.isSpectator) {
+            return;
+        }
+
         var _this = this;
         var $box = $(e.currentTarget);
         var xCoord = $box.data('x');
@@ -118,6 +123,11 @@ App.Views.Board = Backbone.View.extend({
     showGhostStone: function(e) {
         // Only show this when it's the players turn
         if (!this.parentView.isPlayersTurn) {
+            return;
+        }
+
+        // Don't show for spectators
+        if (this.parentView.isSpectator) {
             return;
         }
 

@@ -9,6 +9,7 @@ App.Views.Match = Backbone.View.extend({
         this.matchId = this.options.matchId;
         this.playerColor = null;
         this.isPlayersTurn = false;
+        this.isSpectator = false;
         this.boardView = new App.Views.Board({ parentView: this });
         this.chatView = new App.Views.Chat({ parentView: this });
         this.defaultTitle = 'HakuGo: Beautiful Go with a Friend';
@@ -31,6 +32,7 @@ App.Views.Match = Backbone.View.extend({
         // game state, etc
         this.socket.on('joined_match', function(data) {
             _this.playerColor = data.playerColor;
+            _this.isSpectator = data.isSpectator;
             _this.updatePlayersTurn(data.isPlayersTurn);
 
             App.helpers.setAuthHash(_this.matchId, data.matchAuthHash);
