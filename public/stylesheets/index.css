@@ -24,7 +24,7 @@ body {
 
 .container header .logo {
   font-size: 14px;
-  font-weight: bold;
+  font-weight: normal;
   float: left;
   color: #fff;
 }
@@ -178,7 +178,6 @@ body {
 
 .container .chat header {
   font-size: 14px;
-  font-weight: bold;
   background: #444;
 }
 
