@@ -7,7 +7,7 @@ V1 Milestone TODOs
 * Game passing
 * Game resigning
 * Basic timer
-* Proper board state loading
+* ~~Proper board state loading~~
 * Persistence
 * Old browser blocking
 * FAQ page

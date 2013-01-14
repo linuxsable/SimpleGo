@@ -70,7 +70,7 @@ io.sockets.on('connection', function(socket) {
         // game state to initalize their instance
         socket.emit('joined_match', {
             messageLog: match.messageLog,
-            moveHistory: match.engine.moveHistory,
+            matrix: match.engine.matrix,
             playerColor: match.getPlayerColor(player),
             isPlayersTurn: match.isPlayersTurn(player),
             matchAuthHash: player.matchAuthHash,

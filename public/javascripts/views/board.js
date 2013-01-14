@@ -17,11 +17,16 @@ App.Views.Board = Backbone.View.extend({
         };
     },
 
-    setupFromServer: function(moveHistory) {
+    setupFromServer: function(matrix) {
         var _this = this;
-        _.each(moveHistory, function(move) {
-            _this.placeStoneWithoutEvents(move.color, { x: move.x, y: move.y }, false);
-        });
+        for (var y = 18; y >= 0; y--) {
+            for (var x = 18; x >= 0; x--) {
+                var color = matrix[x][y];
+                if (color != 0) {
+                    _this.placeStoneWithoutEvents(color, { x: x, y: y }, false);    
+                }
+            }
+        }
     },
 
     placeStone: function(e) {
