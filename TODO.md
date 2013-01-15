@@ -16,6 +16,8 @@ V1 Milestone TODOs
 * ~~Sound caching~~
 * ~~Dynamic title tag for plays~~
 * ~~BUG: Spectators showing ghost stones~~
+* BUG: Spectators always show (Turn) in title tag
+* BUG: Initial board load doesn't show last move
 
 V2 Milestone
 ============

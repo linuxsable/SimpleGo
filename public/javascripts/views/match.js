@@ -61,6 +61,11 @@ App.Views.Match = Backbone.View.extend({
 
     updatePlayersTurn: function(value) {
         this.isPlayersTurn = value;
+
+        if (this.isSpectator) {
+            return;
+        }
+
         if (value) {
             document.title = '(Turn) ' + this.defaultTitle;
         } else {
