@@ -17,7 +17,7 @@ App.Views.Board = Backbone.View.extend({
         };
     },
 
-    setupFromServer: function(matrix) {
+    setupFromServer: function(matrix, lastMovePlayed) {
         var _this = this;
         for (var y = 18; y >= 0; y--) {
             for (var x = 18; x >= 0; x--) {
@@ -26,6 +26,12 @@ App.Views.Board = Backbone.View.extend({
                     _this.placeStoneWithoutEvents(color, { x: x, y: y }, false);    
                 }
             }
+        }
+
+        if (lastMovePlayed) {
+            this.removeLastMarker();    
+            var lastStone = this.currentStones[lastMovePlayed.x + ',' + lastMovePlayed.y];
+            lastStone.insertHistoryMarker();
         }
     },
 

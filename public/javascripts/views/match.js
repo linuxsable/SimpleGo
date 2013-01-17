@@ -43,7 +43,7 @@ App.Views.Match = Backbone.View.extend({
             });
 
             // Fill in the game state
-            _this.boardView.setupFromServer(data.matrix);
+            _this.boardView.setupFromServer(data.matrix, data.lastMovePlayed);
         });
 
         this.socket.on('chat_message', function(data) {

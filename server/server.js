@@ -71,6 +71,7 @@ io.sockets.on('connection', function(socket) {
         socket.emit('joined_match', {
             messageLog: match.messageLog,
             matrix: match.engine.matrix,
+            lastMovePlayed: _.last(match.engine.moveHistory),
             playerColor: match.getPlayerColor(player),
             isPlayersTurn: match.isPlayersTurn(player),
             matchAuthHash: player.matchAuthHash,
