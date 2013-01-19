@@ -10,11 +10,7 @@ App.Views.ChatMessage = Backbone.View.extend({
         this.parentView = this.options.parentView;
         this.type = this.options.type;
         this.playerName = this.options.playerName;
-
-        this.msg = this.options.msg;
-        if (this.msg) {
-            this.msg = this.msg.linkify();
-        }
+        this.msg = this.options.msg.linkify(true);
 
         this.TYPES = {
             CHAT: 1,

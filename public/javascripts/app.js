@@ -38,14 +38,22 @@ window.App = {
 };
 
 // Monkeypatching
-String.prototype.linkify = function() {
+String.prototype.linkify = function(newWindow) {
+    newWindow = newWindow || false;
+
     // http://, https://, ftp://
     var urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
 
     // www. sans http:// or https://
     var pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
 
-    return this
-        .replace(urlPattern, '<a href="$&">$&</a>')
-        .replace(pseudoUrlPattern, '$1<a href="http://$2">$2</a>');
+    if (newWindow) {
+        return this
+            .replace(urlPattern, '<a href="$&" target="_blank">$&</a>')
+            .replace(pseudoUrlPattern, '$1<a href="http://$2" target="_blank">$2</a>');
+    } else {
+        return this
+            .replace(urlPattern, '<a href="$&">$&</a>')
+            .replace(pseudoUrlPattern, '$1<a href="http://$2">$2</a>');
+    }
 };
