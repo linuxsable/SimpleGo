@@ -18,9 +18,9 @@ V1 Milestone TODOs
 * ~~BUG: Spectators showing ghost stones~~
 * ~~BUG: Spectators always show (Turn) in title tag~~
 * BUG: Don't show (Turn) unless other player has connected
-* BUG: Initial board load doesn't show last move
+* ~~BUG: Initial board load doesn't show last move~~
 * Player name should be cut off at 12 - 16 characters
-* Link replacement in chat
+* ~~Link replacement in chat~~
 
 V2 Milestone
 ============
