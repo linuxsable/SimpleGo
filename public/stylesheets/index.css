@@ -159,7 +159,8 @@ body {
   background: #666;
 }
 
-@media all and (max-width: 1125px) and (min-width: 0px) {
+/* Responsive board */
+@media all and (max-width: 1125px) and (min-width: 0) {
   .container .centered {
     width: 946px;
   }
