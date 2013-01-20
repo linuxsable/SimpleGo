@@ -221,13 +221,11 @@ io.sockets.on('connection', function(socket) {
         socket.broadcast.to(currentMatch.roomId()).emit('chat_message', msgEntry);
 
         // Remove the match if no one is in it
-        if (currentMatch.isEmpty()) {
-            delete matches[currentMatch.id];
-        }
+        // if (currentMatch.isEmpty()) {
+        //     delete matches[currentMatch.id];
+        // }
 
         // Remove the player from the players
         delete players[player.id];
-
-        console.log(currentMatch);
     });
 });
