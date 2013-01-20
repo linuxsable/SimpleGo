@@ -56,12 +56,6 @@ body {
   right: 0;
 }
 
-/*@media all and (max-width: 1000px) and (min-width: 900px) {
-  .container .board {
-    background: #fff;
-  }
-}*/
-
 .container .centered .board {
   width: 770px;
   height: 770px;
@@ -154,7 +148,7 @@ body {
   position: absolute;
   top: 15px;
   left: 15px;
-  border-radius: 8px;
+  border-radius: 100px;
 }
 
 .container .board .matrix table td .stone.white .marker {
@@ -163,6 +157,53 @@ body {
 
 .container .board .matrix table td .stone.black .marker {
   background: #666;
+}
+
+@media all and (max-width: 1125px) and (min-width: 0px) {
+  .container .centered {
+    width: 830px;
+  }
+
+  .container .centered .board {
+    width: 500px;
+    height: 500px;
+  }
+
+  .container .board .inner,
+  .container .board .matrix {
+    width: 506px;
+    height: 506px;
+    margin: -235px 0 0 -235px;
+  }
+
+  .container .board .inner table td,
+  .container .board .matrix table td {
+    width: 26px;
+    height: 26px;
+  }
+
+  .container .board .matrix {
+    margin: -247px 0 0 -247px;
+  }
+
+  .container .board .matrix table td .starpoint {
+    width: 3px;
+    height: 3px;
+    top: 11px;
+    left: 11px;
+  }
+
+  .container .board .matrix table td .stone {
+    width: 25px;
+    height: 25px;
+  }
+
+  .container .board .matrix table td .stone .marker {
+    width: 5px;
+    height: 5px;
+    top: 10px;
+    left: 10px;
+  }
 }
 
 .container .centered .sidebar {
