@@ -2,19 +2,13 @@ App.Views.Chat = Backbone.View.extend({
     el: '.chat',
 
     events: {
-        
+        'keypress input': 'chatKeypress'
     },
 
     initialize: function() {
         this.parentView = this.options.parentView;
         this.$content = this.$el.find('.content');
-
-        // HACK
-        var _this = this;
-        $('.chat-input input').on('keypress', function(e) {
-            _this.chatKeypress(e);
-        });
-
+        this.$input = this.$el.find('input');
         this.focus();
     },
 
@@ -30,7 +24,7 @@ App.Views.Chat = Backbone.View.extend({
         this.$content.append(msg.render().el);
 
         // Scroll to bottom
-        this.$el.scrollTop(this.$el.height() + this.$content.height());
+        this.$content.scrollTop(9999999);
     },
 
     chatKeypress: function(e) {
@@ -47,6 +41,6 @@ App.Views.Chat = Backbone.View.extend({
     },
 
     focus: function() {
-        $('.chat-input input').focus();
+        this.$input.focus();
     }
 });

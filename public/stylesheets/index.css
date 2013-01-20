@@ -15,10 +15,10 @@ body {
 }
 
 .container header {
-  padding: 10px 15px;
+  padding: 10px;
   color: #fff;
   font-size: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   background: #222;
 }
 
@@ -35,7 +35,7 @@ body {
 }
 
 .container .centered {
-  width: 1051px;
+  width: 1100px;
   margin: 0 auto;
 }
 
@@ -56,7 +56,13 @@ body {
   right: 0;
 }
 
-.container .board {
+/*@media all and (max-width: 1000px) and (min-width: 900px) {
+  .container .board {
+    background: #fff;
+  }
+}*/
+
+.container .centered .board {
   width: 770px;
   height: 770px;
   float: left;
@@ -72,7 +78,8 @@ body {
   user-select: none;
 }
 
-.container .board .inner {
+.container .board .inner,
+.container .board .matrix {
   width: 780px;
   height: 780px;
   position: absolute;
@@ -81,33 +88,25 @@ body {
   margin: -360px 0 0 -360px;
 }
 
-.container .board .inner table {
+.container .board .inner table,
+.container .board .matrix table {
   position: relative;
 }
 
-.container .board .inner table td {
+.container .board .inner table td,
+.container .board .matrix table td {
   width: 40px;
   height: 40px;
   border: 1px solid #333;
 }
 
 .container .board .matrix {
-  width: 780px;
-  height: 780px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
   margin: -379px 0 0 -379px;
   z-index: 2;
 }
 
-.container .board .matrix table {
-  position: relative;
-}
-
 .container .board .matrix table td {
-  width: 40px;
-  height: 40px;
+  border: none;
   position: relative;
 }
 
@@ -166,58 +165,59 @@ body {
   background: #666;
 }
 
-.container .chat {
-  width: 239px;
+.container .centered .sidebar {
+  width: 300px;
+  margin-left: 30px;
+  float: left;
+}
+
+.container .centered .sidebar .chat {
+  width: 100%;
   height: 300px;
   float: left;
   border: 1px solid #444;
-  margin-left: 30px;
   position: relative;
-  overflow: scroll;
 }
 
-.container .chat header {
+.container .centered .sidebar .chat header {
   font-size: 14px;
   background: #444;
 }
 
-.container .chat .content {
+.container .centered .sidebar .chat .content {
   padding: 0 10px;
+  overflow: scroll;
+  height: 220px;
 }
 
-.container .chat .content .message {
+.container .centered .sidebar .chat .content .message {
   padding: 1px 0;
   line-height: 16px;
   color: #444;
 }
 
-.container .chat .content .message.system {
+.container .centered .sidebar .chat .content .message.system {
   font-style: italic;
 }
 
-.container .chat .content .message.command {
+.container .centered .sidebar .chat .content .message.command {
   color: #666;
 }
 
-.container .chat .content .message span {
+.container .centered .sidebar .chat .content .message span {
   font-weight: bold;
 }
 
-.container .chat-input {
-  float: left;
-  width: 239px;
-  height: 20px;
-  margin-left: 30px;
-}
-
-.container .chat-input input {
+.container .centered .sidebar .chat input {
   width: 100%;
-  margin: 0;
   padding: 5px;
-  border: 1px solid #222;
-  border-top: none;
+  border: none;
+  background: #fff;
+  border-top: 1px solid #222;
+  position: absolute;
+  bottom: -2px;
 }
 
-.container .chat-input input:focus {
+.container .centered .sidebar .chat input:focus {
   outline: none;
 }
