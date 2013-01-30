@@ -311,3 +311,8 @@ body {
 .container .centered .sidebar .chat input:focus {
   outline: none;
 }
+
+.container .centered .sidebar .links {
+  position: relative;
+  top: 5px;
+}

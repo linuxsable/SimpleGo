@@ -144,6 +144,37 @@ io.sockets.on('connection', function(socket) {
         }        
     });
 
+    socket.on('pass_turn', function(data, ack) {
+        console.log(data);
+
+        var player = players[socket.id];
+        var match = matches[data.matchId];
+
+        if (!match) {
+            console.log('error: match not found');
+            return false;
+        }
+
+        if (match.passTurn(player)) {
+            ack(true);
+
+            // Event to update client state
+            socket.broadcast.to(match.roomId()).emit('passed_turn', {
+                isPlayersTurn: match.isPlayersTurn(match.getOpponent(player))
+            });
+
+            // Now send a chat message
+            var logEntry = match.logMessage(
+                Match.MESSAGE_TYPE.SYSTEM,
+                player.name + ' passed'
+            );
+
+            io.sockets.in(match.roomId()).emit('chat_message', logEntry);
+        } else {
+            ack(false);
+        }
+    });
+
     socket.on('send_chat_message', function(data) {
         if (!data.message) {
             console.log('error: no message');
@@ -196,7 +227,7 @@ io.sockets.on('connection', function(socket) {
                 data.playerName
             );
 
-            io.sockets.in(match.roomId()).emit('chat_message', logEntry);    
+            io.sockets.in(match.roomId()).emit('chat_message', logEntry);
         }
     });
 

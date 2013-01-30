@@ -2,8 +2,10 @@ App.Views.Match = Backbone.View.extend({
     el: 'body',
 
     events: {
-        
+        'click .sidebar .links button.pass': 'passTurn'
     },
+
+    socket: null,
 
     initialize: function() {
         this.matchId = this.options.matchId;
@@ -57,6 +59,14 @@ App.Views.Match = Backbone.View.extend({
                 _this.boardView.removeStones(data.captures);
             }
         });
+
+        this.socket.on('passed_turn', function(data) {
+            if (data.isEndGame) {
+
+            } else {
+                _this.updatePlayersTurn(data.isPlayersTurn);
+            }
+        });
     },
 
     updatePlayersTurn: function(value) {
@@ -71,5 +81,20 @@ App.Views.Match = Backbone.View.extend({
         } else {
             document.title = this.defaultTitle;
         }
+    },
+
+    passTurn: function() {
+        var _this = this;
+
+        this.socket.emit('pass_turn', {
+            matchId: this.matchId
+        }, function(valid) {
+            if (valid) {
+                // Everythings good, make it not your turn
+                _this.updatePlayersTurn(false);
+            } else {
+                console.error('something went wrong from server');
+            }
+        });
     }
 });

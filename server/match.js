@@ -127,6 +127,18 @@ _.extend(Match.prototype, {
         return isSpectator;
     },
 
+    getOpponent: function(player) {
+        if (this.black == player) {
+            return this.white;
+        } 
+        else if (this.white == player) {
+            return this.black;
+        }
+        else {
+            return null;
+        }
+    },
+
     removePlayer: function(player) {
         if (this.isPlayerBlack(player)) {
             this.black = null;
@@ -181,6 +193,14 @@ _.extend(Match.prototype, {
             this.lastPlayerTurn = player;
         }
         return result;
+    },
+
+    passTurn: function(player) {
+        if (!this.isPlayersTurn(player)) {
+            return false;
+        }
+        this.lastPlayerTurn = player;
+        return true;
     },
 
     createSaltedHash: function() {
