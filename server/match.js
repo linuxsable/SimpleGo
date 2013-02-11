@@ -178,11 +178,14 @@ _.extend(Match.prototype, {
         if (!this.lastPlayerTurn) {
             return this.isPlayerBlack(player);
         }
+
         // Handles a bug with rejoining. Reset the matchAuthHash
         // to the last rejoined played.
-        else if (this.lastPlayerTurn.matchAuthHash == null) {
-            this.lastPlayerTurn = player;
-        }
+        // if (this.lastPlayerTurn.matchAuthHash == null) {
+        //     console.log('running');
+        //     this.setLastPlayerTurn(player);
+        // }
+        
         return this.lastPlayerTurn.matchAuthHash != player.matchAuthHash;
     },
 
@@ -190,7 +193,7 @@ _.extend(Match.prototype, {
         var color = this.getPlayerColor(player);
         var result = this.engine.enterMove(color, coord.x, coord.y);
         if (result !== false) {
-            this.lastPlayerTurn = player;
+            this.setLastPlayerTurn(player);
         }
         return result;
     },
@@ -199,7 +202,7 @@ _.extend(Match.prototype, {
         if (!this.isPlayersTurn(player)) {
             return false;
         }
-        this.lastPlayerTurn = player;
+        this.setLastPlayerTurn(player);
         return true;
     },
 
@@ -207,7 +210,7 @@ _.extend(Match.prototype, {
         if (this.isPlayersTurn(player)) {
             return false;
         }
-        this.lastPlayerTurn = this.getOpponent(player);
+        this.setLastPlayerTurn(this.getOpponent(player));
         this.engine.undoLastMove();
     },
 
@@ -288,6 +291,11 @@ _.extend(Match.prototype, {
         });
 
         return output;
+    },
+
+    setLastPlayerTurn: function(value) {
+        console.log('setting last player turn');
+        this.lastPlayerTurn = value;
     }
 });
 

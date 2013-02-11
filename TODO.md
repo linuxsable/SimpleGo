@@ -8,6 +8,7 @@ V1 Milestone TODOs
 * Game resigning
 * Basic timer (japanese byo yomi)
 * ~~Proper board state loading~~
+* Allow players to make turns without opponent present (turn based)
 * Persistence
 * Mute button
 * Old browser blocking

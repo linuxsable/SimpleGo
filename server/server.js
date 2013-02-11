@@ -96,11 +96,13 @@ io.sockets.on('connection', function(socket) {
 
         // Don't let the non-players turn go
         if (!match.isPlayersTurn(player)) {
+            console.log('not players turn');
             return ack(false);
         }
 
         // Don't allow the game to start without an opponent
         if (match.needsOpponent()) {
+            console.log('needs opponent');
             return ack(false);
         }
 
@@ -225,7 +227,7 @@ io.sockets.on('connection', function(socket) {
                 matrix: match.engine.matrix,
                 lastMovePlayed: _.last(match.engine.moveHistory)
             });
-            
+
             socket.broadcast.to(match.roomId()).emit('update_players_turn', {
                 isPlayersTurn: true
             });
