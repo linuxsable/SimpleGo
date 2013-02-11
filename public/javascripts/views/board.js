@@ -17,8 +17,12 @@ App.Views.Board = Backbone.View.extend({
         };
     },
 
-    setupFromServer: function(matrix, lastMovePlayed) {
+    renderFromServer: function(matrix, lastMovePlayed) {
         var _this = this;
+
+        // Clear all current stones in case it's a reset
+        this.removeAllStones();
+
         for (var y = 18; y >= 0; y--) {
             for (var x = 18; x >= 0; x--) {
                 var color = matrix[x][y];

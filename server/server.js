@@ -75,7 +75,8 @@ io.sockets.on('connection', function(socket) {
             playerColor: match.getPlayerColor(player),
             isPlayersTurn: match.isPlayersTurn(player),
             matchAuthHash: player.matchAuthHash,
-            isSpectator: match.isPlayerASpectator(player)
+            isSpectator: match.isPlayerASpectator(player),
+            playerList: match.getPlayerList()
         });
 
         // console.log(matches);
@@ -173,6 +174,68 @@ io.sockets.on('connection', function(socket) {
         } else {
             ack(false);
         }
+    });
+
+    socket.on('undo_turn', function(data, ack) {
+        var player = players[socket.id];
+
+        var match = matches[data.matchId];
+        if (!match) {
+            console.log('error: match not found');
+            return false;
+        }
+
+        var opponent = match.getOpponent(player);
+        if (!opponent) {
+            console.log('error: opponent not found');
+            return false;
+        }
+
+        // Can't undo if it's not your turn
+        if (match.isPlayersTurn(player)) {
+            return ack(false);
+        }
+
+        console.log("SENDING");
+
+        opponent.socket.emit('undo_turn_confirm');
+    });
+
+    socket.on('undo_turn_confirmed', function(data) {
+        var player = players[socket.id];
+
+        var match = matches[data.matchId];
+        if (!match) {
+            console.log('error: match not found');
+            return false;
+        }
+
+        var opponent = match.getOpponent(player);
+        if (!opponent) {
+            console.log('error: opponent not found');
+            return false;
+        }
+
+        if (data.ok) {
+            // Update game state
+            match.undoTurn(opponent);
+
+            // Event to update client state
+            io.sockets.in(match.roomId()).emit('reset_board', {
+                matrix: match.engine.matrix,
+                lastMovePlayed: _.last(match.engine.moveHistory)
+            });
+            
+            socket.broadcast.to(match.roomId()).emit('update_players_turn', {
+                isPlayersTurn: true
+            });
+        } else {
+
+        }
+    });
+
+    socket.on('resign', function(data, ack) {
+
     });
 
     socket.on('send_chat_message', function(data) {

@@ -7,6 +7,13 @@ function Engine() {
     this.COLORS = { BLACK: 1, WHITE: 2 };
     this.koCoord = { x: -1, y: -1 };
 
+    // Meta data used if there's ever an undo
+    this.undoCaches = {
+        capturesCounts: { 1: 0, 2: 0 },
+        captures: [],
+        koCoord: {}
+    };
+
     this.initMatrix();
 }
 
@@ -62,6 +69,20 @@ _.extend(Engine.prototype, {
         } else {
             return true;
         }
+    },
+
+    undoLastMove: function() {
+        // The move history
+        var lastMove = this.moveHistory.pop();
+
+        // The move
+        this.matrix[lastMove.x][lastMove.y] = 0;        
+
+        // Any captures
+
+        // Capture counts
+
+        // Last Ko
     },
 
     isValidColor: function(color) {
@@ -139,7 +160,6 @@ _.extend(Engine.prototype, {
         // It is a ko if the opponent immediately playing in the spot where the stone
         // was captured would also be a capture
         return (this.isCapture(this.oppositeColor(color), captures[0][0], captures[0][1]));
-        
     },
 
     hasLiberties: function(x, y, visited) {

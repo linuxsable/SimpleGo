@@ -203,6 +203,14 @@ _.extend(Match.prototype, {
         return true;
     },
 
+    undoTurn: function(player) {
+        if (this.isPlayersTurn(player)) {
+            return false;
+        }
+        this.lastPlayerTurn = this.getOpponent(player);
+        this.engine.undoLastMove();
+    },
+
     createSaltedHash: function() {
         var salt = crypto.randomBytes(128).toString('base64');
         var textSalt = 'tread.softly.because.you.tread.on.my.dreams';
@@ -257,6 +265,29 @@ _.extend(Match.prototype, {
 
     syncToDB: function() {
         console.log(this.dbConnection);
+    },
+
+    getPlayerList: function() {
+        var players = [];
+        var output = [];
+
+        _.each(this.spectators, function(player) {
+            players.push(player);
+        });
+
+        if (this.black) {
+            players.push(this.black);
+        }
+
+        if (this.white) {
+            players.push(this.white);
+        }
+
+        _.each(players, function(player) {
+            output.push(player.name);
+        });
+
+        return output;
     }
 });
 

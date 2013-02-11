@@ -7,7 +7,7 @@
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
-  /*background: url("images/bedge_grunge.png") 0 0 repeat;*/
+  overflow: hidden;
 }
 
 .clearer {
@@ -47,13 +47,38 @@ body {
 }
 
 .container .centered .board-header .left {
-  position: absolute;
-  left: 0;
+  width: 33.33%;
+  float: left;
+}
+
+.container .centered .board-header .center {
+  width: 33.33%;
+  float: left;
+  text-align: center;
+}
+
+.container .centered .board-header .center .top {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.container .centered .board-header .center .top .white {
+  float: left;  
+}
+
+.container .centered .board-header .center .top .stones {
+  width: 20px;
+  height: 20px;
+  float: left;
+}
+
+.container .centered .board-header .center .top .black {
+  float: left;
 }
 
 .container .centered .board-header .right {
-  position: absolute;
-  right: 0;
+  width: 33.33%;
+  float: left;
 }
 
 .container .centered .board {
@@ -313,6 +338,6 @@ body {
 }
 
 .container .centered .sidebar .links {
-  position: relative;
-  top: 5px;
+  //position: relative;
+  //top: 5px;
 }

@@ -2,7 +2,9 @@ App.Views.Match = Backbone.View.extend({
     el: 'body',
 
     events: {
-        'click .sidebar .links button.pass': 'passTurn'
+        'click .sidebar .links button.pass': 'passTurn',
+        'click .sidebar .links button.undo': 'undoTurn',
+        'click .sidebar .links button.resign': 'resign'
     },
 
     socket: null,
@@ -45,7 +47,7 @@ App.Views.Match = Backbone.View.extend({
             });
 
             // Fill in the game state
-            _this.boardView.setupFromServer(data.matrix, data.lastMovePlayed);
+            _this.boardView.renderFromServer(data.matrix, data.lastMovePlayed);
         });
 
         this.socket.on('chat_message', function(data) {
@@ -60,12 +62,34 @@ App.Views.Match = Backbone.View.extend({
             }
         });
 
+        // The turn has been passed
         this.socket.on('passed_turn', function(data) {
             if (data.isEndGame) {
 
             } else {
                 _this.updatePlayersTurn(data.isPlayersTurn);
             }
+        });
+
+        // Ask the player if his opponents undo is ok
+        this.socket.on('undo_turn_confirm', function() {
+            var result = _this.showUndoConfirmDialog();
+            if (result) {
+                _this.isPlayersTurn = false;
+            }
+            _this.socket.emit('undo_turn_confirmed', {
+                matchId: _this.matchId,
+                ok: result
+            });
+        });
+
+        // Currently used once an undo is complete
+        this.socket.on('reset_board', function(data) {
+            _this.boardView.renderFromServer(data.matrix, data.lastMovePlayed);
+        });
+
+        this.socket.on('update_players_turn', function(data) {
+            _this.updatePlayersTurn(data.isPlayersTurn);
         });
     },
 
@@ -96,5 +120,25 @@ App.Views.Match = Backbone.View.extend({
                 console.error('something went wrong from server');
             }
         });
+    },
+
+    undoTurn: function() {
+        var _this = this;
+
+        this.socket.emit('undo_turn', {
+            matchId: this.matchId
+        }, function(valid) {
+            if (!valid) {
+                console.error('cannot undo when its not your turn');
+            }
+        });
+    },
+
+    resign: function() {
+
+    },
+
+    showUndoConfirmDialog: function() {
+        return confirm('Allow your opponent to undo their turn?');
     }
 });
