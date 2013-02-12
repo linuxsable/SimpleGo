@@ -18,6 +18,7 @@ App.Views.Match = Backbone.View.extend({
         this.chatView = new App.Views.Chat({ parentView: this });
         this.defaultTitle = 'HakuGo: Beautiful Go with a Friend';
         this.setupSockets();
+        this.preventWindowClose();
     },
 
     setupSockets: function() {
@@ -140,5 +141,12 @@ App.Views.Match = Backbone.View.extend({
 
     showUndoConfirmDialog: function() {
         return confirm('Allow your opponent to undo their turn?');
+    },
+
+    preventWindowClose: function() {
+        if (this.isSpectator) return;
+        $(window).on('beforeunload', function() {
+            return 'Are you sure you wish to leave the match?';
+        });
     }
 });
