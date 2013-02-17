@@ -1,0 +1,9 @@
+// Author: Tyler
+@mixin no-user-select {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
