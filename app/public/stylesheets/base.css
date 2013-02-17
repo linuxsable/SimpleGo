@@ -11,38 +11,117 @@ body {
 .clearer {
   clear: both; }
 
+.clearfix:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0; }
+
+.clearfix {
+  display: inline-block; }
+
+html[xmlns] .clearfix {
+  display: block; }
+
+* html .clearfix {
+  height: 1%; }
+
 .container header {
-  padding: 10px;
+  height: 36px;
   color: #fff;
   font-size: 12px;
   margin-bottom: 10px;
-  background: #2d2d2d; }
-  .container header .logo {
-    font-size: 14px;
-    font-weight: normal;
-    float: left;
-    color: #e2e2e2; }
-  .container header .right {
-    float: right;
-    margin-top: 3px; }
+  background: #206c92; }
+  .container header .centered {
+    width: 926px;
+    margin: 0 auto;
+    position: relative; }
+    .container header .centered .logo {
+      position: absolute;
+      left: 0;
+      top: 10px;
+      font-size: 16px;
+      font-weight: normal;
+      color: #e2e2e2; }
+      .container header .centered .logo span {
+        font-weight: 600; }
+    .container header .centered .right {
+      position: absolute;
+      right: 0;
+      margin-top: 3px; }
 .container .centered {
   width: 926px;
   margin: 0 auto; }
   .container .centered .board-header {
-    width: 770px;
-    height: 30px;
+    width: 616px;
+    height: 50px;
     position: relative;
-    font-size: 14px; }
+    font-size: 14px;
+    margin-top: 30px; }
     .container .centered .board-header .left {
-      width: 33.33%;
-      float: left; }
+      position: absolute;
+      left: 0;
+      top: 0; }
+      .container .centered .board-header .left .top .name {
+        float: left; }
+      .container .centered .board-header .left .top .stone {
+        float: left;
+        margin-left: 10px; }
+      .container .centered .board-header .left .bottom .timer {
+        float: left; }
+      .container .centered .board-header .left .bottom .captures {
+        float: left;
+        margin-left: 10px; }
     .container .centered .board-header .center {
-      width: 33.33%;
-      float: left;
-      text-align: center; }
+      width: 20px;
+      margin: 0 auto;
+      font-weight: 600;
+      color: #bbb;
+      padding-top: 14px; }
     .container .centered .board-header .right {
-      width: 33.33%;
-      float: left; }
+      position: absolute;
+      right: 0;
+      top: 0; }
+      .container .centered .board-header .right .top .name {
+        float: right; }
+      .container .centered .board-header .right .top .stone {
+        float: right;
+        margin-right: 10px; }
+      .container .centered .board-header .right .bottom .timer {
+        float: right; }
+      .container .centered .board-header .right .bottom .captures {
+        float: right;
+        margin-right: 10px; }
+    .container .centered .board-header .top .name {
+      font-weight: 600;
+      font-size: 20px;
+      color: #5b6874; }
+    .container .centered .board-header .top .stone {
+      width: 20px;
+      height: 20px;
+      -webkit-border-radius: 100px;
+      -moz-border-radius: 100px;
+      border-radius: 100px; }
+      .container .centered .board-header .top .stone.black {
+        background: #000; }
+      .container .centered .board-header .top .stone.white {
+        background: #eee; }
+    .container .centered .board-header .bottom {
+      margin-top: 3px; }
+      .container .centered .board-header .bottom .timer {
+        color: #fff;
+        font-size: 12px;
+        background: #606e7b;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        padding: 3px; }
+      .container .centered .board-header .bottom .captures {
+        font-size: 12px;
+        color: #a5a5a5;
+        margin-top: 3px; }
   .container .centered .board {
     width: 616px;
     height: 616px;
@@ -137,20 +216,16 @@ body {
       width: 100%;
       height: 300px;
       float: left;
-      border: 1px solid #2d2d2d;
+      border: 1px solid #d1dce4;
       position: relative; }
-      .container .centered .sidebar .chat header {
-        font-size: 14px;
-        background: #2d2d2d;
-        color: #e2e2e2; }
       .container .centered .sidebar .chat .content {
         padding: 0 10px;
         overflow: scroll;
-        height: 220px; }
+        height: 266px; }
         .container .centered .sidebar .chat .content .message {
           padding: 1px 0;
           line-height: 16px;
-          color: #444; }
+          color: #606e7b; }
           .container .centered .sidebar .chat .content .message.system {
             font-style: italic; }
           .container .centered .sidebar .chat .content .message.command {
@@ -162,15 +237,20 @@ body {
         padding: 5px;
         border: none;
         background: #fff;
-        border-top: 1px solid #2d2d2d;
+        border-top: 1px solid #d1dce4;
         position: absolute;
-        bottom: -2px; }
+        bottom: -2px;
+        color: #606e7b; }
         .container .centered .sidebar .chat input:focus {
           outline: none; }
 
 @media all and (max-width: 9999px) and (min-width: 1120px) {
+  .container header .centered {
+    width: 1080px; }
   .container .centered {
     width: 1080px; }
+    .container .centered .board-header {
+      width: 770px; }
     .container .centered .board {
       width: 770px;
       height: 770px; }
@@ -197,8 +277,12 @@ body {
             top: 15px;
             left: 15px; } }
 @media all and (max-width: 9999px) and (min-width: 1336px) {
+  .container header .centered {
+    width: 1296px; }
   .container .centered {
     width: 1296px; }
+    .container .centered .board-header {
+      width: 924px; }
     .container .centered .board {
       width: 924px;
       height: 924px; }
