@@ -79,7 +79,7 @@ html[xmlns] .clearfix {
 
     .board-header {
       width: 616px;
-      height: 50px;
+      height: 52px;
       position: relative;
       font-size: 14px;
       margin-top: 30px;
@@ -161,6 +161,7 @@ html[xmlns] .clearfix {
           width: 20px;
           height: 20px;
           @include border-radius(100px);
+          margin-top: 1px;
 
           &.black {
             background: #000;
