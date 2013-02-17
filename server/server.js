@@ -10,9 +10,9 @@ var app = require('express')(),
 
 server.listen(3000);
 
-app.use(express.static(path.normalize(__dirname + '/../public')));
+app.use(express.static(path.normalize(__dirname + '/../app/public')));
 app.get('/*', function(req, res) {
-    res.sendfile(path.normalize(__dirname + '/../public/index.html'));
+    res.sendfile(path.normalize(__dirname + '/../app/public/index.html'));
 });
 
 // Now for socket stuff

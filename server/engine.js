@@ -7,13 +7,6 @@ function Engine() {
     this.COLORS = { BLACK: 1, WHITE: 2 };
     this.koCoord = { x: -1, y: -1 };
 
-    // Meta data used if there's ever an undo
-    this.undoCaches = {
-        capturesCounts: { 1: 0, 2: 0 },
-        captures: [],
-        koCoord: {}
-    };
-
     this.initMatrix();
 }
 
@@ -61,7 +54,8 @@ _.extend(Engine.prototype, {
         this.moveHistory.push({
             color: color,
             x: x,
-            y: y
+            y: y,
+            captures: captures
         });
 
         if (!_.isEmpty(captures)) {
