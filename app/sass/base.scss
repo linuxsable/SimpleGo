@@ -45,7 +45,6 @@ html[xmlns] .clearfix {
     height: 36px;
     color: #fff;
     font-size: 12px;
-    margin-bottom: 10px;
     background: #206c92;
 
     .centered {
@@ -89,6 +88,7 @@ html[xmlns] .clearfix {
         position: absolute;
         left: 0;
         top: 0;
+        display: none;
 
         .top {
           .name {
@@ -125,6 +125,7 @@ html[xmlns] .clearfix {
         position: absolute;
         right: 0;
         top: 0;
+        display: none;
 
         .top {
           .name {

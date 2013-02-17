@@ -273,6 +273,8 @@ _.extend(Match.prototype, {
     getPlayerList: function() {
         var players = [];
         var output = [];
+        var blackName = null;
+        var whiteName = null;
 
         _.each(this.spectators, function(player) {
             players.push(player);
@@ -280,17 +282,25 @@ _.extend(Match.prototype, {
 
         if (this.black) {
             players.push(this.black);
+            blackName = this.black.name;
         }
 
         if (this.white) {
             players.push(this.white);
+            whiteName = this.white.name;
         }
 
         _.each(players, function(player) {
             output.push(player.name);
         });
 
-        return output;
+        return {
+            players: {
+                black: blackName,
+                white: whiteName
+            },
+            everyone: output
+        };
     },
 
     setLastPlayerTurn: function(value) {

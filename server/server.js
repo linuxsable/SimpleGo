@@ -65,6 +65,11 @@ io.sockets.on('connection', function(socket) {
         // Let everyone know they have entered the room
         socket.broadcast.to(match.roomId()).emit('chat_message', msgEntry);
 
+        // Update everyones board header
+        socket.broadcast.to(match.roomId()).emit('update_board_header', {
+            playerList: match.getPlayerList()
+        });
+
         // Let the client know they've connected,
         // and send along the payload of the current
         // game state to initalize their instance

@@ -32,7 +32,6 @@ html[xmlns] .clearfix {
   height: 36px;
   color: #fff;
   font-size: 12px;
-  margin-bottom: 10px;
   background: #206c92; }
   .container header .centered {
     width: 926px;
@@ -63,7 +62,8 @@ html[xmlns] .clearfix {
     .container .centered .board-header .left {
       position: absolute;
       left: 0;
-      top: 0; }
+      top: 0;
+      display: none; }
       .container .centered .board-header .left .top .name {
         float: left; }
       .container .centered .board-header .left .top .stone {
@@ -83,7 +83,8 @@ html[xmlns] .clearfix {
     .container .centered .board-header .right {
       position: absolute;
       right: 0;
-      top: 0; }
+      top: 0;
+      display: none; }
       .container .centered .board-header .right .top .name {
         float: right; }
       .container .centered .board-header .right .top .stone {
