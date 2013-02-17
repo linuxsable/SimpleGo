@@ -4,7 +4,7 @@
   box-sizing: border-box; }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Proxima Nova', 'Open Sans', sans-serif;
   font-size: 12px;
   overflow: hidden; }
 
@@ -233,7 +233,8 @@ html[xmlns] .clearfix {
           .container .centered .sidebar .chat .content .message.command {
             color: #666; }
           .container .centered .sidebar .chat .content .message span {
-            font-weight: bold; }
+            font-weight: 600;
+            color: #606e7b; }
       .container .centered .sidebar .chat input {
         width: 100%;
         padding: 5px;
