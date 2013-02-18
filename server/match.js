@@ -306,6 +306,10 @@ _.extend(Match.prototype, {
     setLastPlayerTurn: function(value) {
         console.log('setting last player turn');
         this.lastPlayerTurn = value;
+    },
+
+    getCaptureCounts: function() {
+        return this.engine.captureCounts;
     }
 });
 

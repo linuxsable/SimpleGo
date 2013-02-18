@@ -141,6 +141,10 @@ io.sockets.on('connection', function(socket) {
                 color: playerColor,
                 isPlayersTurn: !match.isPlayersTurn(player)
             });
+
+            io.sockets.in(match.roomId()).emit('update_capture_counts', {
+                captureCounts: match.getCaptureCounts()
+            });
         } else {
             ack(result, { color: playerColor }); 
 

@@ -10,8 +10,10 @@ App.Views.BoardHeader = Backbone.View.extend({
 
         this.$black = this.$('.left');
         this.$blackName = this.$('.left .top .name');
+        this.$blackCaptureCount = this.$('.left .bottom .captures span');
         this.$white = this.$('.right');
         this.$whiteName = this.$('.right .top .name');
+        this.$whiteCaptureCount = this.$('.right .bottom .captures span');
     },
 
     renderFromServer: function(playerList) {
@@ -28,5 +30,10 @@ App.Views.BoardHeader = Backbone.View.extend({
         } else {
             this.$white.hide();
         }
+    },
+
+    updateCaptureCounts: function(captures) {
+        this.$blackCaptureCount.html(captures[1]);
+        this.$whiteCaptureCount.html(captures[2]);
     }
 });

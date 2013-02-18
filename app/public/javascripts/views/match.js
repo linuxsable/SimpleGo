@@ -105,6 +105,10 @@ App.Views.Match = Backbone.View.extend({
         this.socket.on('update_player_list', function(data) {
             _this.chatView.renderPlayersFromServer(data.playerList);
         });
+
+        this.socket.on('update_capture_counts', function(data) {
+            _this.boardHeaderView.updateCaptureCounts(data.captureCounts);
+        });        
     },
 
     updatePlayersTurn: function(value) {
@@ -159,7 +163,7 @@ App.Views.Match = Backbone.View.extend({
     preventWindowClose: function() {
         if (this.isSpectator) return;
         $(window).on('beforeunload', function() {
-            return 'Are you sure you wish to leave the match?';
+            return "You're about to leave the match.";
         });
     }
 });
