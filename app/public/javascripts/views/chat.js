@@ -8,6 +8,7 @@ App.Views.Chat = Backbone.View.extend({
     initialize: function() {
         this.parentView = this.options.parentView;
         this.$content = this.$el.find('.content');
+        this.$players = this.$('.players');
         this.$input = this.$el.find('input');
         this.focus();
     },
@@ -25,6 +26,15 @@ App.Views.Chat = Backbone.View.extend({
 
         // Scroll to bottom
         this.$content.scrollTop(9999999);
+    },
+
+    renderPlayersFromServer: function(playerList) {
+        var _this = this;
+        this.$players.empty();
+        _.each(playerList.everyone, function(player) {
+            // Because I'm lazy
+            _this.$players.append( $('<div class="player">'+ player + '</div>'));
+        });
     },
 
     chatKeypress: function(e) {

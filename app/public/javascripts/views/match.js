@@ -19,7 +19,7 @@ App.Views.Match = Backbone.View.extend({
         this.chatView = new App.Views.Chat({ parentView: this });
         this.defaultTitle = 'HakuGo: Beautiful Go with a Friend';
         this.setupSockets();
-        // this.preventWindowClose();
+        this.preventWindowClose();
     },
 
     setupSockets: function() {
@@ -47,6 +47,8 @@ App.Views.Match = Backbone.View.extend({
             _.each(data.messageLog, function(item) {
                 _this.chatView.insertMessage(item.type, item.msg, item.playerName);
             });
+
+            _this.chatView.renderPlayersFromServer(data.playerList);
 
             // Fill in the game state
             _this.boardView.renderFromServer(data.matrix, data.lastMovePlayed);
@@ -98,6 +100,10 @@ App.Views.Match = Backbone.View.extend({
 
         this.socket.on('update_board_header', function(data) {
             _this.boardHeaderView.renderFromServer(data.playerList);
+        });
+
+        this.socket.on('update_player_list', function(data) {
+            _this.chatView.renderPlayersFromServer(data.playerList);
         });
     },
 

@@ -70,6 +70,11 @@ io.sockets.on('connection', function(socket) {
             playerList: match.getPlayerList()
         });
 
+        // Update everyone's connected list
+        socket.broadcast.to(match.roomId()).emit('update_player_list', {
+            playerList: match.getPlayerList()
+        });
+
         // Let the client know they've connected,
         // and send along the payload of the current
         // game state to initalize their instance
@@ -320,6 +325,11 @@ io.sockets.on('connection', function(socket) {
         );
 
         socket.broadcast.to(currentMatch.roomId()).emit('chat_message', msgEntry);
+
+        // Update everyone's connected list
+        socket.broadcast.to(currentMatch.roomId()).emit('update_player_list', {
+            playerList: currentMatch.getPlayerList()
+        });
 
         // Remove the match if no one is in it
         // if (currentMatch.isEmpty()) {
