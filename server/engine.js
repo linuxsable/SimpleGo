@@ -55,7 +55,8 @@ _.extend(Engine.prototype, {
             color: color,
             x: x,
             y: y,
-            captures: captures
+            captures: captures,
+            koCoord: this.koCoord
         });
 
         if (!_.isEmpty(captures)) {
@@ -83,11 +84,11 @@ _.extend(Engine.prototype, {
             });
 
             // Capture counts
-            console.log(lastMove.captures.length);
             this.captureCounts[lastMove.color] -= lastMove.captures.length;
         }
 
         // Last Ko
+        this.koCoord = lastMove.koCoord;
     },
 
     isValidColor: function(color) {
