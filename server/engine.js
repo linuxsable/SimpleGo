@@ -66,6 +66,8 @@ _.extend(Engine.prototype, {
     },
 
     undoLastMove: function() {
+        var _this = this;
+
         // The move history
         var lastMove = this.moveHistory.pop();
 
@@ -73,8 +75,17 @@ _.extend(Engine.prototype, {
         this.matrix[lastMove.x][lastMove.y] = 0;        
 
         // Any captures
+        if (lastMove.captures.length) {
+            var color = (lastMove.color == this.COLORS.BLACK) ? this.COLORS.WHITE : this.COLORS.BLACK;
 
-        // Capture counts
+            _.each(lastMove.captures, function(capture) {
+                _this.matrix[capture[0]][capture[1]] = color;
+            });
+
+            // Capture counts
+            console.log(lastMove.captures.length);
+            this.captureCounts[lastMove.color] -= lastMove.captures.length;
+        }
 
         // Last Ko
     },

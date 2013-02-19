@@ -239,7 +239,8 @@ io.sockets.on('connection', function(socket) {
             // Event to update client state
             io.sockets.in(match.roomId()).emit('reset_board', {
                 matrix: match.engine.matrix,
-                lastMovePlayed: _.last(match.engine.moveHistory)
+                lastMovePlayed: _.last(match.engine.moveHistory),
+                captureCounts: match.getCaptureCounts()
             });
 
             socket.broadcast.to(match.roomId()).emit('update_players_turn', {

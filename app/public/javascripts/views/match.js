@@ -92,6 +92,7 @@ App.Views.Match = Backbone.View.extend({
         // Currently used once an undo is complete
         this.socket.on('reset_board', function(data) {
             _this.boardView.renderFromServer(data.matrix, data.lastMovePlayed);
+            _this.boardHeaderView.updateCaptureCounts(data.captureCounts);
         });
 
         this.socket.on('update_players_turn', function(data) {
