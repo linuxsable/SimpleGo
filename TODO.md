@@ -1,12 +1,11 @@
 V1 Milestone TODOs
 ==================
 
-* Fluid board (can be resized to fit screen)
+* ~~Fluid board (can be resized to fit screen)~~
 * Match header for game information
-* Connected players list
+* ~~Connected players list~~
 * ~~Game passing~~
 * Game resigning
-* Basic timer (japanese byo yomi)
 * ~~Proper board state loading~~
 * ~~Allow players to make turns without opponent present (turn based)~~
 * Persistence
@@ -33,3 +32,4 @@ V2 Milestone
 * Moving through game history with arrows
 * Scoring
 * Handicap
+* Basic timer (japanese byo yomi)

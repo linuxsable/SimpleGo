@@ -366,7 +366,7 @@ html[xmlns] .clearfix {
 }
 
 // Responsive board
-@media all and (max-width: 9999px) and (min-width: 1120px) {
+@media all and (max-width: 9999px) and (min-width: 1120px) and (min-height: 900px) {
   .container {
     header .centered {
       width: 1100px;
@@ -423,7 +423,7 @@ html[xmlns] .clearfix {
   }
 }
 
-@media all and (max-width: 9999px) and (min-width: 1336px) {
+@media all and (max-width: 9999px) and (min-width: 1336px) and (min-height: 1116px) {
   .container {
     header .centered {
       width: 1296px;

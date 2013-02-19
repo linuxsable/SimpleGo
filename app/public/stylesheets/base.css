@@ -284,7 +284,7 @@ html[xmlns] .clearfix {
         .container .centered .sidebar .chat input:focus {
           outline: none; }
 
-@media all and (max-width: 9999px) and (min-width: 1120px) {
+@media all and (max-width: 9999px) and (min-width: 1120px) and (min-height: 900px) {
   .container header .centered {
     width: 1100px; }
   .container .centered {
@@ -316,7 +316,7 @@ html[xmlns] .clearfix {
             height: 9px;
             top: 15px;
             left: 15px; } }
-@media all and (max-width: 9999px) and (min-width: 1336px) {
+@media all and (max-width: 9999px) and (min-width: 1336px) and (min-height: 1116px) {
   .container header .centered {
     width: 1296px; }
   .container .centered {
