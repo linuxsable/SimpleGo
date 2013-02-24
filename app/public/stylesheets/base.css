@@ -228,7 +228,8 @@ html[xmlns] .clearfix {
         background: #f9fafc;
         overflow: auto; }
         .container .centered .sidebar .chat .players::-webkit-scrollbar {
-          width: 5px; }
+          width: 5px;
+          height: 5px; }
         .container .centered .sidebar .chat .players::-webkit-scrollbar-track {
           -webkit-border-radius: 20px;
           -moz-border-radius: 20px;
@@ -249,7 +250,8 @@ html[xmlns] .clearfix {
         overflow: auto;
         float: left; }
         .container .centered .sidebar .chat .content::-webkit-scrollbar {
-          width: 5px; }
+          width: 5px;
+          height: 5px; }
         .container .centered .sidebar .chat .content::-webkit-scrollbar-track {
           -webkit-border-radius: 20px;
           -moz-border-radius: 20px;
