@@ -16,7 +16,7 @@ window.App = {
 
         getPlayerName: function() {
             var name = localStorage.getItem('config:player_name');
-            if (!name) {
+            if (name == null || name == undefined) {
                 return 'Player';
             }
             return name;

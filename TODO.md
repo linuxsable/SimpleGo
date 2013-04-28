@@ -5,13 +5,8 @@ V1 Milestone TODOs
 * Match header for game information
 * ~~Connected players list~~
 * ~~Game passing~~
-* Game resigning
 * ~~Proper board state loading~~
 * ~~Allow players to make turns without opponent present (turn based)~~
-* Persistence
-* Mute button
-* Old browser blocking
-* FAQ page
 * About Page
 * User feedback UI
 * ~~Sound caching~~
@@ -21,7 +16,6 @@ V1 Milestone TODOs
 * BUG: Don't show (Turn) unless other player has connected
 * BUG: Rejoin can steal player turn when it's not theirs
 * ~~BUG: Initial board load doesn't show last move~~
-* Player name should be cut off at 12 - 16 characters
 * ~~Link replacement in chat~~
 
 V2 Milestone
@@ -33,3 +27,9 @@ V2 Milestone
 * Scoring
 * Handicap
 * Basic timer (japanese byo yomi)
+* Game resigning
+* Persistence
+* Mute button
+* Old browser blocking
+* FAQ page
+* Player name should be cut off at 12 - 16 characters

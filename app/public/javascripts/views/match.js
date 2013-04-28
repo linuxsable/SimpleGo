@@ -2,9 +2,10 @@ App.Views.Match = Backbone.View.extend({
     el: 'body',
 
     events: {
-        'click .sidebar .links button.pass': 'passTurn',
-        'click .sidebar .links button.undo': 'undoTurn',
-        'click .sidebar .links button.resign': 'resign'
+        'click .sidebar .links .pass': 'passTurn',
+        'click .sidebar .links .undo': 'undoTurn',
+        'click .sidebar .links .resign': 'resign',
+        'click .sidebar .links .set-name': 'setName'
     },
 
     socket: null,
@@ -17,9 +18,9 @@ App.Views.Match = Backbone.View.extend({
         this.boardHeaderView = new App.Views.BoardHeader({ parentView: this });
         this.boardView = new App.Views.Board({ parentView: this });
         this.chatView = new App.Views.Chat({ parentView: this });
-        this.defaultTitle = 'HakuGo: Beautiful Go with a Friend';
+        this.defaultTitle = 'HakuGo - Beautiful Go with a Friend';
         this.setupSockets();
-        this.preventWindowClose();
+        // this.preventWindowClose();
     },
 
     setupSockets: function() {
@@ -155,6 +156,10 @@ App.Views.Match = Backbone.View.extend({
 
     resign: function() {
 
+    },
+
+    setName: function() {
+        App.helpers.showNamePrompt();
     },
 
     showUndoConfirmDialog: function() {
