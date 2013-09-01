@@ -1,6 +1,6 @@
 {
   "name": "HakuGo",
-  "version": "0.0.1-55",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node server/server.js"
