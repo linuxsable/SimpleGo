@@ -8,7 +8,9 @@ var app = require('express')(),
     Player = require('./player').Player,
     Match = require('./match').Match;
 
-server.listen(3000);
+var port = process.env.PORT || 5000;
+
+server.listen(port);
 
 app.use(express.static(path.normalize(__dirname + '/../app/public')));
 app.get('/*', function(req, res) {
