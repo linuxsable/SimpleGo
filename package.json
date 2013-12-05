@@ -1,6 +1,6 @@
 {
   "name": "HakuGo",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": true,
   "scripts": {
     "start": "node server/server.js"
@@ -14,7 +14,7 @@
   },
   "subdomain": "linuxsable.hakugo",
   "engines": {
-    "node": "0.10.12"
+    "node": "0.10.x"
   },
   "domains": [
     "hakugo.com",

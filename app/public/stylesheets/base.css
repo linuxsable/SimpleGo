@@ -4,7 +4,7 @@
   box-sizing: border-box; }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: Lato, sans-serif;
   font-size: 12px; }
 
 .clearer {
@@ -41,23 +41,19 @@ html[xmlns] .clearfix {
   height: 36px;
   font-size: 12px;
   background: #3A3A3A; }
-  .container header .centered {
-    width: 926px;
-    margin: 0 auto;
-    position: relative; }
-    .container header .centered .logo {
-      position: absolute;
-      left: 0;
-      top: 10px;
-      font-size: 16px;
-      font-weight: normal;
-      color: #fff; }
-      .container header .centered .logo span {
-        font-weight: 600; }
-    .container header .centered .right {
-      position: absolute;
-      right: 0;
-      margin-top: 3px; }
+  .container header .centered .logo {
+    position: relative;
+    left: 0;
+    top: 10px;
+    font-size: 16px;
+    font-weight: normal;
+    color: #fff; }
+    .container header .centered .logo span {
+      font-weight: 600; }
+  .container header .centered .right {
+    position: absolute;
+    right: 0;
+    margin-top: 3px; }
 .container .centered {
   width: 946px;
   margin: 0 auto; }
@@ -116,21 +112,18 @@ html[xmlns] .clearfix {
         background: #444; }
       .container .centered .board-header .top .stone.white {
         background: #eee; }
-    .container .centered .board-header .bottom {
-      margin-top: 3px; }
-      .container .centered .board-header .bottom .timer {
-        color: #fff;
-        font-size: 12px;
-        background: #606e7b;
-        -webkit-border-radius: 6px;
-        -moz-border-radius: 6px;
-        border-radius: 6px;
-        padding: 3px;
-        display: none; }
-      .container .centered .board-header .bottom .captures {
-        font-size: 12px;
-        color: #a5a5a5;
-        margin-top: 3px; }
+    .container .centered .board-header .bottom .timer {
+      color: #fff;
+      font-size: 12px;
+      background: #606e7b;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      border-radius: 6px;
+      padding: 3px;
+      display: none; }
+    .container .centered .board-header .bottom .captures {
+      font-size: 12px;
+      color: #a5a5a5; }
   .container .centered .board {
     width: 616px;
     height: 616px;
@@ -306,10 +299,10 @@ html[xmlns] .clearfix {
       -webkit-border-radius: 4px;
       -moz-border-radius: 4px;
       border-radius: 4px;
-      transition: all 100ms ease-in-out ;
-      -moz-transition: all 100ms ease-in-out ;
-      -webkit-transition: all 100ms ease-in-out ;
-      -o-transition: all 100ms ease-in-out ; }
+      transition: all 100ms ease-in-out  ;
+      -moz-transition: all 100ms ease-in-out  ;
+      -webkit-transition: all 100ms ease-in-out  ;
+      -o-transition: all 100ms ease-in-out  ; }
       .container .centered .sidebar .links div:hover {
         background: #F2F5FA;
         color: #666; }
