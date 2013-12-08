@@ -1,2 +1,3 @@
 node_modules
 app/.sass-cache/
+.sass-cache
