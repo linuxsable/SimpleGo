@@ -380,6 +380,6 @@ io.sockets.on('connection', function(socket) {
             oldName + ' changed their name to ' + player.name
         );
 
-        io.sockets.in(match.roomId()).emit('chat_message', logEntry);
+        io.sockets.in(match.roomId()).emit('chat_message', msgEntry);
     });
 });
