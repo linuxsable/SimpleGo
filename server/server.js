@@ -5,12 +5,18 @@ var app = require('express')(),
     path = require('path'),
     crypto = require('crypto'),
     _ = require('underscore'),
+    Parse = require('parse').Parse,
     Player = require('./player').Player,
     Match = require('./match').Match;
 
 var port = process.env.PORT || 5000;
 
 server.listen(port);
+
+Parse.initialize(
+    "gmJizKpNTnqqS709SB187V00g4iIgFD38EbTtXPg", 
+    "5mgkKk9kSl1Qclx5G5RzqnjF5P4ZSRpnHIkPI8mA"
+);
 
 app.use(express.static(path.normalize(__dirname + '/../app/public')));
 

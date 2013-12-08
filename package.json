@@ -10,7 +10,8 @@
     "jade": "*",
     "socket.io": "",
     "underscore": "",
-    "mysql": ""
+    "mysql": "",
+    "parse": "*"
   },
   "subdomain": "linuxsable.hakugo",
   "engines": {

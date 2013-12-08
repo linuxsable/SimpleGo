@@ -2,6 +2,7 @@ var _ = require('underscore');
 var Engine = require('./engine').Engine;
 var crypto = require('crypto');
 var mysql = require('mysql');
+var Parse = require('parse').Parse;
 
 function Match(id) {
     this.id = id;
@@ -15,14 +16,6 @@ function Match(id) {
     this.spectators = {};
     this.messageLog = [];
     this.engine = new Engine();
-
-    // this.dbConnection = mysql.createConnection({
-    //     host: 'localhost',
-    //     user: '',
-    //     password: ''
-    // });
-
-    // this.dbConnection.connect();
 }
 
 // Class level constants

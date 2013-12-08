@@ -29,7 +29,7 @@ App.Views.Match = Backbone.View.extend({
         this.socket = io.connect();
         
         this.socket.emit('join_match', {
-            id: _this.matchId,
+            id: this.matchId,
             playerName: App.helpers.getPlayerName(),
             matchAuthHash: App.helpers.getAuthHash(this.matchId)
         });
