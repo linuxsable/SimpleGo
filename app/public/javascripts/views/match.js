@@ -159,7 +159,11 @@ App.Views.Match = Backbone.View.extend({
     },
 
     setName: function() {
-        App.helpers.showNamePrompt();
+        var name = App.helpers.showNamePrompt();
+
+        this.socket.emit('update_player_name', {
+            name: name
+        });
     },
 
     showUndoConfirmDialog: function() {

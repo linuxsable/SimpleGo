@@ -12,6 +12,7 @@ window.App = {
             var currentName = localStorage.getItem('config:player_name');
             var name = prompt("What's your name?", currentName);
             localStorage.setItem('config:player_name', name.truncate(12));
+            return name;
         },
 
         getPlayerName: function() {

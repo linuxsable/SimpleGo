@@ -346,4 +346,40 @@ io.sockets.on('connection', function(socket) {
         // Remove the player from the players
         delete players[player.id];
     });
+
+    socket.on('update_player_name', function(data) {
+        if (!data.name || !data.name.length) {
+            console.log('error: missing name parameter');
+            return;
+        }
+
+        // First get the player
+        var player = players[socket.id];
+        if (!player) {
+            console.log('error: cant find player');
+            return false;
+        }
+
+        var oldName = player.name;
+        player.name = data.name;
+
+        var match = matches[player.currentMatchId];
+
+        // Update everyones board header
+        io.sockets.in(match.roomId()).emit('update_board_header', {
+            playerList: match.getPlayerList()
+        });
+
+        // Update everyone's connected list
+        io.sockets.in(match.roomId()).emit('update_player_list', {
+            playerList: match.getPlayerList()
+        });
+
+        var msgEntry = match.logMessage(
+            Match.MESSAGE_TYPE.SYSTEM,
+            oldName + ' changed their name to ' + player.name
+        );
+
+        io.sockets.in(match.roomId()).emit('chat_message', logEntry);
+    });
 });
