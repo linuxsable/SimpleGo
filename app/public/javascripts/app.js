@@ -11,7 +11,7 @@ window.App = {
         showNamePrompt: function() {
             var currentName = localStorage.getItem('config:player_name');
             var name = prompt("What's your name?", currentName);
-            localStorage.setItem('config:player_name', name);
+            localStorage.setItem('config:player_name', name.truncate(12));
         },
 
         getPlayerName: function() {
@@ -56,4 +56,10 @@ String.prototype.linkify = function(newWindow) {
             .replace(urlPattern, '<a href="$&">$&</a>')
             .replace(pseudoUrlPattern, '$1<a href="http://$2">$2</a>');
     }
+};
+
+String.prototype.truncate = function(length) {
+    if (this == null) return '';
+    length = ~~length;
+    return this.length > length ? this.slice(0, length) : this.toString();
 };
