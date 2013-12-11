@@ -32,7 +32,8 @@ _.extend(Match.prototype, {
             if (player.matchAuthHash == this.blackAuthHash) {
                 if (this.black == null) {
                     player.joinMatch(this, this.blackAuthHash);
-                    this.black = player;    
+                    this.black = player; 
+                    // this.syncToDB();
                     return true;
                 }
             }
@@ -44,6 +45,7 @@ _.extend(Match.prototype, {
                 player.joinMatch(this, this.blackAuthHash);
                 this.black = player;
                 this.blackAuthHashTaken = true;
+                // this.syncToDB();
                 return true;
             }
         }
@@ -57,6 +59,7 @@ _.extend(Match.prototype, {
                 if (this.white == null) {
                     player.joinMatch(this, this.whiteAuthHash);
                     this.white = player;    
+                    // this.syncToDB();
                     return true;
                 }   
             }
@@ -67,6 +70,7 @@ _.extend(Match.prototype, {
                 player.joinMatch(this, this.whiteAuthHash);
                 this.white = player;
                 this.whiteAuthHashTaken = true;
+                // this.syncToDB();
                 return true;    
             }
         }
@@ -135,14 +139,17 @@ _.extend(Match.prototype, {
     removePlayer: function(player) {
         if (this.isPlayerBlack(player)) {
             this.black = null;
+            // this.syncToDB();
             return 1;
         }
         else if (this.isPlayerWhite(player)) {
             this.white = null;
+            // this.syncToDB();
             return 2;
         }
         else if (this.isPlayerASpectator(player)) {
             delete this.spectators[player.id];
+            // this.syncToDB();
             return 3;
         }
     },
@@ -187,6 +194,7 @@ _.extend(Match.prototype, {
         var result = this.engine.enterMove(color, coord.x, coord.y);
         if (result !== false) {
             this.setLastPlayerTurn(player);
+            this.syncToDB();
         }
         return result;
     },
@@ -196,6 +204,7 @@ _.extend(Match.prototype, {
             return false;
         }
         this.setLastPlayerTurn(player);
+        this.syncToDB();
         return true;
     },
 
@@ -205,6 +214,7 @@ _.extend(Match.prototype, {
         }
         this.setLastPlayerTurn(this.getOpponent(player));
         this.engine.undoLastMove();
+        this.syncToDB();
     },
 
     createSaltedHash: function() {
@@ -260,7 +270,44 @@ _.extend(Match.prototype, {
     },
 
     syncToDB: function() {
-        console.log(this.dbConnection);
+        var Match = Parse.Object.extend('match');
+        var match = new Match();
+
+        match.set({
+            id: this.id,
+            blackAuthHash: this.blackAuthHash,
+            blackAuthHashTaken: this.blackAuthHashTaken,
+            whiteAuthHash: this.whiteAuthHash,
+            whiteAuthHashTaken: this.whiteAuthHashTaken,
+            matrix: JSON.stringify(this.engine.matrix),
+            moveHistory: JSON.stringify(this.engine.moveHistory),
+            captureCounts: JSON.stringify(this.engine.captureCounts),
+            koCoord: JSON.stringify(this.engine.koCoord)
+        });
+
+        match.save({
+            success: function() {
+                console.log('DB - synced match: ' + this.id);
+            }.bind(this),
+
+            error: function() {
+                console.log('DB - failed to sync match: ' + this.id);
+            }.bind(this)
+        });
+
+        // var matchQuery = new Parse.Query(match);
+
+        // matchQuery.get(this.id, {
+        //     success: function() {
+        //         window.matchView = new App.Views.Match({
+        //             matchId: id
+        //         });
+        //     },
+
+        //     error: function() {
+        //         console.log('error loading match');
+        //     }
+        // });
     },
 
     getPlayerList: function() {

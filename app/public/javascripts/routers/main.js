@@ -38,6 +38,6 @@ App.Routers.Main = Backbone.Router.extend({
             error: function() {
                 console.log('error loading match');
             }
-        })
+        });
     }
 });
