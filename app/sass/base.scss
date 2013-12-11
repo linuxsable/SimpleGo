@@ -14,6 +14,7 @@
 body {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 13px;
+  -webkit-font-smoothing: antialiased;
 }
 
 .clearer {
@@ -57,8 +58,9 @@ html[xmlns] .clearfix {
 .container {
   header {
     // height: 36px;
-    font-size: 12px;
-    border-bottom: 1px solid #EEE;
+    // font-size: 12px;
+    // border-bottom: 1px solid #EEE;
+    background: #f7f7f7;
 
     .centered {
       // width: 926px;
@@ -67,11 +69,10 @@ html[xmlns] .clearfix {
       text-align: center;
 
       .logo {
-        padding: 10px;
-        font-size: 24px;
-        font-weight: normal;
-        color: #444;
-        font-family: 'Inconsolata';
+        padding: 10px 0;
+        font-size: 22px;
+        color: #555;
+        // font-fami/ly: 'Inconsolata';
 
         span {
           color: #09C;
@@ -299,37 +300,37 @@ html[xmlns] .clearfix {
     }
 
     .sidebar {
-      height: 392px;
+      height: 450px;
       width: 300px;
       margin-left: 30px;
       float: left;
 
       .chat {
         width: 100%;
-        height: 392px;
+        height: 450px;
         float: left;
-        border: 1px solid #d1dce4;
+        border: 1px solid #eee;
         position: relative;
 
         .players {
           width: 80px;
-          height: 360px;
+          height: 415px;
           float: left;
-          border-right: 1px solid #d1dce4;
+          border-right: 1px solid #eee;
           padding: 10px;
-          background: #f9fafc;
+          background: #f9f9f9;
           overflow: auto;
           @include scrollbar;
 
           .player {
-            color: #7a8299;
+            color: #444;
             margin-bottom: 4px;
           }
         }
 
         .content {
           width: 218px;
-          height: 360px;
+          height: 415px;
           padding: 5px 10px;
           overflow: auto;
           float: left;
@@ -338,7 +339,7 @@ html[xmlns] .clearfix {
           .message {
             padding: 1px 0;
             line-height: 16px;
-            color: #606e7b;
+            color: #444;
 
             &.system {
               font-style: italic;
@@ -350,7 +351,7 @@ html[xmlns] .clearfix {
 
             span {
               font-weight: 600;
-              color: #606e7b;
+              color: #444;
             }
           }
         }
@@ -360,11 +361,11 @@ html[xmlns] .clearfix {
           padding: 8px;
           border: none;
           background: #fff;
-          border-top: 1px solid #d1dce4;
+          border-top: 1px solid #eee;
           position: absolute;
           bottom: -2px;
           left: 0;
-          color: #606e7b;
+          color: #444;
           font-size: 13px;
 
           &:focus {
@@ -375,19 +376,18 @@ html[xmlns] .clearfix {
 
       .links {
         div {
-          background: #F9FAFC;
+          // background: #F9FAFC;
           border: 1px solid #f1f1f1;
-          color: #7A8299;
-          padding: 10px 20px;
+          color: #555;
+          padding: 8px 20px;
           float: left;
           cursor: pointer;
-          margin-right: 18px;
+          margin-right: 22px;
           margin-top: 15px;
-          @include border-radius(4px);
           @include transition(all 100ms ease-in-out);
 
           &:hover {
-            background: #F2F5FA;
+            background: #f7f7f7;
             color: #666;
           }
 

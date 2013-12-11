@@ -5,7 +5,8 @@
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 13px; }
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased; }
 
 .clearer {
   clear: both; }
@@ -38,16 +39,13 @@ html[xmlns] .clearfix {
     color: #ccc; }
 
 .container header {
-  font-size: 12px;
-  border-bottom: 1px solid #EEE; }
+  background: #f7f7f7; }
   .container header .centered {
     text-align: center; }
     .container header .centered .logo {
-      padding: 10px;
-      font-size: 24px;
-      font-weight: normal;
-      color: #444;
-      font-family: 'Inconsolata'; }
+      padding: 10px 0;
+      font-size: 22px;
+      color: #555; }
       .container header .centered .logo span {
         color: #09C; }
     .container header .centered .right {
@@ -211,27 +209,27 @@ html[xmlns] .clearfix {
             -moz-border-radius: 100px;
             border-radius: 100px; }
   .container .centered .sidebar {
-    height: 392px;
+    height: 450px;
     width: 300px;
     margin-left: 30px;
     float: left; }
     .container .centered .sidebar .chat {
       width: 100%;
-      height: 392px;
+      height: 450px;
       float: left;
-      border: 1px solid #d1dce4;
+      border: 1px solid #eee;
       position: relative; }
       .container .centered .sidebar .chat .players {
         width: 80px;
-        height: 360px;
+        height: 415px;
         float: left;
-        border-right: 1px solid #d1dce4;
+        border-right: 1px solid #eee;
         padding: 10px;
-        background: #f9fafc;
+        background: #f9f9f9;
         overflow: auto; }
         .container .centered .sidebar .chat .players::-webkit-scrollbar {
-          width: 5px;
-          height: 5px; }
+          width: 3px;
+          height: 3px; }
         .container .centered .sidebar .chat .players::-webkit-scrollbar-track {
           -webkit-border-radius: 20px;
           -moz-border-radius: 20px;
@@ -243,17 +241,17 @@ html[xmlns] .clearfix {
           border-radius: 20px;
           background: #c9c9c9; }
         .container .centered .sidebar .chat .players .player {
-          color: #7a8299;
+          color: #444;
           margin-bottom: 4px; }
       .container .centered .sidebar .chat .content {
         width: 218px;
-        height: 360px;
+        height: 415px;
         padding: 5px 10px;
         overflow: auto;
         float: left; }
         .container .centered .sidebar .chat .content::-webkit-scrollbar {
-          width: 5px;
-          height: 5px; }
+          width: 3px;
+          height: 3px; }
         .container .centered .sidebar .chat .content::-webkit-scrollbar-track {
           -webkit-border-radius: 20px;
           -moz-border-radius: 20px;
@@ -267,45 +265,41 @@ html[xmlns] .clearfix {
         .container .centered .sidebar .chat .content .message {
           padding: 1px 0;
           line-height: 16px;
-          color: #606e7b; }
+          color: #444; }
           .container .centered .sidebar .chat .content .message.system {
             font-style: italic; }
           .container .centered .sidebar .chat .content .message.command {
             color: #666; }
           .container .centered .sidebar .chat .content .message span {
             font-weight: 600;
-            color: #606e7b; }
+            color: #444; }
       .container .centered .sidebar .chat input {
         width: 100%;
         padding: 8px;
         border: none;
         background: #fff;
-        border-top: 1px solid #d1dce4;
+        border-top: 1px solid #eee;
         position: absolute;
         bottom: -2px;
         left: 0;
-        color: #606e7b;
+        color: #444;
         font-size: 13px; }
         .container .centered .sidebar .chat input:focus {
           outline: none; }
     .container .centered .sidebar .links div {
-      background: #F9FAFC;
       border: 1px solid #f1f1f1;
-      color: #7A8299;
-      padding: 10px 20px;
+      color: #555;
+      padding: 8px 20px;
       float: left;
       cursor: pointer;
-      margin-right: 18px;
+      margin-right: 22px;
       margin-top: 15px;
-      -webkit-border-radius: 4px;
-      -moz-border-radius: 4px;
-      border-radius: 4px;
       transition: all 100ms ease-in-out  ;
       -moz-transition: all 100ms ease-in-out  ;
       -webkit-transition: all 100ms ease-in-out  ;
       -o-transition: all 100ms ease-in-out  ; }
       .container .centered .sidebar .links div:hover {
-        background: #F2F5FA;
+        background: #f7f7f7;
         color: #666; }
       .container .centered .sidebar .links div:last-child {
         margin-right: 0; }
