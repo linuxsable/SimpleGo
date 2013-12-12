@@ -269,7 +269,12 @@ _.extend(Match.prototype, {
         return message && message[0] == '/';
     },
 
-    syncToDB: function() {
+    syncToDB: function(options) {
+        options = _.extend({
+            success: function() {},
+            error: function() {}
+        }, options);
+
         var Match = Parse.Object.extend('match');
         var match = new Match();
 
@@ -288,10 +293,12 @@ _.extend(Match.prototype, {
         match.save({
             success: function() {
                 console.log('DB - synced match: ' + this.id);
+                options.success();
             }.bind(this),
 
             error: function() {
                 console.log('DB - failed to sync match: ' + this.id);
+                options.error();
             }.bind(this)
         });
 
@@ -308,6 +315,37 @@ _.extend(Match.prototype, {
         //         console.log('error loading match');
         //     }
         // });
+    },
+
+    // Initialize the match from the db
+    syncFromModel: function(model) {
+        this.blackAuthHash = model.get('blackAuthHash');
+        this.blackAuthHashTaken = model.get('blackAuthHashTaken');
+        this.whiteAuthHash = model.get('whiteAuthHash');
+        this.whiteAuthHashTaken = model.get('whiteAuthHashTaken');
+
+        if (model.get('matrix')) {
+            this.engine.matrix = JSON.parse(model.get('matrix'));    
+        }
+
+        if (model.get('moveHistory')) {
+            this.engine.moveHistory = JSON.parse(model.get('moveHistory'));    
+        }
+
+        if (model.get('captureCounts')) {
+            this.engine.captureCounts = JSON.parse(model.get('captureCounts'));    
+        }
+        
+        if (model.get('koCoord')) {
+            this.engine.koCoord = JSON.parse(model.get('koCoord'));    
+        }
+    },
+
+    syncNewPlayerAuthHashesToDB: function(options) {
+        this.blackAuthHash = this.createSaltedHash();
+        this.whiteAuthHash = this.createSaltedHash();
+
+        this.syncToDB(options);
     },
 
     getPlayerList: function() {
@@ -350,7 +388,9 @@ _.extend(Match.prototype, {
 
     getCaptureCounts: function() {
         return this.engine.captureCounts;
-    }
+    },
+
+
 });
 
 exports.Match = Match;

@@ -28,6 +28,8 @@ app.get('/*', function(req, res) {
 var players = {};
 var matches = {};
 
+io.set('log level', 2);
+
 io.sockets.on('connection', function(socket) {
     // Join a match room
     socket.on('join_match', function(data) {
@@ -40,65 +42,100 @@ io.sockets.on('connection', function(socket) {
         var player = new Player(socket, data.playerName, data.matchAuthHash);
         players[player.id] = player;
 
-        var msgEntry;
-
-        // If there's a match, join it
-        if (matches.hasOwnProperty(data.id)) {
-            var match = matches[data.id];
+        var _joinMatch = function(match) {
+            var msgEntry;
 
             // Is it a rejoin because the player got disconnected?
             if (match.doesPlayerHaveBlackAuthHash(player) && match.joinAsBlack(player)) {
                 msgEntry = match.blackJoinMessage(player, true);
+                console.log('rejoining as black');
             }
             else if (match.doesPlayerHaveWhiteAuthHash(player) && match.joinAsWhite(player)) {
                 msgEntry = match.whiteJoinMessage(player, true);
+                console.log('rejoining as white');
             }
-            // This isn't a rejoin from a disconnect
             else {
-                if (match.needsOpponent()) {
-                    match.joinAsWhite(player);
-                    msgEntry = match.whiteJoinMessage(player);
+                if (match.isEmpty()) {
+                    console.log('match is empty');
+                    match.joinAsBlack(player);
+                    msgEntry = match.blackJoinMessage(player);
                 } else {
-                    match.joinAsSpectator(player);
-                    msgEntry = match.spectatorJoinMessage(player);
+                    console.log('match not empty');
+                    if (match.needsOpponent()) {
+                        match.joinAsWhite(player);
+                        msgEntry = match.whiteJoinMessage(player);
+                    } else {
+                        match.joinAsSpectator(player);
+                        msgEntry = match.spectatorJoinMessage(player);
+                    }
                 }
             }
-        } else {
-            // If there's no match, create one    
-            var match = new Match(data.id);
-            matches[data.id] = match;
-            match.joinAsBlack(player);
-            msgEntry = match.blackJoinMessage(player);
+
+            match.syncToDB();
+
+            matches[match.id] = match;
+
+            // Let everyone know they have entered the room
+            socket.broadcast.to(match.roomId()).emit('chat_message', msgEntry);
+
+            // Update everyones board header
+            socket.broadcast.to(match.roomId()).emit('update_board_header', {
+                playerList: match.getPlayerList()
+            });
+
+            // Update everyone's connected list
+            socket.broadcast.to(match.roomId()).emit('update_player_list', {
+                playerList: match.getPlayerList()
+            });
+
+            // Let the client know they've connected,
+            // and send along the payload of the current
+            // game state to initalize their instance
+            socket.emit('joined_match', {
+                messageLog: match.messageLog,
+                matrix: match.engine.matrix,
+                lastMovePlayed: _.last(match.engine.moveHistory),
+                playerColor: match.getPlayerColor(player),
+                isPlayersTurn: match.isPlayersTurn(player),
+                matchAuthHash: player.matchAuthHash,
+                isSpectator: match.isPlayerASpectator(player),
+                playerList: match.getPlayerList()
+            });
+        };
+
+        // First see if the match exists in memory
+        if (_.has(matches, data.id)) {
+            console.log('Loaded match from memory');
+            _joinMatch(matches[data.id]);
         }
+        // If the match doesn't exist in memory, ask the DB if it exists
+        else {
+            var dbMatchObj = Parse.Object.extend('match');
+            var matchQuery = new Parse.Query(dbMatchObj);
 
-        // Let everyone know they have entered the room
-        socket.broadcast.to(match.roomId()).emit('chat_message', msgEntry);
+            matchQuery.get(data.id, {
+                success: function(model) {
+                    console.log('Loaded match from DB');
+                    var match = new Match(model.id);
+                    match.syncFromModel(model);
 
-        // Update everyones board header
-        socket.broadcast.to(match.roomId()).emit('update_board_header', {
-            playerList: match.getPlayerList()
-        });
+                    if (!match.blackAuthHash || !match.whiteAuthHash) {
+                        match.syncNewPlayerAuthHashesToDB({
+                            success: function() {
+                                _joinMatch(match);
+                            }
+                        });
+                    } else {
+                        _joinMatch(match);
+                    }
+                },
 
-        // Update everyone's connected list
-        socket.broadcast.to(match.roomId()).emit('update_player_list', {
-            playerList: match.getPlayerList()
-        });
-
-        // Let the client know they've connected,
-        // and send along the payload of the current
-        // game state to initalize their instance
-        socket.emit('joined_match', {
-            messageLog: match.messageLog,
-            matrix: match.engine.matrix,
-            lastMovePlayed: _.last(match.engine.moveHistory),
-            playerColor: match.getPlayerColor(player),
-            isPlayersTurn: match.isPlayersTurn(player),
-            matchAuthHash: player.matchAuthHash,
-            isSpectator: match.isPlayerASpectator(player),
-            playerList: match.getPlayerList()
-        });
-
-        // console.log(matches);
+                error: function() {
+                    console.log('error: failed to find match');
+                    return;
+                }
+            });
+        }
     });
 
     socket.on('place_stone', function(data, ack) {
