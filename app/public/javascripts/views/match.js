@@ -20,7 +20,7 @@ App.Views.Match = Backbone.View.extend({
         this.chatView = new App.Views.Chat({ parentView: this });
         this.defaultTitle = 'HakuGo - Beautiful Go with a Friend';
         this.setupSockets();
-        // this.preventWindowClose();
+        this.preventWindowClose();
     },
 
     setupSockets: function() {
