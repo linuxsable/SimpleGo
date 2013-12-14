@@ -5,21 +5,18 @@ var app = require('express')(),
     path = require('path'),
     crypto = require('crypto'),
     _ = require('underscore'),
-    Parse = require('parse').Parse,
     Player = require('./player').Player,
-    Match = require('./match').Match;
+    Match = require('./match').Match,
+    MongoClient = require('mongodb').MongoClient,
+    db = null;
 
-var port = process.env.PORT || 5000;
-
-server.listen(port);
-
-Parse.initialize(
-    "gmJizKpNTnqqS709SB187V00g4iIgFD38EbTtXPg", 
-    "5mgkKk9kSl1Qclx5G5RzqnjF5P4ZSRpnHIkPI8mA"
-);
+var dbUrl = 'mongodb://admin:iliketurtles@paulo.mongohq.com:10057/hakugo-prod';
+MongoClient.connect(dbUrl, function(err, dbase) {
+    db = dbase;
+    server.listen(process.env.PORT || 5000);
+});
 
 app.use(express.static(path.normalize(__dirname + '/../app/public')));
-
 app.get('/*', function(req, res) {
     res.sendfile(path.normalize(__dirname + '/../app/public/index.html'));
 });
@@ -31,6 +28,17 @@ var matches = {};
 io.set('log level', 2);
 
 io.sockets.on('connection', function(socket) {
+    socket.on('create_match', function(ack) {
+        console.log('Creating brand new match');
+
+        var match = new Match(null, db);
+        match.createInDB({
+            success: function(doc) {
+                ack({ matchId: doc._id });
+            }
+        });
+    });
+
     // Join a match room
     socket.on('join_match', function(data) {
         if (!data.id) {
@@ -42,29 +50,31 @@ io.sockets.on('connection', function(socket) {
         var player = new Player(socket, data.playerName, data.matchAuthHash);
         players[player.id] = player;
 
-        var _joinMatch = function(match) {
+        var joinMatch = function(match) {
             var msgEntry;
 
             // Is it a rejoin because the player got disconnected?
             if (match.doesPlayerHaveBlackAuthHash(player) && match.joinAsBlack(player)) {
                 msgEntry = match.blackJoinMessage(player, true);
-                console.log('rejoining as black');
+                console.log('Rejoining as black');
             }
             else if (match.doesPlayerHaveWhiteAuthHash(player) && match.joinAsWhite(player)) {
                 msgEntry = match.whiteJoinMessage(player, true);
                 console.log('rejoining as white');
             }
             else {
-                if (match.isEmpty()) {
-                    console.log('match is empty');
+                if (!match.blackAuthHashTaken) {
+                    console.log('Match is empty, joining as black');
                     match.joinAsBlack(player);
                     msgEntry = match.blackJoinMessage(player);
                 } else {
-                    console.log('match not empty');
                     if (match.needsOpponent()) {
+                        console.log('Joining as white');
                         match.joinAsWhite(player);
                         msgEntry = match.whiteJoinMessage(player);
+                        console.log(match);
                     } else {
+                        console.log('Joining as spectator');
                         match.joinAsSpectator(player);
                         msgEntry = match.spectatorJoinMessage(player);
                     }
@@ -72,8 +82,6 @@ io.sockets.on('connection', function(socket) {
             }
 
             match.syncToDB();
-
-            matches[match.id] = match;
 
             // Let everyone know they have entered the room
             socket.broadcast.to(match.roomId()).emit('chat_message', msgEntry);
@@ -103,37 +111,31 @@ io.sockets.on('connection', function(socket) {
             });
         };
 
-        // First see if the match exists in memory
+        // Does the match exist in memory?
         if (_.has(matches, data.id)) {
-            console.log('Loaded match from memory');
-            _joinMatch(matches[data.id]);
-        }
-        // If the match doesn't exist in memory, ask the DB if it exists
-        else {
-            var dbMatchObj = Parse.Object.extend('match');
-            var matchQuery = new Parse.Query(dbMatchObj);
+            joinMatch(matches[data.id]);
+        } else {
+            var collection = db.collection('matches');
+            collection.findOne({
+                _id: new require('mongodb').ObjectID(data.id)
+            }, {
+                blackAuthHash: 1,
+                blackAuthHashTaken: 1,
+                whiteAuthHash: 1,
+                whiteAuthHashTaken: 1,
+                messageLog: 1,
+                matrix: 1,
+                moveHistory: 1,
+                captureCounts: 1,
+                koCoord: 1
+            },
+            function(err, doc) {
+                if (err) return;
 
-            matchQuery.get(data.id, {
-                success: function(model) {
-                    console.log('Loaded match from DB');
-                    var match = new Match(model.id);
-                    match.syncFromModel(model);
-
-                    if (!match.blackAuthHash || !match.whiteAuthHash) {
-                        match.syncNewPlayerAuthHashesToDB({
-                            success: function() {
-                                _joinMatch(match);
-                            }
-                        });
-                    } else {
-                        _joinMatch(match);
-                    }
-                },
-
-                error: function() {
-                    console.log('error: failed to find match');
-                    return;
-                }
+                var match = new Match(doc._id, db);
+                match.syncFromDBDocument(doc);
+                matches[match.id] = match;
+                joinMatch(match);
             });
         }
     });

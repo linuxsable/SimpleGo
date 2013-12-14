@@ -2,9 +2,8 @@ var _ = require('underscore');
 var Engine = require('./engine').Engine;
 var crypto = require('crypto');
 var mysql = require('mysql');
-var Parse = require('parse').Parse;
 
-function Match(id) {
+function Match(id, db) {
     this.id = id;
     this.black = null;
     this.blackAuthHash = this.createSaltedHash();
@@ -16,6 +15,7 @@ function Match(id) {
     this.spectators = {};
     this.messageLog = [];
     this.engine = new Engine();
+    this.db = db;
 }
 
 // Class level constants
@@ -33,7 +33,7 @@ _.extend(Match.prototype, {
                 if (this.black == null) {
                     player.joinMatch(this, this.blackAuthHash);
                     this.black = player; 
-                    // this.syncToDB();
+                    this.syncToDB();
                     return true;
                 }
             }
@@ -45,7 +45,7 @@ _.extend(Match.prototype, {
                 player.joinMatch(this, this.blackAuthHash);
                 this.black = player;
                 this.blackAuthHashTaken = true;
-                // this.syncToDB();
+                this.syncToDB();
                 return true;
             }
         }
@@ -59,7 +59,7 @@ _.extend(Match.prototype, {
                 if (this.white == null) {
                     player.joinMatch(this, this.whiteAuthHash);
                     this.white = player;    
-                    // this.syncToDB();
+                    this.syncToDB();
                     return true;
                 }   
             }
@@ -70,7 +70,7 @@ _.extend(Match.prototype, {
                 player.joinMatch(this, this.whiteAuthHash);
                 this.white = player;
                 this.whiteAuthHashTaken = true;
-                // this.syncToDB();
+                this.syncToDB();
                 return true;    
             }
         }
@@ -80,7 +80,7 @@ _.extend(Match.prototype, {
 
     joinAsSpectator: function(player) {
         player.joinMatch(this, null);
-        this.spectators[player.id] = player;    
+        this.spectators[player.id] = player;
     },
 
     needsOpponent: function() {
@@ -139,17 +139,16 @@ _.extend(Match.prototype, {
     removePlayer: function(player) {
         if (this.isPlayerBlack(player)) {
             this.black = null;
-            // this.syncToDB();
+            this.syncToDB();
             return 1;
         }
         else if (this.isPlayerWhite(player)) {
             this.white = null;
-            // this.syncToDB();
+            this.syncToDB();
             return 2;
         }
         else if (this.isPlayerASpectator(player)) {
             delete this.spectators[player.id];
-            // this.syncToDB();
             return 3;
         }
     },
@@ -170,6 +169,7 @@ _.extend(Match.prototype, {
     logMessage: function(type, msg, playerName) {
         var entry = this.createMessage(type, msg, playerName);
         this.messageLog.push(entry);
+        this.syncToDB();
         return entry;
     },
 
@@ -220,7 +220,8 @@ _.extend(Match.prototype, {
     createSaltedHash: function() {
         var salt = crypto.randomBytes(128).toString('base64');
         var textSalt = 'tread.softly.because.you.tread.on.my.dreams';
-        return crypto.createHash('md5').update(salt + textSalt).digest('hex');
+        var hash = crypto.createHash('md5').update(salt + textSalt).digest('hex');
+        return hash.substring(0, 12);
     },
 
     whiteJoinMessage: function(player, rejoin) {
@@ -269,83 +270,80 @@ _.extend(Match.prototype, {
         return message && message[0] == '/';
     },
 
+    createInDB: function(options) {
+        options = _.extend({
+            success: function() {},
+            error: function() {}
+        }, options);
+
+        var collection = this.db.collection('matches');
+
+        collection.insert({
+            blackAuthHash: this.blackAuthHash,
+            blackAuthHashTaken: this.blackAuthHashTaken,
+            whiteAuthHash: this.whiteAuthHash,
+            whiteAuthHashTaken: this.whiteAuthHashTaken,
+            messageLog: this.messageLog,
+            matrix: JSON.stringify(this.engine.matrix),
+            moveHistory: this.engine.moveHistory,
+            captureCounts: this.engine.captureCounts,
+            koCoord: this.engine.koCoord,
+            createdAt: Date.now()
+        }, { w: 1 }, function(err, doc) {
+            if (err) {
+                console.log('DB - Failed to create match');
+                console.log(err);
+                options.error();
+            } else {
+                console.log('DB - Match created')
+                options.success(_.first(doc));
+            }
+        });
+    },
+
     syncToDB: function(options) {
         options = _.extend({
             success: function() {},
             error: function() {}
         }, options);
 
-        var Match = Parse.Object.extend('match');
-        var match = new Match();
+        var collection = this.db.collection('matches');
 
-        match.set({
-            id: this.id,
-            blackAuthHash: this.blackAuthHash,
-            blackAuthHashTaken: this.blackAuthHashTaken,
-            whiteAuthHash: this.whiteAuthHash,
-            whiteAuthHashTaken: this.whiteAuthHashTaken,
-            matrix: JSON.stringify(this.engine.matrix),
-            moveHistory: JSON.stringify(this.engine.moveHistory),
-            captureCounts: JSON.stringify(this.engine.captureCounts),
-            koCoord: JSON.stringify(this.engine.koCoord)
-        });
-
-        match.save({
-            success: function() {
-                console.log('DB - synced match: ' + this.id);
-                options.success();
-            }.bind(this),
-
-            error: function() {
-                console.log('DB - failed to sync match: ' + this.id);
+        collection.findAndModify({ _id: this.id }, null, {
+            $set: {
+                blackAuthHash: this.blackAuthHash,
+                blackAuthHashTaken: this.blackAuthHashTaken,
+                whiteAuthHash: this.whiteAuthHash,
+                whiteAuthHashTaken: this.whiteAuthHashTaken,
+                messageLog: this.messageLog,
+                matrix: JSON.stringify(this.engine.matrix),
+                moveHistory: this.engine.moveHistory,
+                captureCounts: this.engine.captureCounts,
+                koCoord: this.engine.koCoord,
+                updatedAt: Date.now()
+            }
+        }, null, function(err, doc) {
+            if (err) {
+                console.log('DB failed to sync');
                 options.error();
-            }.bind(this)
+            } else {
+                console.log('DB synced')
+                options.success(doc);
+            }
         });
-
-        // var matchQuery = new Parse.Query(match);
-
-        // matchQuery.get(this.id, {
-        //     success: function() {
-        //         window.matchView = new App.Views.Match({
-        //             matchId: id
-        //         });
-        //     },
-
-        //     error: function() {
-        //         console.log('error loading match');
-        //     }
-        // });
     },
 
     // Initialize the match from the db
-    syncFromModel: function(model) {
-        this.blackAuthHash = model.get('blackAuthHash');
-        this.blackAuthHashTaken = model.get('blackAuthHashTaken');
-        this.whiteAuthHash = model.get('whiteAuthHash');
-        this.whiteAuthHashTaken = model.get('whiteAuthHashTaken');
-
-        if (model.get('matrix')) {
-            this.engine.matrix = JSON.parse(model.get('matrix'));    
-        }
-
-        if (model.get('moveHistory')) {
-            this.engine.moveHistory = JSON.parse(model.get('moveHistory'));    
-        }
-
-        if (model.get('captureCounts')) {
-            this.engine.captureCounts = JSON.parse(model.get('captureCounts'));    
-        }
-        
-        if (model.get('koCoord')) {
-            this.engine.koCoord = JSON.parse(model.get('koCoord'));    
-        }
-    },
-
-    syncNewPlayerAuthHashesToDB: function(options) {
-        this.blackAuthHash = this.createSaltedHash();
-        this.whiteAuthHash = this.createSaltedHash();
-
-        this.syncToDB(options);
+    syncFromDBDocument: function(doc) {
+        this.blackAuthHash = doc.blackAuthHash;
+        this.blackAuthHashTaken = doc.blackAuthHashTaken;
+        this.whiteAuthHash = doc.whiteAuthHash;
+        this.whiteAuthHashTaken = doc.whiteAuthHashTaken;
+        this.messageLog = doc.messageLog;
+        this.engine.matrix = JSON.parse(doc.matrix);
+        this.engine.moveHistory = doc.moveHistory;
+        this.engine.captureCounts = doc.captureCounts;
+        this.engine.koCoord = doc.koCoord;
     },
 
     getPlayerList: function() {
@@ -388,9 +386,7 @@ _.extend(Match.prototype, {
 
     getCaptureCounts: function() {
         return this.engine.captureCounts;
-    },
-
-
+    }
 });
 
 exports.Match = Match;
