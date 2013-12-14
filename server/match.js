@@ -1,7 +1,6 @@
 var _ = require('underscore');
 var Engine = require('./engine').Engine;
 var crypto = require('crypto');
-var mysql = require('mysql');
 
 function Match(id, db) {
     this.id = id;
