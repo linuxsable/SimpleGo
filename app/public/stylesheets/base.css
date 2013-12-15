@@ -336,7 +336,7 @@ html[xmlns] .clearfix {
             height: 9px;
             top: 15px;
             left: 15px; } }
-@media all and (max-width: 9999px) and (min-width: 1336px) and (min-height: 1116px) {
+@media all and (max-width: 9999px) and (min-width: 1336px) and (min-height: 1050px) {
   .container header .centered {
     width: 1296px; }
   .container .centered {

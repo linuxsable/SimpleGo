@@ -32,12 +32,7 @@ window.App = {
         }
     },
 
-    init: function() {
-        Parse.initialize(
-            "gmJizKpNTnqqS709SB187V00g4iIgFD38EbTtXPg", 
-            "5mgkKk9kSl1Qclx5G5RzqnjF5P4ZSRpnHIkPI8mA"
-        );
-        
+    init: function() {        
         new App.Routers.Main();
         Backbone.history.start({ pushState: true });
     }
