@@ -173,9 +173,17 @@ _.extend(Match.prototype, {
     },
 
     isPlayersTurn: function(player) {
+        console.log('1');
+
+        console.log('last player turn: ' + this.lastPlayerTurn);
+
         // Black starts if game hasn't started
         if (!this.lastPlayerTurn) {
+            console.log('2');
             return this.isPlayerBlack(player);
+        } else {
+            console.log('3');
+            return this.lastPlayerTurn.matchAuthHash != player.matchAuthHash;    
         }
 
         // Handles a bug with rejoining. Reset the matchAuthHash
@@ -184,8 +192,6 @@ _.extend(Match.prototype, {
         //     console.log('running');
         //     this.setLastPlayerTurn(player);
         // }
-        
-        return this.lastPlayerTurn.matchAuthHash != player.matchAuthHash;
     },
 
     placeStone: function(player, coord) {

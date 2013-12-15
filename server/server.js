@@ -72,7 +72,6 @@ io.sockets.on('connection', function(socket) {
                         console.log('Joining as white');
                         match.joinAsWhite(player);
                         msgEntry = match.whiteJoinMessage(player);
-                        console.log(match);
                     } else {
                         console.log('Joining as spectator');
                         match.joinAsSpectator(player);

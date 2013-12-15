@@ -56,34 +56,53 @@ html[xmlns] .clearfix {
 }
 
 .container {
-  header {
-    // height: 36px;
-    // font-size: 12px;
-    // border-bottom: 1px solid #EEE;
-    background: #f7f7f7;
+  footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: 30px;
+    border-top: 1px solid #eee;
+    color: #999;
+    font-size: 11px;
+    padding: 9px 16px;
 
-    .centered {
-      // width: 926px;
-      // margin: 0 auto;
-      // position: relative;
-      text-align: center;
+    a {
+      color: #999;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .left {
+      float: left;
 
       .logo {
-        padding: 10px 0;
-        font-size: 22px;
-        color: #555;
-        // font-fami/ly: 'Inconsolata';
+        float: left;
+        margin-right: 20px;
+        font-weight: 600;
+        margin-top: -2px;
 
-        span {
-          color: #09C;
+        img {
+          float: left;
+        }
+
+        .text {
+          float: left;
+          margin: 3px 0 0 3px;
+
+          span {
+            color: #09c;
+          }
         }
       }
 
-      .right {
-        position: absolute;
-        right: 0;
-        margin-top: 3px;
-      }  
+      a {
+        float: left;
+        display: block;
+      }
+    }
+
+    .right {
+      float: right;
     }
   }
 
@@ -382,7 +401,7 @@ html[xmlns] .clearfix {
           padding: 8px 20px;
           float: left;
           cursor: pointer;
-          margin-right: 22px;
+          margin-right: 20px;
           margin-top: 15px;
           @include transition(all 100ms ease-in-out);
 
