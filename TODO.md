@@ -2,7 +2,7 @@ V1 Milestone TODOs
 ==================
 
 * ~~Fluid board (can be resized to fit screen)~~
-* Match header for game information
+* ~~Match header for game information~~
 * ~~Connected players list~~
 * ~~Game passing~~
 * ~~Proper board state loading~~
@@ -28,8 +28,8 @@ V2 Milestone
 * Handicap
 * Basic timer (japanese byo yomi)
 * Game resigning
-* Persistence
+* ~~Persistence~~
 * Mute button
 * Old browser blocking
 * FAQ page
-* Player name should be cut off at 12 - 16 characters
+* ~~Player name should be cut off at 12 - 16 characters~~
