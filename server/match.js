@@ -10,7 +10,7 @@ function Match(id, db) {
     this.white = null;
     this.whiteAuthHash = this.createSaltedHash();
     this.whiteAuthHashTaken = false;
-    this.lastPlayerTurn = null;
+    this.lastPlayerAuthHash = null;
     this.spectators = {};
     this.messageLog = [];
     this.engine = new Engine();
@@ -173,25 +173,15 @@ _.extend(Match.prototype, {
     },
 
     isPlayersTurn: function(player) {
-        console.log('1');
-
-        console.log('last player turn: ' + this.lastPlayerTurn);
-
-        // Black starts if game hasn't started
-        if (!this.lastPlayerTurn) {
-            console.log('2');
+        if (!this.lastPlayerAuthHash) {
             return this.isPlayerBlack(player);
         } else {
-            console.log('3');
-            return this.lastPlayerTurn.matchAuthHash != player.matchAuthHash;    
+            return this.lastPlayerAuthHash != player.matchAuthHash;
         }
+    },
 
-        // Handles a bug with rejoining. Reset the matchAuthHash
-        // to the last rejoined played.
-        // if (this.lastPlayerTurn.matchAuthHash == null) {
-        //     console.log('running');
-        //     this.setLastPlayerTurn(player);
-        // }
+    setLastPlayerTurn: function(player) {
+        this.lastPlayerAuthHash = player.matchAuthHash;
     },
 
     placeStone: function(player, coord) {
@@ -293,6 +283,7 @@ _.extend(Match.prototype, {
             moveHistory: this.engine.moveHistory,
             captureCounts: this.engine.captureCounts,
             koCoord: this.engine.koCoord,
+            lastPlayerAuthHash: this.lastPlayerAuthHash,
             createdAt: Date.now()
         }, { w: 1 }, function(err, doc) {
             if (err) {
@@ -325,6 +316,7 @@ _.extend(Match.prototype, {
                 moveHistory: this.engine.moveHistory,
                 captureCounts: this.engine.captureCounts,
                 koCoord: this.engine.koCoord,
+                lastPlayerAuthHash: this.lastPlayerAuthHash,
                 updatedAt: Date.now()
             }
         }, null, function(err, doc) {
@@ -345,6 +337,7 @@ _.extend(Match.prototype, {
         this.whiteAuthHash = doc.whiteAuthHash;
         this.whiteAuthHashTaken = doc.whiteAuthHashTaken;
         this.messageLog = doc.messageLog;
+        this.lastPlayerAuthHash = doc.lastPlayerAuthHash;
         this.engine.matrix = JSON.parse(doc.matrix);
         this.engine.moveHistory = doc.moveHistory;
         this.engine.captureCounts = doc.captureCounts;
@@ -382,11 +375,6 @@ _.extend(Match.prototype, {
             },
             everyone: output
         };
-    },
-
-    setLastPlayerTurn: function(value) {
-        console.log('setting last player turn');
-        this.lastPlayerTurn = value;
     },
 
     getCaptureCounts: function() {

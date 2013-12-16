@@ -126,7 +126,8 @@ io.sockets.on('connection', function(socket) {
                 matrix: 1,
                 moveHistory: 1,
                 captureCounts: 1,
-                koCoord: 1
+                koCoord: 1,
+                lastPlayerAuthHash: 1
             },
             function(err, doc) {
                 if (err) return;
@@ -326,8 +327,8 @@ io.sockets.on('connection', function(socket) {
             switch (data.message) {
                 case '/stats':
                     commandMessage = 'Server stats';
-                    commandMessage += '<br/>Matches: ' + _.size(matches);
-                    commandMessage += '<br/>Players: ' + _.size(players);
+                    commandMessage += '<br/>Active Matches: ' + _.size(matches);
+                    commandMessage += '<br/>Active Players: ' + _.size(players);
                     break;
                 case '/me':
                     break;
@@ -384,9 +385,9 @@ io.sockets.on('connection', function(socket) {
         });
 
         // Remove the match if no one is in it
-        // if (currentMatch.isEmpty()) {
-        //     delete matches[currentMatch.id];
-        // }
+        if (currentMatch.isEmpty()) {
+            delete matches[currentMatch.id];
+        }
 
         // Remove the player from the players
         delete players[player.id];
