@@ -52,7 +52,7 @@ html[xmlns] .clearfix {
       .container footer .left .logo .text {
         float: left;
         margin: 0px 0 0 5px; }
-        .container footer .left .logo .text span {
+        .container footer .left .logo .text small {
           color: #09c; }
     .container footer .left a {
       float: left;

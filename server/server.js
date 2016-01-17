@@ -51,7 +51,7 @@ io.sockets.on('connection', function(socket) {
         players[player.id] = player;
 
         var joinMatch = function(match) {
-            var msgEntry;
+            var msgEntry, faqMsg, startMsg;
 
             // Is it a rejoin because the player got disconnected?
             if (match.doesPlayerHaveBlackAuthHash(player) && match.joinAsBlack(player)) {
@@ -67,11 +67,23 @@ io.sockets.on('connection', function(socket) {
                     console.log('Match is empty, joining as black');
                     match.joinAsBlack(player);
                     msgEntry = match.blackJoinMessage(player);
+
+                    // Let the new player know to send the URL
+                    // to a friend to start playing
+                    faqMsg = match.logMessage(
+                        Match.MESSAGE_TYPE.SYSTEM,
+                        "This is a brand new match. Send the URL to a friend to start playing!"
+                    );
                 } else {
                     if (match.needsOpponent()) {
                         console.log('Joining as white');
                         match.joinAsWhite(player);
                         msgEntry = match.whiteJoinMessage(player);
+
+                        startMsg = match.logMessage(
+                            Match.MESSAGE_TYPE.SYSTEM,
+                            "Both players have now joined. The game is starting."
+                        );
                     } else {
                         console.log('Joining as spectator');
                         match.joinAsSpectator(player);
@@ -84,6 +96,13 @@ io.sockets.on('connection', function(socket) {
 
             // Let everyone know they have entered the room
             socket.broadcast.to(match.roomId()).emit('chat_message', msgEntry);
+
+            // Send the FAQ message to the first user who
+            // has joined, if it exists
+            if (faqMsg) socket.broadcast.to(match.roomId()).emit('chat_message', faqMsg);
+
+            // Let everyone know the game is starting if both opponents have joined
+            if (startMsg) socket.broadcast.to(match.roomId()).emit('chat_message', startMsg);
 
             // Update everyones board header
             socket.broadcast.to(match.roomId()).emit('update_board_header', {
@@ -194,7 +213,7 @@ io.sockets.on('connection', function(socket) {
                 captureCounts: match.getCaptureCounts()
             });
         } else {
-            ack(result, { color: playerColor }); 
+            ack(result, { color: playerColor });
 
             // Send the results to the other players
             if (result) {
@@ -206,7 +225,7 @@ io.sockets.on('connection', function(socket) {
                     isPlayersTurn: !match.isPlayersTurn(player)
                 });
             }
-        }        
+        }
     });
 
     socket.on('pass_turn', function(data, ack) {

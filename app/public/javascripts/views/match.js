@@ -2,10 +2,10 @@ App.Views.Match = Backbone.View.extend({
     el: 'body',
 
     events: {
-        'click .sidebar .list-group .pass': 'passTurn',
-        'click .sidebar .list-group .undo': 'undoTurn',
-        'click .sidebar .list-group .resign': 'resign',
-        'click .sidebar .list-group .set-name': 'setName'
+        'click .sidebar .pass': 'passTurn',
+        'click .sidebar .undo': 'undoTurn',
+        'click .sidebar .resign': 'resign',
+        'click .sidebar .set-name': 'setName'
     },
 
     socket: null,
