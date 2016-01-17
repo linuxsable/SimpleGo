@@ -358,9 +358,7 @@ html[xmlns] .clearfix {
           @include scrollbar;
 
           .message {
-            padding: 1px 0;
-            line-height: 16px;
-            color: #444;
+            padding: 2px 0;
             font-size: 13px;
 
             &.system {

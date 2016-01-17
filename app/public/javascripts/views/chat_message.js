@@ -3,7 +3,7 @@ App.Views.ChatMessage = Backbone.View.extend({
     className: 'message',
 
     events: {
-        
+
     },
 
     initialize: function() {
@@ -30,12 +30,12 @@ App.Views.ChatMessage = Backbone.View.extend({
         }
 
         else if (this.type == this.TYPES.SYSTEM) {
-            this.$el.addClass('system');
+            this.$el.addClass('system text-muted');
             this.$el.html(this.msg);
         }
 
         else if (this.type == this.TYPES.COMMAND) {
-            this.$el.addClass('command');
+            this.$el.addClass('command text-primary');
             this.$el.html(this.msg);
         }
 
