@@ -2,10 +2,10 @@ App.Views.Match = Backbone.View.extend({
     el: 'body',
 
     events: {
-        'click .sidebar .links .pass': 'passTurn',
-        'click .sidebar .links .undo': 'undoTurn',
-        'click .sidebar .links .resign': 'resign',
-        'click .sidebar .links .set-name': 'setName'
+        'click .sidebar .list-group .pass': 'passTurn',
+        'click .sidebar .list-group .undo': 'undoTurn',
+        'click .sidebar .list-group .resign': 'resign',
+        'click .sidebar .list-group .set-name': 'setName'
     },
 
     socket: null,
@@ -18,16 +18,16 @@ App.Views.Match = Backbone.View.extend({
         this.boardHeaderView = new App.Views.BoardHeader({ parentView: this });
         this.boardView = new App.Views.Board({ parentView: this });
         this.chatView = new App.Views.Chat({ parentView: this });
-        this.defaultTitle = 'HakuGo - Beautiful Go with a Friend';
+        this.defaultTitle = 'SimpleGo - Beautiful Go with a Friend';
         this.setupSockets();
         // this.preventWindowClose();
     },
 
     setupSockets: function() {
         var _this = this;
-        
+
         this.socket = io.connect();
-        
+
         this.socket.emit('join_match', {
             id: this.matchId,
             playerName: App.helpers.getPlayerName(),
@@ -110,7 +110,7 @@ App.Views.Match = Backbone.View.extend({
 
         this.socket.on('update_capture_counts', function(data) {
             _this.boardHeaderView.updateCaptureCounts(data.captureCounts);
-        });        
+        });
     },
 
     updatePlayersTurn: function(value) {

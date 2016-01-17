@@ -12,9 +12,9 @@
 }
 
 body {
-  font-family: 'Source Sans Pro', sans-serif;
-  font-size: 13px;
-  -webkit-font-smoothing: antialiased;
+  // font-family: 'Source Sans Pro', sans-serif;
+  // font-size: 13px;
+  // -webkit-font-smoothing: antialiased;
 }
 
 .clearer {
@@ -29,15 +29,15 @@ body {
   line-height: 0;
   height: 0;
 }
- 
+
 .clearfix {
   display: inline-block;
 }
- 
+
 html[xmlns] .clearfix {
   display: block;
 }
- 
+
 * html .clearfix {
   height: 1%;
 }
@@ -47,12 +47,12 @@ html[xmlns] .clearfix {
   bottom: -20px;
   left: 0;
   font-size: 9px;
-  color: #ccc;
-
-  a {
-    font-size: 9px;
-    color: #ccc;
-  }
+  // color: #ccc;
+  //
+  // a {
+  //   font-size: 9px;
+  //   color: #ccc;
+  // }
 }
 
 .container {
@@ -60,22 +60,24 @@ html[xmlns] .clearfix {
     width: 100%;
     position: absolute;
     bottom: 0;
-    height: 30px;
+    left: 0;
+    height: 40px;
     border-top: 1px solid #F1F1F1;
     color: #999;
     font-size: 11px;
-    padding: 9px 16px;
+    padding: 12px;
 
-    a {
-      color: #999;
-      text-decoration: none;
-      font-weight: 600;
-    }
+    // a {
+    //   color: #999;
+    //   text-decoration: none;
+    //   font-weight: 600;
+    // }
 
     .left {
       float: left;
 
       .logo {
+        font-size: 13px;
         float: left;
         margin-right: 20px;
         font-weight: 600;
@@ -87,7 +89,7 @@ html[xmlns] .clearfix {
 
         .text {
           float: left;
-          margin: 3px 0 0 3px;
+          margin: 0px 0 0 5px;
 
           span {
             color: #09c;
@@ -112,7 +114,7 @@ html[xmlns] .clearfix {
 
     .board-header {
       width: 616px;
-      height: 52px;
+      height: 65px;
       position: relative;
       font-size: 14px;
       margin-top: 30px;
@@ -147,9 +149,10 @@ html[xmlns] .clearfix {
       }
 
       .center {
+        font-size: 20px;
         width: 20px;
         margin: 0 auto;
-        font-weight: 600;
+        // font-weight: 600;
         color: #bbb;
         padding-top: 14px;
       }
@@ -328,37 +331,37 @@ html[xmlns] .clearfix {
         width: 100%;
         height: 450px;
         float: left;
-        border: 1px solid #eee;
         position: relative;
 
         .players {
           width: 80px;
           height: 415px;
           float: left;
-          border-right: 1px solid #eee;
-          padding: 10px;
-          background: #f9f9f9;
+          // padding: 10px;
           overflow: auto;
           @include scrollbar;
 
           .player {
-            color: #444;
-            margin-bottom: 4px;
+            // color: #444;
+            font-weight: 600;
+            // margin-bottom: 4px;
           }
         }
 
+
         .content {
-          width: 218px;
+          // width: 218px;
           height: 415px;
-          padding: 5px 10px;
+          padding-bottom: 10px;
           overflow: auto;
-          float: left;
+          // float: left;
           @include scrollbar;
 
           .message {
             padding: 1px 0;
             line-height: 16px;
             color: #444;
+            font-size: 13px;
 
             &.system {
               font-style: italic;
@@ -376,45 +379,45 @@ html[xmlns] .clearfix {
         }
 
         input {
-          width: 100%;
-          padding: 8px;
-          border: none;
-          background: #fff;
-          border-top: 1px solid #eee;
-          position: absolute;
-          bottom: -2px;
-          left: 0;
-          color: #444;
-          font-size: 13px;
+          width: 268px;
+          // padding: 8px;
+          // border: none;
+          // background: #fff;
+          // border-top: 1px solid #eee;
+          // position: absolute;
+          // bottom: -2px;
+          // left: 0;
+          // color: #444;
+          // font-size: 13px;
 
-          &:focus {
-            outline: none;
-          }
+          // &:focus {
+          //   outline: none;
+          // }
         }
       }
 
-      .links {
-        div {
-          // background: #F9FAFC;
-          border: 1px solid #f1f1f1;
-          color: #555;
-          padding: 8px 20px;
-          float: left;
-          cursor: pointer;
-          margin-right: 20px;
-          margin-top: 15px;
-          @include transition(all 100ms ease-in-out);
-
-          &:hover {
-            background: #f7f7f7;
-            color: #666;
-          }
-
-          &:last-child {
-            margin-right: 0;
-          }
-        }
-      }
+      // .links {
+      //   div {
+      //     // background: #F9FAFC;
+      //     border: 1px solid #f1f1f1;
+      //     color: #555;
+      //     padding: 8px 20px;
+      //     float: left;
+      //     cursor: pointer;
+      //     margin-right: 20px;
+      //     margin-top: 15px;
+      //     @include transition(all 100ms ease-in-out);
+      //
+      //     &:hover {
+      //       background: #f7f7f7;
+      //       color: #666;
+      //     }
+      //
+      //     &:last-child {
+      //       margin-right: 0;
+      //     }
+      //   }
+      // }
     }
   }
 }
