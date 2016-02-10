@@ -222,12 +222,12 @@ html[xmlns] .clearfix {
     float: left; }
     .container .centered .sidebar .chat {
       width: 100%;
-      height: 450px;
+      height: 415px;
       float: left;
       position: relative; }
       .container .centered .sidebar .chat .players {
         width: 80px;
-        height: 415px;
+        height: 380px;
         float: left;
         overflow: auto; }
         .container .centered .sidebar .chat .players::-webkit-scrollbar {
@@ -246,7 +246,7 @@ html[xmlns] .clearfix {
         .container .centered .sidebar .chat .players .player {
           font-weight: 600; }
       .container .centered .sidebar .chat .content {
-        height: 415px;
+        height: 380px;
         padding-bottom: 10px;
         overflow: auto; }
         .container .centered .sidebar .chat .content::-webkit-scrollbar {
