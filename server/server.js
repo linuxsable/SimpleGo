@@ -10,9 +10,9 @@ var app = require('express')(),
     MongoClient = require('mongodb').MongoClient,
     db = null;
 
-var dbUrl = 'mongodb://admin:iliketurtles@paulo.mongohq.com:10057/hakugo-prod';
-MongoClient.connect(dbUrl, function(err, dbase) {
-    db = dbase;
+var dbUrl = 'mongodb://'+process.argv[2]+':'+process.argv[3]+'@ds121999.mlab.com:21999/hakugo';
+MongoClient.connect(dbUrl, function(err, client) {
+    db = client.db('hakugo');
     server.listen(process.env.PORT || 5000);
 });
 
@@ -33,8 +33,8 @@ io.sockets.on('connection', function(socket) {
 
         var match = new Match(null, db);
         match.createInDB({
-            success: function(doc) {
-                ack({ matchId: doc._id });
+            success: function(insertedId) {
+                ack({ matchId: insertedId });
             }
         });
     });

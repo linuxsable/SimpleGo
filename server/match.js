@@ -271,42 +271,8 @@ _.extend(Match.prototype, {
             error: function() {}
         }, options);
 
-        var collection = this.db.collection('matches');
-
-        collection.insert({
-            blackAuthHash: this.blackAuthHash,
-            blackAuthHashTaken: this.blackAuthHashTaken,
-            whiteAuthHash: this.whiteAuthHash,
-            whiteAuthHashTaken: this.whiteAuthHashTaken,
-            messageLog: this.messageLog,
-            matrix: JSON.stringify(this.engine.matrix),
-            moveHistory: this.engine.moveHistory,
-            captureCounts: this.engine.captureCounts,
-            koCoord: this.engine.koCoord,
-            lastPlayerAuthHash: this.lastPlayerAuthHash,
-            createdAt: Date.now()
-        }, { w: 1 }, function(err, doc) {
-            if (err) {
-                console.log('DB - Failed to create match');
-                console.log(err);
-                options.error();
-            } else {
-                console.log('DB - Match created')
-                options.success(_.first(doc));
-            }
-        });
-    },
-
-    syncToDB: function(options) {
-        options = _.extend({
-            success: function() {},
-            error: function() {}
-        }, options);
-
-        var collection = this.db.collection('matches');
-
-        collection.findAndModify({ _id: this.id }, null, {
-            $set: {
+        this.db.collection('matches')
+            .insertOne({
                 blackAuthHash: this.blackAuthHash,
                 blackAuthHashTaken: this.blackAuthHashTaken,
                 whiteAuthHash: this.whiteAuthHash,
@@ -317,17 +283,45 @@ _.extend(Match.prototype, {
                 captureCounts: this.engine.captureCounts,
                 koCoord: this.engine.koCoord,
                 lastPlayerAuthHash: this.lastPlayerAuthHash,
-                updatedAt: Date.now()
-            }
-        }, null, function(err, doc) {
-            if (err) {
+                createdAt: Date.now()
+            }).then(function(result) {
+                console.log('DB - Match created')
+                options.success(result.insertedId);
+            }).catch(function() {
+                console.log('DB - Failed to create match');
+                console.log(err);
+                options.error();
+            });
+    },
+
+    syncToDB: function(options) {
+        options = _.extend({
+            success: function() {},
+            error: function() {}
+        }, options);
+
+        this.db.collection('matches')
+            .updateOne({ _id: this.id }, {
+                $set: {
+                    blackAuthHash: this.blackAuthHash,
+                    blackAuthHashTaken: this.blackAuthHashTaken,
+                    whiteAuthHash: this.whiteAuthHash,
+                    whiteAuthHashTaken: this.whiteAuthHashTaken,
+                    messageLog: this.messageLog,
+                    matrix: JSON.stringify(this.engine.matrix),
+                    moveHistory: this.engine.moveHistory,
+                    captureCounts: this.engine.captureCounts,
+                    koCoord: this.engine.koCoord,
+                    lastPlayerAuthHash: this.lastPlayerAuthHash,
+                    updatedAt: Date.now()
+                }
+            }).then(function(result) {
+                console.log('DB synced')
+                options.success(result);
+            }).catch(function() {
                 console.log('DB failed to sync');
                 options.error();
-            } else {
-                console.log('DB synced')
-                options.success(doc);
-            }
-        });
+            });
     },
 
     // Initialize the match from the db
